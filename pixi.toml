@@ -5,3 +5,7 @@ platforms = ["win-64", "osx-arm64", "linux-64"]
 
 [dependencies]
 tectonic = "*"
+python = ">=3.13.0,<4"
+pillow = ">=11.0.0,<12"
+pyperclip = ">=1.9.0,<2"
+pytesseract = ">=0.3.13,<0.4"
