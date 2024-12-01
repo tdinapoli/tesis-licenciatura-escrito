@@ -1,14 +1,48 @@
 
 \section{Instrumentación para espectrometría de fluorescencia}
 
+Para caracterizar la respuesta óptica de una sustancia, Generally, one wishes to record both excitation and emission spectra.
+the go-to scientific instrument for this measurements is an spectrofluorimeter
 
 \subsection{¿Qué es un espectrofluorímetro? (cap 2 lako)}
+
+A spectrofluorometer enables steady-state intensity measurements such as wavelength scans, time-based ex- periments, synchronous scans, and polarization of luminescence materials aiding research across various sci-entific disciplines including chemistry, biochemistry, pharmacology, environmental science, materials science,and biomedical research. 
+The goal of a spectrometer is to get the emission and excitation spectrums of a sample.
+For that it has to be able to illuminate a sample with multiple different wavelengths, and record the sample reaction for multiple different wavelengths too.
+
+Figure 2.1 shows a schematic diagram of a general-purpose spectrofluorometer.
+It shows all key components to fulfill its purpose
+Such lamps are generally useful because of their high intensity at all wavelengths ranging upward from 250 nm. 
+The instrument shown is equippedwith monochromators to select both the excitation and emission wavelengths.
+monochromators are usually motorized to allow automatic scanning of wavelength.
+. This selected excitation light is then focused onto the sampl
+The sample luminescence, which usually has a longer wavelength than the excitation light, is then filtered by the emission monochromator.
+The light left then arrives at a detector, usally a photomuyltiplier tube PMT, which is a sensitive detector that converts photons into an electric current
+spectrofluorometers and all its components use different techniques to decrease stray light light of wavelengths different from the chosen wavelength), like 90degree angle from excitation and emission arm, sealed tight box covered with non-reflective black paint
+the pmt signal is then usually processed by electronics, and then digitized and ananlyzed with a PC. 
+This PC also orchestrates the monochromators and the acquisition, while providing the user a way to adjust parameters of interest and facilitate data visualization and analysis
+usually, aditional components are added in the light path to study different properties of the sample, like shutters, polarizers, beam splitters and other optics elements.
+
+
 
 \begin{enumerate}
     \item que mide un espectrofluorimetro?
     \item cuales son sus componentes?
     \item que variables puede controlar?
 \end{enumerate}
+
+\begin{figure}[btp]
+     \centering
+     \includegraphics[width=\textwidth]{spectrometer_diagram_lako.png}
+     \caption{
+    \textbf{Representacioń esquemática de un espectrofluorímetro}
+    (\textbf{A}) Diagram of the Horiba PTI QuantaMaster hardware. Red arrows represent motors and limit switch connectors, black is BNC, blue is USB and orange represents a fiber optic. The path that light takes inside the spectrometer is represented in thick blue arrows. 
+    (\textbf{B}) and (\textbf{C}) Representation of the old and new instrumental control module respectively.
+    (\textbf{D}) Representation of the raw signal measured from the PMT detector.
+    (\textbf{E}) Spectrum of the sample constructed from the raw signals measured at each wavelength.
+    }
+     \label{fig:spec_diagram_lako}
+\end{figure}
 
 \subsection{Epectrofluirimetros en argentina y obsolescencia}
 
@@ -75,13 +109,13 @@ Qué reemplazamos y con qué nos quedasmos, especificaciones finales
 
 \subsection{Software}
 
+capacidades del software 
 
+Jerarquía de clases API para desacoplar. Extensión del software: sirve para espectrofluorímetro genérico siempre y cuando tengas motor por pasos y pmt.
 
-\begin{enumerate}
-    \item principios de diseño para desacoplar
-    \item API en python
-    \item gui
-\end{enumerate}
+quien cuenta los picos, (mencionar que hay analisis de picos más adelante)
+
+Modos de uso, API GUI (capacidades, más detallado en apéndice).
 
 \begin{figure}[h]
      \centering
@@ -92,11 +126,15 @@ Qué reemplazamos y con qué nos quedasmos, especificaciones finales
 
 
 \section{Expansión de Horiba PTI QuantaMaster 400 - Medición de tiempos de vida}
+
+introduccion a medicion de tiempos de vida
+
 \subsection{Hardware}
 
-\begin{enumerate}
-    \item Laser de excitación
-    \item trigger RP
-\end{enumerate}
+Excitación con laser pulsado. Control de potencia y duty cycle. funcionamiento del trigger. el resto ya lo puede hacer la RP
 
 \subsection{Software}
+
+explicar que es lo mismo que antes salvo que se usa el trigger.
+
+Explicar funcionamiento de las pantallas y offsets
