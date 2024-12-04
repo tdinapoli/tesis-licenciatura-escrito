@@ -1,16 +1,59 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{book}
 \usepackage{graphicx}
 \graphicspath{{images/}}
 \usepackage[a4paper, width=150mm, bottom=25mm, bindingoffset=6mm]{geometry}
+\usepackage[super,sort&compress,comma]{natbib} 
+\usepackage{sidecap}
+
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhead{}
+%\fancyhead[RO, LE]{}
+%\fancyfoot[LE,RO]{\thepage}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\fancyfoot[LO, CE]{\leftmark}
+%\fancyfoot[CO, RE]{Tomás Di Napoli}
 
 \usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead{}
-\fancyhead[RO, LE]{}
-\fancyfoot[LE,RO]{\thepage}
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\fancyfoot[LO, CE]{\leftmark}
-\fancyfoot[CO, RE]{Tomás Di Napoli}
+
+% Define the page style for pages before the index
+\fancypagestyle{beforeIndex}{%
+    \fancyhf{} % Clear headers and footers
+    \fancyfoot[C]{\thepage} % Roman page numbering centered
+    \renewcommand{\thepage}{\roman{\thepage}} % Use Roman numerals for page numbering
+}
+
+\renewcommand{\chaptermark}[1]{%
+    \markboth{Cap. \thechapter\ #1}{}
+}
+
+% Define the page style for pages after the index
+\fancypagestyle{afterIndex}{%
+    \fancyhf{} % Clear headers and footers
+    % Header configuration
+    \fancyhead[LO, LE]{\leftmark}
+    \fancyhead[RO, RE]{Tomás Di Napoli}
+    % Footer configuration
+    \fancyfoot[LE]{\thepage} % Page number on the right for even pages
+    \fancyfoot[RO]{\thepage} % Page number on the left for odd pages
+    \fancyfoot[LO]{Tésis de licenciatura: Caracterización de UCNPs} % Chapter name on the left for odd pages
+    \fancyfoot[RE]{Tésis de licenciatura: Caracterización de UCNPs} % Chapter name on the right for even pages
+}
+
+% Default to no fancy style at the document start
+\pagestyle{beforeIndex}
+
+
+\frontmatter
+\pagestyle{beforeIndex} % Use Roman numerals and centered footer
+
+% Your content before the index (title, abstract, etc.)
+
+\mainmatter
+\pagestyle{afterIndex} % Normal numbering with alternating headers/footers
+
+
 
 \usepackage{hyperref}
 
@@ -51,6 +94,9 @@
 \appendix
 \chapter{Apéndice}
 \input{capitulos/apendice.tex}
+
+\bibliography{citas}
+\bibliographystyle{rsc}
 
 \end{document}
 
