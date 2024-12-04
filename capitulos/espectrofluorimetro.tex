@@ -1,29 +1,27 @@
 
-\section{Instrumentación para espectrometría de fluorescencia}
+\section{Espectrometría de fluorescencia}
 
-Para caracterizar la respuesta óptica de una sustancia, Generally, one wishes to record both excitation and emission spectra.
-the go-to scientific instrument for this measurements is an spectrofluorimeter
+\subsection{Instrumentación: el espectrofluorímetro}
 
-\subsection{¿Qué es un espectrofluorímetro? (cap 2 lako)}
+Para caracterizar la respuesta óptica de una sustancia, generalmente se desea registrar tanto el espectro de excitación como el de emisión. 
+El instrumento científico por excelencia para realizar estas mediciones es el espectrofluorímetro. 
+Fundamentalmente, este instrumento permite realizar mediciones de la intensidad de luz que emite una muestra, haciendo escaneos en longitud de onda de emisión y excitación.
+Adicionalmente, algunos pueden realizar mediciones de timepo de vida resueltas en el timpo, escaneos sincrónicos con alguna señal y mediciones de anisotropía en la polarización de materiales luminiscentes.
+Estas capacidades son fundamentales para investigaciones en diversas disciplinas científicas, incluyendo química, bioquímica, farmacología, ciencias ambientales, ciencia de materiales y biomedicina.
+El objetivo principal de un espectrofluorímetro es obtener los espectros de emisión y de excitación de una muestra.
+Para lograr este objetivo, el instrumento debe ser capaz de iluminar la muestra con múltiples longitudes de onda diferentes y registrar su respuesta a cada una de ellas.
 
-A spectrofluorometer enables steady-state intensity measurements such as wavelength scans, time-based ex- periments, synchronous scans, and polarization of luminescence materials aiding research across various sci-entific disciplines including chemistry, biochemistry, pharmacology, environmental science, materials science,and biomedical research. 
-The goal of a spectrometer is to get the emission and excitation spectrums of a sample.
-For that it has to be able to illuminate a sample with multiple different wavelengths, and record the sample reaction for multiple different wavelengths too.
-
-Figure 2.1 shows a schematic diagram of a general-purpose spectrofluorometer.
-It shows all key components to fulfill its purpose
-Such lamps are generally useful because of their high intensity at all wavelengths ranging upward from 250 nm. 
-The instrument shown is equippedwith monochromators to select both the excitation and emission wavelengths.
-monochromators are usually motorized to allow automatic scanning of wavelength.
-. This selected excitation light is then focused onto the sampl
-The sample luminescence, which usually has a longer wavelength than the excitation light, is then filtered by the emission monochromator.
-The light left then arrives at a detector, usally a photomuyltiplier tube PMT, which is a sensitive detector that converts photons into an electric current
-spectrofluorometers and all its components use different techniques to decrease stray light light of wavelengths different from the chosen wavelength), like 90degree angle from excitation and emission arm, sealed tight box covered with non-reflective black paint
-the pmt signal is then usually processed by electronics, and then digitized and ananlyzed with a PC. 
-This PC also orchestrates the monochromators and the acquisition, while providing the user a way to adjust parameters of interest and facilitate data visualization and analysis
-usually, aditional components are added in the light path to study different properties of the sample, like shutters, polarizers, beam splitters and other optics elements.
-
-
+La Figura 2.1 muestra un diagrama esquemático de un espectrofluorímetro genérico.
+Este instrumento incluye todos los componentes clave para cumplir su función. 
+Utiliza una lámpara de espectro amplio que funciona como fuente de luz de alta intensidad para un rango extenso de longitudes de onda. 
+Posteriormente la luz es filtrada por un monocromador de excitación que permite seleccionar la longitud de onda con la que se desea iluminar a la muestra.
+La luz de excitación seleccionada se enfoca sobre la muestra colocada en la cámara principal, cuya luminiscencia, generalmente con una longitud de onda mayor que la luz de excitación, es filtrada por el monocromador de emisión.
+Los monocromadores suelen estar motorizados, lo que permite que el escaneo sea automático. 
+La luz restante llega a un detector, usualmente un tubo fotomultiplicador (PMT), un detector muy sensible que convierte fotones en corriente eléctrica.
+El espectrofluorímetro emplea diversas técnicas para reducir la luz parásita (longitudes de onda diferentes a la deseada), como el diseño en ángulo de 90° entre los brazos de excitación y emisión, y un compartimento hermético pintado de negro no reflectante.
+La señal del PMT es procesada electrónicamente, digitalizada y analizada en una computadora. 
+Este sistema también controla los monocromadores y la adquisición de datos, además de permitir al usuario ajustar parámetros y facilitar la visualización y análisis de los datos.
+A menudo, se incorporan componentes adicionales en el camino óptico, como obturadores, polarizadores, divisores de haz y otros elementos ópticos, para estudiar diferentes propiedades de la muestra.
 
 \begin{enumerate}
     \item que mide un espectrofluorimetro?
@@ -31,39 +29,99 @@ usually, aditional components are added in the light path to study different pro
     \item que variables puede controlar?
 \end{enumerate}
 
-\begin{figure}[btp]
+\begin{SCfigure}
      \centering
-     \includegraphics[width=\textwidth]{spectrometer_diagram_lako.png}
+     \includegraphics[width=0.6\textwidth]{spectrometer_diagram_lako.png}
      \caption{
-    \textbf{Representacioń esquemática de un espectrofluorímetro}
+    \textbf{Diagrama de un espectrofluorímetro genérico}
+    \todo{Trabajar en estafigura}
     (\textbf{A}) Diagram of the Horiba PTI QuantaMaster hardware. Red arrows represent motors and limit switch connectors, black is BNC, blue is USB and orange represents a fiber optic. The path that light takes inside the spectrometer is represented in thick blue arrows. 
     (\textbf{B}) and (\textbf{C}) Representation of the old and new instrumental control module respectively.
     (\textbf{D}) Representation of the raw signal measured from the PMT detector.
     (\textbf{E}) Spectrum of the sample constructed from the raw signals measured at each wavelength.
     }
      \label{fig:spec_diagram_lako}
-\end{figure}
+\end{SCfigure}
+
+
+\subsection{Medición de tiempos de vida: \textit{Time-Correlated Single Photon Counting} (TCSPC) \todo{Creo que agrego esto antes de soft y lo explico directamente con la RP y etc}}
+
+Muchos espectrofluorímetros comerciales tienen la capacidad de medir el tiempo de vida de los fluoróforos con tiempos típicos del orden de los nanosegundos. 
+Sin embargo, debido a las transiciones prohibidas de los lantánidos (\todo{Ver cap N}) el tiempo de vida de las UCNPs es del orden de los cientos de microsegundos.
+Aunque esto alivia la necesidad de una electrónica rápida y costosa, contradictoriamente hace que no se pueda medir su tiempo de vida en instrumentos comerciales, ya que los valores típicos están muy alejados del rango en el que operan \cite{bujjamer2020}.
+
+Existen distintas técnicas para medir el tiempo de vida \cite{becker_fluorescence_2012}, pero la más implementada es \textit{Time-Correlated Single Photon Counting} (TCSPC).
+Como la técnica se suele aplicar para tiempos de vida del orden de los nanosegundos es común que se usen componentes de electrónica rápida 
+Usualmente la explicación de esta técnica involucra introducir múltiples componentes de electrónica rápida que son necesarios para medir tiempos del orden de nanosegundos.
+Como en nuestro caso esos componentes no son necesarios, daremos una explicación simplificada.
+TCSPC es una técnica digital que cuenta fotones correlacionados temporalmente con respecto a un pulso de excitación.
+El experimento comienza con un pulso de excitación, que tiene dos tareas fundamentales: (i) excitar a la muestra y (ii) iniciar algún tipo de cronómetro.
+La muestra se excita repetidamente utilizando una fuente de luz pulsada, a menudo un láser o una lámpara de destellos.
+Cada pulso es monitoreado, produciendo una señal de inicio que activa el contador del cronómetro.
+La rampa de voltaje se detiene cuando se detecta el primer fotón de fluorescencia proveniente de la muestra.
+El TAC proporciona un pulso de salida cuyo voltaje es proporcional al tiempo transcurrido entre las señales de inicio y parada.
+Un analizador multicanal (MCA) convierte este voltaje en un canal de tiempo utilizando un convertidor analógico a digital (ADC).
+Sumando sobre muchos pulsos, el MCA genera un histograma de probabilidad de cuentas frente a los canales de tiempo.
+
 
 \subsection{Epectrofluirimetros en argentina y obsolescencia}
 
-espectrofluorimetros disponibles para hacer exp en exactas - sus problemas.
+Actualmente, el Departamento de Física de la FCEyN-UBA no cuenta con espectrofluorímetros para la caracterización de espectros de excitación y emisión.  
+Para realizar este tipo de mediciones, la facultad dispone del laboratorio de fotoquímica del \todo{INQUIMAE}, que cuenta con tres espectrofluorímetros con distintas características, pero que tienen algo en común: ningún equipo tiene menos de 20 años, el más antigüo llegando a los 40 años de uso.
+La disparidad en al antigüedad y funcionalidad de los instrumentos es un fenómeno común en laboratorios de investigación en países como Argentina, donde la inversión en ciencia es escasa o poco regular en el tiempo \cite{cioccaRealityScientificResearch2017}. 
+Ante esta realidad, los institutos suelen priorizar la adquisición de equipos con nuevas capacidades, en lugar de renovar instrumentos existentes por versiones más modernas.  
+Esto es posible gracias a la precisión y robustez de las partes mecánicas de los instrumentos, pero la obsolescencia de los equipos antiguos plantea problemas a largo plazo, especialmente cuando sus plataformas de control quedan desactualizadas.  
+Con el tiempo, se vuelve complicado operar estos instrumentos, ya que los mecanismos de extracción de datos, como los disquetes, dejan de estar disponibles en el mercado. 
+Aún más crítico es que el funcionamiento del equipo depende de la computadora de control, la cual utiliza placas y puertos que ya no se fabrican ni se consiguen en el mercado actual.  
+El problema de la obsolescencia en instrumentos científicos afecta desproporcionadamente a instituciones con bajo presupuesto, ampliando la brecha de accesso a instrumentos de investigación avanzados.
 
-problema no particular de espectrofluorimetria. instrumentos componentes centrales de la investigación científica. obsolescencia de instrumentos: se hecha a perder financiamiento y no se pueden estudiar areas. Intervenir instrumentos closed source para mejorarlos y open source.
+Esto ha llevado a un auge en el desarrollo de instrumentos científicos accesibles y de bajo costo \cite{wenzel_open_2023, arancio_inequalities_2023}, particularmente en áreas como instrumentación, microscopía, espectroscopía y adquisición de datos \cite{jameson_fluorescent_1989, li_optical_2022, hu_fluorescent_2022}.
+Las iniciativas de hardware abierto hacen que los diseños y la documentación estén disponibles de forma gratuita para que cualquier persona pueda usarlos, construirlos y modificarlos \cite{powell_democratizing_2012, oellermann_open_2022}.
+Por ejemplo, la plataforma Arduino ha proporcionado una plataforma de desarrollo de electrónica económica y fácil de usar basada en un microcontrolador (https://www.arduino.cc/).
+El OpenFlexure Microscope es un microscopio de código abierto que cuesta menos de 100 USD construir \cite{collins_robotic_2020}.
+Asimismo, recientemente se desarrolló un espectrómetro basado en Raspberry Pi que cuesta menos de 400 EUR \cite{tunens_optical_2024}.
+El software y los lenguajes de código abierto, como Python (http://www.python.org), que cuentan con bibliotecas numéricas y de instrumentación como NumPy \cite{harris_array_2020} y PyVISA \cite{grecco_pyvisa_2023}, han desempeñado un papel clave al reducir las barreras de entrada y facilitar la creación rápida de prototipos.
+Cabe destacar que han surgido empresas enfocadas en hardware parcialmente o completamente abierto. Por ejemplo, OpenBCI (https://openbci.com/), que ofrece sistemas EEG de bajo costo para interfaces cerebro-computadora, y Opentrons (https://opentrons.com/), que proporciona soluciones de manejo de líquidos para la automatización de laboratorios.
 
-alternativa open source para instrumentación. Herramientas open source en general para hacer ciencia e instrumentación.
+En este capítulo de la tésis se explica detalladamente la plataforma de fuente abierta que desarrollamos para renovar la electrónica y el \textit{software} de control del espectrofluorímetro Horiba PTI QuantaMaster (QM) 400, uno de los espectrofluorímetros antigüos del laboratorio de fotoquímica del \todo{INQUIMAE}.
+Además de su renovación, ampliamos sus capacidades para medir tiempos de vida del orden de los microsegundos, que junto con el agregado de un láser pulsado externo de 980 nm nos permitió conseguir la plataforma ideal para la caracterización óptica de UCNPs tanto estática como dinámica.
 
-esta parte de la tesis explica la renovación del horibapti quantamster400
+\section{Renovación y ampliación de Horiba PTI Quanta Master 400 \todo{mencionar a juan}}
+
+\subsection{Espectrofluorímetro Horiba PTI Quanta Master 400}
+
+La serie Horiba PTI QM incluye espectrofluorímetros modulares para investigación científica y sistemas optimizados para mediciones de fotoluminiscencia.
+Estos espectrofluorímetros se encuentran frecuentemente en los laboratorios de Argentina, por ejemplo, sabemos que hay tres equipos de esta serie en el laboratorio de fotoquímica del \todo{INQUIMAE} (QM400, QM-4 y RatioMaster), dos en \todo{CIBION} y uno en CAC-CNEA, y probablemente haya más de modelos similares en otras instituciones.
+Al ser modelos antigüos y descontinuados se pueden encontrar en el mercado por precios que rondan los \$5000 USD, un costo relativamente bajo para un espectrofluorímetro científico.
+Los bajos costos se dan por su antigüedad y fin de soporte por parte de la empresa, lo que obliga a los usuarios a resolver ellos mismos los problemas que haya con los equipos.
+Por ejemplo, en CIBION, uno de los dos modelos que tienen no está funcionando porque hay problemas con la inicialización de los controladores en la PC.
+En este trabajo, reacondicionamos específicamente un espectrofluorímetro QM 400 de más de 30 años de antigüedad,  (diagrama en la \textbf{Fig. \ref{fig:ref-diagram}A} y fotografía en la \textbf{Fig. \ref{fig:hardware}A}), pero dada la similaridad entre los distintos modelos de esta serie, la renovación se pueden aplicar a cualquiera de ellos con leves modificaciones. 
+
+El QM 400 está equipado con una lámpara de xenón de 75 W como fuente de luz, la cual proporciona un amplio espectro de longitudes de onda (desde el infrarrojo cercano, alrededor de 1000 nm, hasta el ultravioleta, alrededor de 300 nm).
+Los monocromadores de excitación y emisión contienen redes de difracción rotadas por motores paso a paso de 200 pasos por revolución, con especificaciones de 7 V y 0.7 A por bobina (M1 y M2), lo que permite una resolución en la selección de longitudes de onda de 0.5 nm. 
+Ambos incluyen un fin de carrera electromecánico para verificar si se ha alcanzado la longitud de onda máxima.
+Los motores paso a paso, junto con sus fines de carrera respectivos, están conectados a un módulo controlador de motores (MDM) mediante conectores propietarios no documentados. 
+Los fotones son detectados por un tubo fotomultiplicador (PMT, modelo PTI 810), conectado al MDM a través de un cable BNC y polarizado con 1000 V desde una fuente de alimentación externa proporcionada también por el MDM. 
+Esto genera pulsos negativos de alrededor de 170 ns con una terminación de 50 Ohm y un voltaje de −3.5 V (\textbf{Fig. \ref{fig:ref-diagram}D}). 
+Finalmente, el MDM está conectado mediante un cable plano a una tarjeta de interfaz ISA en una PC con sistema operativo Windows 95 y el programa FelixGX, un \textit{software} propietario de adquisición y control instalado por Horiba (\textbf{Fig. \ref{fig:ref-diagram}B}).
+FelixGX permite medir espectros de emisión y excitación (\textbf{Fig. \ref{fig:ref-diagram}E}), además de brindar herramientas de análisis rápido de los datos y controlar diferentes periféricos.
+
+La antigüedad de la PC y electrónica de control hace que el proceso de adquisición de datos sea tedioso, y más aún para la caracterización de UCNPs.
+Para hacer una medición el usuario debe colocar la muestra en la cámara y luego configurar en FelixGX un barrido de la longitud de onda de excitación o emisión.
+En el caso de medir \textit{upconversion} se debe agregar un láser controlado externamente por una fuente de corriente (\textbf{Fig. \ref{fig:ref-diagram}A}) en la que se debe configurar por separado los parámetros de excitación, como la potencia.
+Una plataforma de caracterización óptica completa de UCNPs debería ser capaz de medir espectros de excitación a 980 nm con distintas densidades de potencia, y tiempos de vida (también a distintas potencias) del orden de los microsegundos.
+Además, como las mediciones de espectro y tiempo de vida son de larga duración (en especial a bajas potencias), resulta ideal que la plataforma permita configura múltiples mediciones sucesivas sin la necesidad de una configuración manual por el usuario.
 
 
-\subsection{Espectrofluorímetro HoribaPTI QuantaMaster 400}
-
-serie horiba quantamaster. frecuencia de aparición en exactas y arg en general, baratos, etc. quizás mencionar lo de stefani
-
-componentes de funcionamiento: conectores originales, lampara, monocromadores, chamber, pmt, especificaciones
-
-software de control: felix gx, capacidades fundamentales y deficiencias
-
-que falta para caracterizar ucnps? time-consuming experiments, operación, medición de tiempos de vida, etc.
+\todo{ \\
+serie horiba quantamaster. frecuencia de aparición en exactas y arg en general, baratos, etc. quizás mencionar lo de stefani \\
+ \\
+componentes de funcionamiento: conectores originales, lampara, monocromadores, chamber, pmt, especificaciones \\
+ \\
+software de control: felix gx, capacidades fundamentales y deficiencias \\
+ \\
+que falta para caracterizar ucnps? time-consuming experiments, operación, medición de tiempos de vida, etc \\
+}
 
 \begin{figure}[btp]
      \centering
@@ -86,11 +144,49 @@ que falta para caracterizar ucnps? time-consuming experiments, operación, medic
 \end{figure}
 
 
-\section{Renovación de HoribaPTI QuantaMaster 400}
-\subsection{Hardware \todo{quizás es al pedo diferenciar entre hw y sw}}
+\subsection{Hardware para renovación}
+
+Luego de hacer una inspección de todas las partes, decidimos conservar los componentes ópticos, la motorización, el PMT, la fuente de alta tensión y el chasis, ya que son robustos y funcionales.  
+En contraste, la electrónica de control y detección resultó ser voluminosa, de código cerrado y obsoleta, por lo que optamos por reemplazarla con alternativas modernas: una microCPU con FPGA integrada Red Pitaya (RP) STEM LAB 125-14 con múltiples entradas y salidas analógicas y digitales, junto con dos circuitos integrados DRV8825 para el control de los motores.  
+Este cambio en la electrónica de control nos permitió reemplazar el voluminoso módulo MDM ($\sim$10 cm $\times$ 30 cm) por dos controladores de motor por pasos DRV8825 ($\sim$2 cm $\times$ 3 cm) controlados a través de los pines digitales de la RP.
+Para facilitar la conexión de los componentes soldamos los elementos electrónicos en una placa PCB de prueba (\textbf{Fig. \ref{fig:placa}})a la cual se conectan los pines de la RP a través de un cable IDC, y cada uno de los motores por paso a través de conectores adaptados a medida.
+El PMT se conecta a través de un cable BNC-SMA a uno de los canales analógicos de radiofrecuencias de la RP, luego son digitalizados por su conversor analógico digital (ADC) y luego contados por software (\textbf{Fig. \ref{fig:ref-diagram}D}).
+El ADC de 14 bits de la RP se configura con una frecuencia de muestreo de 32.25 MHz de forma tal de satisfacer el criterio de Nyquist.
+Dado que el espacio de memoria de adquisición por los canales analógicos de la RP es de 2MB, la ventana temporal de pulsos más grande que se puede obtener es de 8 ms.
+\todo{Sin embargo, el software de control que desarrollamos permite agregar una demora para obtener ventanas de medición más grandes.}
 
 
-Qué reemplazamos y con qué nos quedasmos, especificaciones finales
+\todo{Qué reemplazamos y con qué nos quedasmos, especificaciones finales}
+
+\subsection{Hardware ampliación}
+
+El espectrofluorímetro original QM 400 disponible en el laboratorio no era adecuado para estudiar \textit{upconversion}, ya que no contaba con una fuente de luz en el infrarrojo (IR). 
+Tampoco era posible realizar mediciones de tiempos de vida de la luminiscencia debido a la falta de excitación pulsada y detección dependiente del tiempo. 
+Luego de aplicar renovación mencionada anteriormente, incorporamos estas funcionalidades al equipo.   
+
+Para ello, se añadió una fuente de luz IR externa modulable al sistema. 
+En nuestro caso, utilizamos un controlador de diodo láser/TEC de banco THORLABS ITC4020, controlado por la RP, para operar un diodo láser BL976-SAG300 de 976 nm y 300 mW. 
+La salida del diodo láser se conecta mediante una fibra óptica a la entrada de fuente externa del QM 400 (\textbf{Fig. \ref{fig:ref-diagram}}). 
+El ITC4020 permite configurar la frecuencia de pulsado y el ciclo de trabajo, además de proporcionar una señal TTL que está en 5 V cuando el láser está prendido y 0 V cuando está apagado.
+Esta señal se conecta a otra de las entradas analógicas de la RP, que luego la utiliza como \textit{trigger} para sincronizar la finalización de la excitación con el láser, con la medición de los pulsos eléctricos de los fotones, para luego realizar histogramas y así medir los tiempos de vida (\textbf{Fig. \ref{fig:lifetime_diagram_pulses}}).  
+
+
+\begin{SCfigure}
+     \centering
+     \includegraphics[width=0.6\textwidth]{lifetime-diagram-pulses.png}
+     \caption{
+    \textbf{Representacioń esquemática de un espectrofluorímetro}
+    (\textbf{A}) Diagram of the Horiba PTI QuantaMaster hardware. Red arrows represent motors and limit switch connectors, black is BNC, blue is USB and orange represents a fiber optic. The path that light takes inside the spectrometer is represented in thick blue arrows. 
+    (\textbf{B}) and (\textbf{C}) Representation of the old and new instrumental control module respectively.
+    (\textbf{D}) Representation of the raw signal measured from the PMT detector.
+    (\textbf{E}) Spectrum of the sample constructed from the raw signals measured at each wavelength.
+    }
+     \label{fig:lifetime_diagram_pulses}
+\end{SCfigure}
+
+\todo{ \\
+Excitación con laser pulsado. Control de potencia y duty cycle. funcionamiento del trigger. el resto ya lo puede hacer la RP \\
+}
 
 \begin{figure}[h]
      \centering
@@ -109,13 +205,30 @@ Qué reemplazamos y con qué nos quedasmos, especificaciones finales
 
 \subsection{Software}
 
-capacidades del software 
+Para reemplazar el rol que cumplía el \textit{software} FelixGX en el espectrofluorímetro original desarrollamos dos paquetes de Python de control de instrumental y adquisición de datos \cite{napoli_tdinapoli_2024,grecco_hgrecco_2024}.
+El código corre en la microCPU de la RP y permite controlar al espectrofluorímetro a través de una interfaz de programación de aplicaciones (API) y una interfaz gráfica simple (GUI) desarrollada con el paquete \textit{IPython's Jupyter Widgets}.
+El programa conformado por ambos paquetes está compuesto de cuatro capas principales (\textbf{Fig. \ref{fig:code}}):
 
-Jerarquía de clases API para desacoplar. Extensión del software: sirve para espectrofluorímetro genérico siempre y cuando tengas motor por pasos y pmt.
+\begin{itemize}
+     \item \textbf{RedpiPy}: Es uno de los dos paquetes que desarrollamos. Consiste en un \textit{wrapper} de la API original de la RP que permite que el código esté mejor organizado para hacer una aplicación en Python. Se compone de funciones y clases que permiten manejar el \textit{hardware} de la RP a bajo nivel, como \textit{RPDO} que controla los pines digitales, así como algunas clases de más alto nivel como \textit{Oscilloscope} que permite manejar el osciloscopio.
+     \item \textbf{Clases de dispositivos}: Controlan componentes individuales del espectrofluorímetro, como los monocromadores, el \todo{láser pulsado}, y los motores de los monocromadores permitiendo la creación de protocolos de medición personalizados. 
+     \item \textbf{Clase Spectrometer}: Coordina el \textit{hardware} para protocolos de medición específicos (por ejemplo, adquirir un espectro de emisión). Es fácil de usar desde un script en Python o desde la línea de comandos. Además, es la encargada de contar los pulsos de voltaje negativo registrados por el PMT. Es utilizada por la interfaz gráfica.
+     \item \textbf{Interfaz gráfica (GUI)}: proporciona herramientas de adquisición similares a las de FelixGX. Se accede a través de la web y utiliza el paquete IPython's Jupyter Widgets.
+\end{itemize}
 
-quien cuenta los picos, (mencionar que hay analisis de picos más adelante)
+Gracias a este diseño la parte que implementa el control del espectrofluorímetro es completamente general y está desacoplada del resto del código, por lo que debería funcionar para cualquier espectrofluorímetro cuyos monocromadores sean controlados por motores por paso, y la señal de luminiscencia se lea con un PMT.
+Por otro lado, la API pública le permite al usuario avanzado crear sus propios protocolos de medición que se pueden ejecutar sin la supervición de un operario.
 
-Modos de uso, API GUI (capacidades, más detallado en apéndice).
+
+\todo{ \\
+capacidades del software \\
+\\
+Jerarquía de clases API para desacoplar. Extensión del software: sirve para espectrofluorímetro genérico siempre y cuando tengas motor por pasos y pmt.\\
+\\
+quien cuenta los picos, (mencionar que hay analisis de picos más adelante)\\
+\\
+Modos de uso, API GUI (capacidades, más detallado en apéndice).\\
+}
 
 \begin{figure}[h]
      \centering
@@ -124,17 +237,12 @@ Modos de uso, API GUI (capacidades, más detallado en apéndice).
      \label{fig:code}
 \end{figure}
 
+\todo{introduccion a medicion de tiempos de vida}
 
-\section{Expansión de Horiba PTI QuantaMaster 400 - Medición de tiempos de vida}
+El tiempo máximo de adquisición de 8 ms ofrece una ventana suficientemente amplia para la mayoría de los materiales luminiscentes. Cuando se requiere medir tiempos de vida mucho más largos, la ventana de detección puede desplazarse respecto al \textit{trigger} para cubrir un rango más amplio. 
+\todo{El \textit{software} permite configurar la cantidad de veces que se mide cada ventana de 8 ms, lo que hace posible construir una curva de decaimiento más extensa de la luminiscencia.}
 
-introduccion a medicion de tiempos de vida
-
-\subsection{Hardware}
-
-Excitación con laser pulsado. Control de potencia y duty cycle. funcionamiento del trigger. el resto ya lo puede hacer la RP
-
-\subsection{Software}
-
-explicar que es lo mismo que antes salvo que se usa el trigger.
-
-Explicar funcionamiento de las pantallas y offsets
+\todo{ \\
+explicar que es lo mismo que antes salvo que se usa el trigger.\\
+Explicar funcionamiento de las pantallas y offsets \\
+}
