@@ -1,9 +1,10 @@
-\documentclass[12pt]{book}
+\documentclass[12pt]{report}
 \usepackage{graphicx}
 \graphicspath{{images/}}
 \usepackage[a4paper, width=150mm, bottom=25mm, bindingoffset=6mm]{geometry}
 \usepackage[super,sort&compress,comma]{natbib} 
 \usepackage{sidecap}
+\usepackage[toc,page]{appendix}
 
 
 %\usepackage{fancyhdr}
@@ -42,15 +43,16 @@
 }
 
 % Default to no fancy style at the document start
-\pagestyle{beforeIndex}
+%\pagestyle{beforeIndex}
 
 
-\frontmatter
-\pagestyle{beforeIndex} % Use Roman numerals and centered footer
+%\frontmatter
+%\pagestyle{beforeIndex} % Use Roman numerals and centered footer
+%\pagestyle{beforeIndex}
 
 % Your content before the index (title, abstract, etc.)
 
-\mainmatter
+%\mainmatter
 \pagestyle{afterIndex} % Normal numbering with alternating headers/footers
 
 
@@ -72,13 +74,17 @@
 
 \maketitle
 
+\pagenumbering{roman}
+
 \chapter*{Agradecimientos}
 
 \chapter*{Resumen}
 
 \tableofcontents
 
+
 \chapter{Introducción}
+\pagenumbering{arabic}
 \input{capitulos/introduccion.tex}
 
 \chapter{Espectrofluorímetro para la caracterización de UCNPs}
@@ -93,12 +99,13 @@
 \chapter{Conclusiones}
 \input{capitulos/conclusiones.tex}
 
-\appendix
-\chapter{Apéndice}
-\input{capitulos/apendice.tex}
 
 \bibliography{citas}
 \bibliographystyle{rsc}
+
+\begin{appendices}
+\input{capitulos/apendice.tex}
+\end{appendices}
 
 \end{document}
 
