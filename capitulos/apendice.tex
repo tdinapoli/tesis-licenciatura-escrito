@@ -1,17 +1,236 @@
 
 \renewcommand{\thesection}{\Alph{section}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\thetable}{A\arabic{table}}
 
 \section{instrucciones de armado} \label{apendice:instrucciones_armado}
 
-\begin{figure}[h]
-     \centering
-     \includegraphics[width=.65\textwidth]{schematic.png}
-     \caption{\textbf{Connection diagram}.
-     }
-     \label{fig:schematic}
+\subsection{Renovación del Horiba PTI Quanta Master 400} \label{subsec:refur-instructions}
+
+El proceso de ensamblaje para la renovación del espectrómetro Horiba PTI Quanta Master 400 se puede organizar en cinco pasos: (1) conectar el motor de excitación $M_1$ (\textbf{Fig. \ref{fig:hardware}}), (2) conectar el fin de carrera de excitación, (3) conectar el motor de emisión $M_2$, (4) conectar el fin de carrera de excitación y (5) conectar la salida del PMT. 
+Las fuentes de alimentación deben permanecer apagadas hasta que todo esté correctamente conectado, como se muestra en el esquema (\textbf{Fig. \ref{fig:schematic}}). 
+Es necesario asegurarse de que el voltaje de GND sea el mismo en todas las conexiones. 
+\textbf{Advertencia:} configurar límite de corriente del controlador DRV8825 esté configurado correctamente (en nuestro caso, para limitar a 0.7 A) y que los pines estén conectados adecuadamente, de lo contrario existe el riesgo de que circule demasiada corriente por los bobinados de los motores y se dañen.
+
+\begin{enumerate}
+    \item \textbf{Conectar el motor de excitación}
+    \begin{enumerate}
+        \item Conectar los pines P6 y P7 del RP a los pines STEP y DIR del DRV8825, respectivamente (\textbf{Fig. \ref{fig:schematic}}).
+        \item Conectar los pines restantes: utilizando 3.3 V del RP como nivel alto digital, coloque los pines $\overline{\text{SLEEP}}$ y $\overline{\text{RESET}}$ del controlador del motor en alto, y conecte el GND lógico al GND del RP. Los pines $\overline{\text{ENABLE}}$, M0, M1, M2 y $\overline{\text{FAULT}}$ pueden dejarse flotantes.
+        \item Ajustar el límite de corriente de salida del DRV8825 al máximo soportado por el motor paso a paso; en este caso, el motor M061CS02 tiene un límite de 0.7 A.
+        \item Provea la fuente de alimentación del motor conectando los pines VMOT y GND a una fuente de 12 V que pueda suministrar al menos $2 \times \textit{límite de corriente}$. Conectar un capacitor de 100 $\mu F$ en paralelo.
+        \item Conectar el controlador del motor al motor paso a paso: desconecte el conector original del motor $M_1$ y conecte los pines A1 y A2 del DRV8825 a los pines 1 y 7 del motor, y los pines B1 y B2 a los pines 3 y 5 (\textbf{Fig. \ref{fig:hardware}B}).
+    \end{enumerate}
+    \item \textbf{Conectar el fin de carrera de excitación}
+    \begin{enumerate}
+        \item Alimentar con 5 V y GND a los pines 1 y 2, respectivamente, del fin de carrera junto al motor $M_1$ (\textbf{Fig. \ref{fig:hardware}C}).
+        \item Conectar el pin 3 del fin de carrera al pin digital P2 del RP para el fin de carrera de $M_1$, utilizando una resistencia pull-up externa al nivel lógico de 3.3 V del RP.
+    \end{enumerate}
+    \item \textbf{Conectar el motor de emisión}
+    \begin{enumerate}
+        \item Conectar los pines P4 y P5 del RP a los pines STEP y DIR del controlador del motor, respectivamente.
+        \item Repetir los pasos (b) a (e) del ítem (1) para el motor $M_2$.
+    \end{enumerate}
+    \item \textbf{Conectar el fin de carrera de emisión}
+    \begin{enumerate}
+        \item Alimentar con 5 V y GND a los pines 1 y 2, respectivamente, del fin de carrera junto al motor $M_2$ (\textbf{Fig. \ref{fig:hardware}C}).
+        \item Conectar el pin 3 del fin de carrera al pin digital P3 del RP para el fin de carrera de $M_2$, utilizando una resistencia pull-up externa al nivel lógico de 3.3 V del RP.
+    \end{enumerate}
+    \item \textbf{Conectar la salida del PMT}
+    \begin{enumerate}
+        \item Conectar el cable BNC-SMA a la entrada analógica 1 del RP y configure el modo de alto voltaje.
+        \item Conectar una ficha T BNC al extremo BNC del cable BNC-SMA conectado al RP.
+        \item Conectar una terminación de 50 $\Omega$ a uno de los extremos de la ficha T para conformar pulsos de 40 a 100 ns.
+        \item Conectar el otro extremo de la ficha T a la salida del PMT utilizando un cable BNC-BNC.
+    \end{enumerate}
+\end{enumerate}
+
+\noindent Después de estos pasos, el instrumento estará listo para realizar mediciones estacionarias.
+
+\begin{SCfigure}[][h]
+         \centering
+         \includegraphics[width=.65\textwidth]{schematic.png}
+         \caption{\textbf{Esquemático de las conexiones} que contiene la placa PCB de prueba para conectar las componentes del hardware a la RP.
+         }
+         \label{fig:schematic}
+    \end{SCfigure}
+
+
+\subsection{Ampliación para mediciones dinámicas}
+
+Para añadir la funcionalidad de medir tiempos de vida con el espectrómetro Horiba PTI, además de las instrucciones anteriores, deben realizarse los siguientes pasos adicionales:
+
+\begin{enumerate}
+    \item Conectar la fuente de luz externa al puerto externo utilizando un cable de fibra óptica.
+    \item Conectar el puerto USB tipo B del ITC4020 al puerto USB tipo A del RP.
+    \item Conectar la salida BNC R3 (salida TTL de 5 V del ITC4020) en el panel trasero del ITC4020 a un adaptador BNC a SMA, y luego conectarlo a la entrada analógica 2 del RP configurando ese canal en modo de alto voltaje.
+\end{enumerate}
+
+Nuestro software está diseñado para trabajar con el controlador láser ITC4020, pero se puede utilizar otro siempre y cuando se añadan clases de control específicas al software.
+
+\subsection{Instalación y configuración del software} 
+
+Seguir las instrucciones en \href{https://github.com/tdinapoli/refurbishedPTI}{este enlace}\cite{napoli_tdinapoli_2024} para instalar nuestro paquete Python en su RP. 
+Una vez conectados los componentes de hardware, se deben calibrar los motores de los monocromadores y las entradas analógicas del Red Pitaya. 
+Las instrucciones para calibrar las entradas analógicas del RP están disponibles en su documentación oficial \cite{rp_docs}.
+
+Para calibrar los monocromadores, desarrollamos un intérprete de línea de comandos que guía el proceso paso a paso y genera un archivo YAML con los parámetros de calibración (\textbf{Tabla \ref{tab:monochromator_api_parameters}}). El siguiente código en Python abre el menú para calibrar el monocromador de emisión:
+
+\begin{lstlisting}[language=Python]
+from refurbishedPTI import Spectrometer
+spec = Spectrometer.constructor_default()
+spec.emission_mono.calibrate()
+\end{lstlisting}
+
+El comando \texttt{save\_to\_yaml} guarda el archivo de configuración en el directorio del RP indicado por el método \texttt{.get\_config\_path()} de la clase Motor. Una vez calibrado el monocromador de emisión, repita el proceso para el monocromador de excitación:
+
+\begin{lstlisting}[language=Python]
+spec.excitation_mono.calibrate()
+\end{lstlisting}
+
+Repetir los mismos pasos que para el monocromador de emisión para completar la configuración.
+
+\begin{table}[h]
+ \centering
+ \begin{tabular}{|l|l|p{10cm}|}
+    \hline
+    \textbf{Parámetro} & \textbf{Tipo de dato} & \textbf{Descripción} \\ \hline
+    \texttt{greater\_wl\_cw}          & bool               & True si la longitud de onda incrementa al girar en sentido horario, Falso en el caso contrario. \\ \hline
+    \texttt{max\_wl}                 & float              & Longitud de onda máxima (en nanómetros) que permitirá configurar la API del monocromador \\ \hline
+    \texttt{min\_wl}                 & float              & Longitud de onda mínima (en nanómetros) que permitirá configurar la API del monocromador \\ \hline
+    \texttt{wl\_step\_ratio}          & float              & Cambio (en nanómetros) de longitud de onda por cada paso que da el motor.\\ \hline
+    \texttt{home\_wavelength}        & float              & Longitud de onda (en nanómetros) en la que se activa la señal del fin de carrera. \\ \hline
+\end{tabular}
+\caption{\textbf{Parámetros de la API de la clase Monochromator.}}
+\label{tab:monochromator_api_parameters}
+\end{table}
+
+\section{Instrucciones de uso} \label{apendice:instrucciones_uso}
+
+Como se comentó en la sección \ref{sec:software}, hay dos formas de operar el espectrómetro renovado: a través de la API de Python y mediante la interfaz gráfica Jupyter Notebook con IPython Widgets. 
+
+Para ambos modos de operación, todos los instrumentos listados en la explicación de la sección \ref{subsec:refur-instructions} deben estar conectados, y tanto el PMT como la lámpara deben estar encendidos. 
+Se deben ajustar las rendijas de Em y Ex (\textbf{Fig. \ref{fig:ref-diagram}}) según las necesidades del experimento. 
+Una vez completados estos pasos, se puede proceder con las siguientes secciones para el modo de operación por script o GUI.
+
+\subsection{Modo de operación GUI}
+
+La interfaz gráfica del espectrómetro se encuentra en un Jupyter Notebook que permite al usuario cambiar los parámetros del instrumento mediante Widgets de Jupyter.  
+La GUI se compone de dos secciones: el panel de parámetros y el panel de gráficos (\textbf{Figs. \ref{fig:spectrum_gui}} y \textbf{\ref{fig:lifetime_gui}}).  
+El panel de parámetros contiene menús desplegables, botones y campos de texto para especificar los parámetros de medición y del archivo de medición.  
+El panel de gráficos incluye dos gráficos, uno para mediciones de espectro y otro para mediciones de tiempo de vida.  
+
+Para inicializar el modo GUI del QM400 renovado, se debe abrir el notebook \texttt{gui.ipynb} ubicado en \texttt{/home/jupyter/refurbishedPTI/gui.ipynb}.  
+Al ejecutar la primera celda del notebook con el código:
+
+\begin{lstlisting}[language=Python]
+from refurbishedPTI.gui import Gui
+gui = Gui()
+\end{lstlisting}
+
+\noindent se inicializa la GUI. 
+
+Para realizar una medición seleccionar las opciones \textbf{Spectrum} o \textbf{Lifetime} en el menú desplegable \textbf{Measurement type}.  
+Se especifican los parámetros de la medición utilizando los componentes de la GUI (detallados en las \textbf{Tablas \ref{tab:spectrum_measurement}} y \textbf{\ref{tab:lifetime_measurement}}) y comenzar la adquisición.  
+Una vez finalizada la medición, guarde y manipule los datos con los componentes de la GUI (\textbf{Tabla \ref{tab:file_parameters}}).
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Parameter Name} & \textbf{Description} \\
+        \hline
+        \multirow{3}{3cm}{Spectrum type} & \textbf{Emission}: fixed excitation monochromator and scanning emission monochromator. \\
+        \cline{2-2}
+        & \textbf{Excitation}: fixed emission monochromator and scanning excitation monochromator. \\
+        \cline{2-2}
+        & \textbf{Laser}: scanning emission monochromator external laser excitation. \\
+        \hline
+        Static monochromator wavelength & Fixed monochromator wavelength (nm). \\
+        \hline
+        Starting wavelength & Starting wavelength of the scanned wavelength range (nm). \\
+        \hline
+        Ending wavelength & Ending wavelength of the scanned wavelength range (nm). \\
+        \hline
+        Wavelength step & Difference in wavelength between each data point (nm). \\
+        \hline
+        Acquire & Starts the measurement. \\
+        \hline
+    \end{tabularx}
+    \caption{\textbf{Parámetros de configuración de una medición de espectro estático}.}
+    \label{tab:spectrum_measurement}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Parameter Name} & \textbf{Description} \\
+        \hline
+        Pump power & Laser pump power (mW). \\
+        \hline
+        Frequency & Laser on and off TTL signal frequency. \\
+        \hline
+        Duty Cycle & Duty cycle of TTL signal in \%. \\
+        \hline
+        Emission monochromator wavelength & Wavelength at which the lifetime will be measured (nm). \\
+        \hline 
+        Amount of counts & Amount of counts that will be measured until the measurement ends. \\
+        \hline
+        Starting time & Time after trigger before start counting (ms). \\
+        \hline
+        Ending time & Time after trigger before stop counting (ms). \\
+        \hline
+        Acquire & Starts the measurement.\\
+        \hline
+    \end{tabularx}
+    \caption{\textbf{Parámetros de configuración de una medición dinámica}.}
+    \label{tab:lifetime_measurement}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+        \hline
+        \textbf{Parameter Name} & \textbf{Description} \\
+        \hline
+        Measurement filename & Select a filename and directory where the measurement will be saved once the \textbf{Save} button is pressed. If no filename is selected at the time of pressing the \textbf{Acquire} button, the filename will be the current date and time. \\
+        \hline
+        Selected measurement & Select a measurement to \textbf{Save} it or \textbf{Delete} it. \\
+        \hline
+        Save & Save measurement with selected filename, directory, and format. \\
+        \hline
+        Delete & Delete selected measurement. \\
+        \hline
+        \multirow{3}{3cm}{Save to} & File format for the saved measurement. Options: \\
+        \cline{2-2}
+        & \textbf{pickle} \\
+        \cline{2-2}
+        & \textbf{csv} \\
+        \cline{2-2}
+        & \textbf{excel} \\
+        \hline
+    \end{tabularx}
+    \caption{\textbf{Parámetros de configuración del archivo que guarda los datos de una medición}.}
+    \label{tab:file_parameters}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{spectrum_gui.png}
+    \caption{\textbf{GUI para medir espectros estacionarios}.}
+    \label{fig:spectrum_gui}
 \end{figure}
 
-\section{instrucciones de uso} \label{apendice:instrucciones_uso}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{lifetime_gui.png}
+    \caption{\textbf{GUI para medir tiempos de vdia}.}
+    \label{fig:lifetime_gui}
+\end{figure}
+
+
 \section{tiempos de vida todos los picos a != pot}
 \section{analisis picos}
 \section{benchmark}
