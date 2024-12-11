@@ -44,25 +44,6 @@ A menudo, se incorporan componentes adicionales en el camino óptico, como obtur
 \end{SCfigure}
 
 
-\subsection{Medición de tiempos de vida: \textit{Time-Correlated Single Photon Counting} (TCSPC) \todo{va a la intro}}
-
-Muchos espectrofluorímetros comerciales tienen la capacidad de medir el tiempo de vida de los fluoróforos con tiempos típicos del orden de los nanosegundos. 
-Sin embargo, debido a las transiciones prohibidas de los lantánidos (\todo{Ver cap N}) el tiempo de vida de las UCNPs es del orden de los cientos de microsegundos.
-Aunque esto alivia la necesidad de una electrónica rápida y costosa, contradictoriamente hace que no se pueda medir su tiempo de vida en instrumentos comerciales, ya que los valores típicos están muy alejados del rango en el que operan \cite{bujjamer2020}.
-
-Existen distintas técnicas para medir el tiempo de vida \cite{becker_fluorescence_2012}, pero la más implementada es \textit{Time-Correlated Single Photon Counting} (TCSPC).
-Como la técnica se suele aplicar para tiempos de vida del orden de los nanosegundos es común que se usen componentes de electrónica rápida 
-Usualmente la explicación de esta técnica involucra introducir múltiples componentes de electrónica rápida que son necesarios para medir tiempos del orden de nanosegundos.
-Como en nuestro caso esos componentes no son necesarios, daremos una explicación simplificada.
-TCSPC es una técnica digital que cuenta fotones correlacionados temporalmente con respecto a un pulso de excitación.
-El experimento comienza con un pulso de excitación, que tiene dos tareas fundamentales: (i) excitar a la muestra y (ii) iniciar algún tipo de cronómetro.
-La muestra se excita repetidamente utilizando una fuente de luz pulsada, a menudo un láser o una lámpara de destellos.
-Cada pulso es monitoreado, produciendo una señal de inicio que activa el contador del cronómetro.
-La rampa de voltaje se detiene cuando se detecta el primer fotón de fluorescencia proveniente de la muestra.
-El TAC proporciona un pulso de salida cuyo voltaje es proporcional al tiempo transcurrido entre las señales de inicio y parada.
-Un analizador multicanal (MCA) convierte este voltaje en un canal de tiempo utilizando un convertidor analógico a digital (ADC).
-Sumando sobre muchos pulsos, el MCA genera un histograma de probabilidad de cuentas frente a los canales de tiempo.
-
 
 \subsection{Epectrofluirimetros en argentina y obsolescencia}
 
@@ -86,9 +67,10 @@ Cabe destacar que han surgido empresas enfocadas en hardware parcialmente o comp
 En este capítulo de la tésis se explica detalladamente la plataforma de fuente abierta que desarrollamos para renovar la electrónica y el \textit{software} de control del espectrofluorímetro Horiba PTI QuantaMaster (QM) 400, uno de los espectrofluorímetros antigüos del laboratorio de fotoquímica del INQUIMAE.
 Además de su renovación, ampliamos sus capacidades para medir tiempos de vida del orden de los microsegundos, que junto con el agregado de un láser pulsado externo de 980 nm nos permitió conseguir la plataforma ideal para la caracterización óptica de UCNPs tanto estática como dinámica.
 
-\section{Renovación y ampliación de Horiba PTI Quanta Master 400 \todo{mencionar a juan}}
 
-\subsection{Espectrofluorímetro Horiba PTI Quanta Master 400}
+\section{Espectrofluorímetro Horiba PTI Quanta Master 400}
+
+\subsection{componentes}
 
 La serie Horiba PTI QM incluye espectrofluorímetros modulares para investigación científica y sistemas optimizados para mediciones de fotoluminiscencia.
 Estos espectrofluorímetros se encuentran frecuentemente en los laboratorios de Argentina, por ejemplo, sabemos que hay tres equipos de esta serie en el laboratorio de fotoquímica del INQUIMAE (QM400, QM-4 y RatioMaster), dos en \todo{CIBION} y uno en \todo{CAC-CNEA}, y probablemente haya más de modelos similares en otras instituciones.
@@ -101,7 +83,8 @@ El QM 400 está equipado con una lámpara de xenón de 75 W como fuente de luz, 
 Los monocromadores de excitación y emisión contienen redes de difracción rotadas por motores paso a paso de 200 pasos por revolución, con especificaciones de 7 V y 0.7 A por bobina (M1 y M2), lo que permite una resolución en la selección de longitudes de onda de 0.5 nm. 
 Ambos incluyen un fin de carrera electromecánico para verificar si se ha alcanzado la longitud de onda máxima.
 Los motores paso a paso, junto con sus fines de carrera respectivos, están conectados a un módulo controlador de motores (MDM) mediante conectores propietarios no documentados. 
-Los fotones son detectados por un tubo fotomultiplicador (PMT, modelo PTI 810), conectado al MDM a través de un cable BNC y polarizado con 1000 V desde una fuente de alimentación externa proporcionada también por el MDM. 
+Los fotones son detectados por un tubo fotomultiplicador (PMT, modelo PTI 810), cuya caracterización se detalla en la sección \ref{sec:caracterizacion_pmt}.
+Éste está conectado al MDM a través de un cable BNC y polarizado con 1000 V desde una fuente de alimentación externa proporcionada también por el MDM. 
 Esto genera pulsos negativos de alrededor de 170 ns con una terminación de 50 Ohm y un voltaje de −3.5 V (\textbf{Fig. \ref{fig:ref-diagram}D}). 
 Finalmente, el MDM está conectado mediante un cable plano a una tarjeta de interfaz ISA en una PC con sistema operativo Windows 95 y el programa FelixGX, un \textit{software} propietario de adquisición y control instalado por Horiba (\textbf{Fig. \ref{fig:ref-diagram}B}).
 FelixGX permite medir espectros de emisión y excitación (\textbf{Fig. \ref{fig:ref-diagram}E}), además de brindar herramientas de análisis rápido de los datos y controlar diferentes periféricos.
@@ -144,6 +127,9 @@ En las siguientes secciones, explicaremos los cambios de \textit{hardware} y \te
      \label{fig:hardware}
 \end{figure}
 
+
+
+\section{Renovación y ampliación de Horiba PTI Quanta Master 400 \todo{mencionar a juan}}
 
 \subsection{Hardware para renovación}
 
@@ -201,109 +187,66 @@ Esta señal se conecta a otra de las entradas analógicas de la RP, que luego la
 \end{figure}
 
 
-\subsection{Software} \label{sec:software}
+\subsection{Caracterización del PMT con la Red Pitaya} \label{sec:caracterizacion_pmt}
 
-Para reemplazar el rol que cumplía el \textit{software} FelixGX en el espectrofluorímetro original desarrollamos dos paquetes de Python de control de instrumental y adquisición de datos \cite{napoli_tdinapoli_2024,grecco_hgrecco_2024}.
-El código corre en la microCPU de la RP y permite controlar al espectrofluorímetro a través de una interfaz de programación de aplicaciones (API) y una interfaz gráfica simple (GUI) desarrollada con el paquete \textit{IPython's Jupyter Widgets}.
-El programa conformado por ambos paquetes está compuesto de cuatro capas principales (\textbf{Fig. \ref{fig:code}}):
+ 
+Los tubos fotomultiplicadores (PMTs) son detectores ampliamente utilizados en fluorómetros y cumplen un rol central en el funcionamiento del instrumento. 
+Un PMT está compuesto por un fotocátodo y una serie de dínodos, que actúan como etapas de amplificación. 
+Los fotones incidentes provocan la emisión de electrones desde el fotocátodo, y estos son amplificados sucesivamente por los dínodos. 
+Al final del proceso, que tiene una duración típica de 40 a 50 nanosegundos, el pulso llega a un ánodo, desde donde se lee la señal. 
+Este detector puede operar en dos modos: analógico o conteo de fotones. 
+En el modo analógico, la corriente que fluye por el ánodo debe ser proporcional a la intensidad de luz que incide sobre el fotocátodo.
+En el modo de conteo, el PMT registra pulsos eléctricos de corta duración cada vez que se detecta un fotón. 
+Resulta crucial que el detector no se encuentre dañado, cosa que usualmente sucede por la exposición a luz muy intensa. 
+Esto puede generar una corriente de oscuridad alta, pulsos espurios en la señal que sesgan el resultado de la medición \cite{lakowicz_principles_2006}.
+En nuestro instrumento renovado, la señal del PMT se adquiere utilizando una Red Pitaya (RP). 
+Este dispositivo permite una frecuencia máxima de adquisición de 125 MHz, aunque también es posible trabajar a frecuencias menores que sean divisiones por 2 de ese valor. 
+Para realizar un conteo preciso de los fotones que inciden en el fotocátodo, caracterizamos la señal del PMT del QM 400 utilizando la RP en las mismas condiciones operativas del fluorímetro modificado.
+Como resultado, determinamos el ancho medio de los pulsos y definimos el algoritmo de detección de pulsos más adecuado para optimizar el conteo. 
 
-\begin{itemize}
-     \item \textbf{RedpiPy}: Es uno de los dos paquetes que desarrollamos. Consiste en un \textit{wrapper} de la API original de la RP que resulta en que el código esté mejor organizado para hacer una aplicación en Python. Se compone de funciones y clases que permiten manejar el \textit{hardware} de la RP a bajo nivel, como \textit{RPDO} que controla los pines digitales, así como algunas clases de más alto nivel como \textit{Oscilloscope} que permite manejar el osciloscopio.
-     \item \textbf{Clases de dispositivos}: Controlan componentes individuales del espectrofluorímetro, como los monocromadores, el láser pulsado, y los motores de los monocromadores permitiendo la el control de todas las partes por separado. 
-     \item \textbf{Clase Spectrometer}: Coordina el \textit{hardware} para protocolos de medición específicos (por ejemplo, adquirir un espectro de emisión). Es fácil de usar desde un script en Python o desde la línea de comandos. Además, es la encargada de contar los pulsos de voltaje negativo registrados por el PMT. Es utilizada por la interfaz gráfica.
-     \item \textbf{Interfaz gráfica (GUI)}: proporciona herramientas de adquisición similares a las de FelixGX. Se accede a través de la web y utiliza el paquete IPython's Jupyter Widgets.
-\end{itemize}
+Como comentamos en la sección anterior, la RP puede medir una ventana temporal de hasta $2^{14}$ muestras.
+Una señal típica del PMT al ser iluminado de forma constante, medida con una ventana de la RP a 31.25 MHz,  se puede ver en la figura (\textbf{\ref{fig:pmt_signal}A}).
+La señal muestra un voltaje de base que ronda los 3.5 V, y múltiples picos negativos que representan la llegada de un fotón al fotocátodo.
+Si bien la mayoría de pulsos suelen estar entre 1 y 0 V, hay otros que no llegan a saturar el detector y tienen menor altura.
+Los pulsos que saturan tienen un tiempo rápido de subida, de aproximadamente $\sim 16$ ns, luego son constantes y después bajan rápidamente.  
+Se puede nota una ligera asimetría, sus colas presentan dos rebotes alrededor de 2 y 3 V (\textbf{Fig. \ref{fig:pmt_signal}B}).
+Por otro lado, los picos que no saturan presentan oscilaciones de alta frecuencia en el máximo.
+Si se compara una adquisición a distintas frecuencias de muestreo, se puede ver que estos efectos se ven atenuados al medir a menores frecuencias de muestreo (\textbf{Fig. \ref{fig:pmt_signal}C}). 
 
-Gracias a este diseño la parte del código que implementa el control del instrumento es completamente general y está desacoplada del resto, por lo que debería funcionar para cualquier modelo de espectrofluorímetro cuyos monocromadores sean controlados por motores por paso, y la señal de luminiscencia se lea con un PMT.
-Por otro lado, la API pública le permite al usuario avanzado crear sus propios protocolos de medición que se pueden ejecutar sin la supervición de un operario.
-Tanto \textit{RedpiPy} como \textit{RefurbishedPTI} (el paquete que controla al espectrofluorímetro) se encuentran públicos en repositorios de \href{https://github.com}{GitHub} con sus respectivas instrucciones de instalación. 
-El apéndice \ref{apendice:instrucciones_uso} explica detalladamente algunos ejemplos que muestran cómo medir un espectro estacionario y el tiempo de vida para distintas longitudes de onda, ambos a través de la API y de la GUI.
+Seleccionando la frecuencia de 31.25 MHz se puede ver el histograma  del voltaje de los puntos de la señal (\textbf{Fig. \ref{fig:histograma_puntos}}).
+Para eliminar la base de la señal se tomaron sólo los puntos con voltajes menores a 3.4 V.
+Se pueden ver dos picos en el histograma, uno para voltajes menores a 1 V, que corresponde a los pulsos que saturan al PMT, y otro para mayores a 3 V, que se pueden adjudicar al ruido y a los rebotes de la señal en las colas de los pulsos.
+El eje vertical en escala logarítmica permite diferenciar un salto alrededor de 1.4 V, éste corresponde a los pulsos que no saturan y cuyas oscilaciones de alta frecuencia se ven atenuadas a 31.25 MHz.
+Viendo el histograma de la altura de los pulsos, tomamos como criterio considerar un pulso de la señal como un fotón que llegó al detector a todos ellos cuyo pico sea menor a 1 V.
 
+Por último, para estimar el ancho promedio de los pulsos calculamos la autocorrelación a partir de la medición de múltiples ventanas de la señal del PMT bajo iluminación constante.
+La relación entre la desviación estandar $\sigma$ de una distribución gaussiana, y la desviación estandar $\sigma_c$ su autocorrelación está dada por $\sigma = \sigma_c/\sqrt{2}$.
+Aproximando a los pulsos que llegan al detector por gaussianos, y usando que el ancho total a mitad de altura (FWHM) de una gaussiana es FWHM $= 2 \sqrt{2 \ln{2}}\sigma$, podemos obtener el FWHM de los pulsos con la fórmula FWHM $= 2 \sqrt{2 \ln{2}}\sigma_c / \sqrt{2}$
+Por lo tanto, ajustamos el resultado de las autocorrelaciones por una gaussiana y realizamos un histograma de las desviaciones estandar de los pulsos $\sigma = \sigma_c / \sqrt{2}$ obtenidas (\textbf{Fig. \ref{fig:ancho_pulsos}}).
+Como resultado, el ancho temporal de los pulsos a mitad de altura es de $(\Delta t = 113 \pm 2)$ ns, donde definimos el error como dos desviaciones estándar de la media.
+Esto nos permite definir una tasa máxima $R$ de fotones por segundo que podemos detectar con el PMT.
+Bajo iluminación continua, la probabilidad de que un fotón llegue al detector en un tiempo $t$ al medir en un intervalo $T$ es uniforme.
+Entonces, la probabilidad $P$ de que otro fotón se solape debe ser $P = R \times T$, por lo que si queremos que la probabilidad máxima sea del 90\%, podremos adquirir a una tasa de fotones por segundo de $R = P/T = 0.1/113 \times 10^9$ Hz$ = 8.9 \times 10^5$ Hz.
 
-%\todo{ \\
-%capacidades del software \\
-%\\
-%Jerarquía de clases API para desacoplar. Extensión del software: sirve para espectrofluorímetro genérico siempre y cuando tengas motor por pasos y pmt.\\
-%\\
-%quien cuenta los picos, (mencionar que hay analisis de picos más adelante)\\
-%\\
-%Modos de uso, API GUI (capacidades, más detallado en apéndice).\\
-%}
-
-\begin{figure}[h]
-     \centering
-     \caption{\todo{cambiar esta figura} \textbf{Structure of the software}. Each element of the software is ordered from high level (\textbf{top}) to low level (\textbf{bottom}). Inside the dashed line black box In yellow, the two ways the end user can interact with the software. In orange, the refurbished instrument API classes. In red, the RP's hardware API.}
-     \includegraphics[scale=0.3]{software-diagram.png}
-     \label{fig:code}
-\end{figure}
-
-%\todo{introduccion a medicion de tiempos de vida}
-
-El tiempo máximo de adquisición de 8 ms ofrece una ventana suficientemente amplia para la mayoría de los materiales luminiscentes. 
-Como se mencionó anteriormente, cuando se requiere medir tiempos de vida mucho más largos al tiempo de adquisición máximo (0.5 ms), la ventana de detección puede desplazarse respecto al \textit{trigger} para cubrir un rango más amplio. 
-El \textit{software} permite configurar la cantidad de veces que se mide cada ventana de 0.5 ms, lo que hace posible construir una curva de decaimiento más extensa de la luminiscencia.
-
-%\todo{ \\
-%explicar que es lo mismo que antes salvo que se usa el trigger.\\
-%Explicar funcionamiento de las pantallas y offsets \\
-%}
-
-\section{Protocolo de medición estática}
-
-El espectro estático de emisión(excitación) de una muestra consiste en la medición de su intensidad de luminiscencia al iluminar(observar) en una longitud de onda fija, y observar(iluminar) barriendo un rango de longitudes de onda.
-Por lo tanto, antes de iniciar una medición deben estar definidos sus parámetros que en este caso son el tiempo de integración $t_{int}$, la longitud de onda de iluminación(medición) $\lambda_e$, y la longitud de onda inicial $\lambda_i$ y final $\lambda_f$ del barrido, así como el paso $\lambda_s$ entre cada medición de intensidad.
-En el caso de tomar un espectro de UCNPs, dado que la iluminación proviene del diodo láser de 976 nm, también es necesario configurar la potencia óptica de excitación.
-
-Una vez configurados los parámetros, el espectrofluorímetro debe realizar los siguientes pasos:
-
-\begin{enumerate}
-     \item \textbf{Inicializar los monocromadores} haciendo girar los motores en una misma dirección hasta que la señal del fin de carrera de cada uno sea de 5 V. Esto sirve para que la longitud de onda guardada por el \textit{software} coincida con la real.
-     \item \textbf{Mover el monocromador estático} de emisión(excitación) hasta $\lambda_e$. 
-     \item \textbf{Mover el monocromador dinámico} de excitación(emisión) hasta $\lambda_f$ en pasos de $\lambda_s$. Para cada longitud de onda los pasos (a) y (b) se deben repetir (\textbf{Fig. \ref{fig:diag_medicion_estatica}A}) $n$ veces, donde $n$ es tal que $n \times t_{max} \geq t_{int}$ y $t_{max}$ es el máximo tiempo de medición que soporta la RP (8 ms):
-     \begin{enumerate}
-          \item Medir la señal del PMT.
-          \item Contar los picos en esa señal y acumularlos. Al finalizar, el resultado es la cantidad de picos (fotones) contados por segundo.
-     \end{enumerate}
-\end{enumerate}
-
-\noindent Una vez que el monocromador dinámico llega a $\lambda_f$ la cantidad de cuentas por segundo para cada longitud de onda se guarda en una tabla y termina la medición.
-Al caracterizar UCNPs la excitación se da a través del láser externo, por lo que se deben configurar sus parámetros independientemente y el monocromador de excitación no toma ningún rol.
-Como siempre se miden pantallas enteras, los tiempos de integración posibles siempre son múltiplos de 8 ms.
-Sin embargo, los tiempos de integración necesarios suelen ser típicamente del orden de los segundos, dos o tres órdenes de magnitud mayores a la duración de la pantalla.
-Además, los datos también contienen el tiempo de integración para cada punto con un error de $\sim 15$ ns.
-En caso de que sea necesario medir con un tiempo de integración más preciso, esto se puede lograr modificando levemente el \textit{software}.
-
-\begin{SCfigure}
-     \centering
-     \includegraphics[width=0.6\textwidth]{diag_medicion_estatica.png}
-     \caption{\textbf{Diagrama de medición estática}}
-     \label{fig:diag_medicion_estatica}
-\end{SCfigure}
-
-\section{Protocolo de medición dinámica} \label{sec:proceso_dinamico}
-
-La medición de los tiempos de vida de las nanopartículas de \textit{upconversion} se realiza mediante la técnica de TCSPC (ver sección \ref{sec:intro_tcspc}).
-Dado que estos tiempos de vida están en el rango de cientos de microsegundos, no son necesarios varios de los componentes de electrónica rápida típicos de la TCSPC utilizada en mediciones en el rango de nanosegundos, como el CFD y el TAC, los cuales son reemplazados por componentes más simples y menos costosos.
-Contradictoriamente, esto hace que no se puedan caracterizar UCNPs utilizando equipos de fluorescencia de uso general, dado que el tiempo total de adquisición necesario difiere en órdenes de magnitud.
-En nuestro caso, llevamos a cabo la técnica utilizando el trigger configurable a través de las entradas analógicas de la RP, y la señal TTL proveniente de la fuente de alimentación del láser.
-Otra diferencia con TCSPC tradicional es el modo de excitación de la muestra.
-Como la mayoría de fluoróforos orgánicos presentan su luminiscencia a través de la excitación de transiciones dipolares eléctricas, pérdia de energía por fonones, y re-emisión a través otra transición dipolar, todos fenómenos que ocurren en el orden de los nanosegundos, es posible estudiar su espectro dinámico al excitar con un pulso del láser.
-En el caso de las UCNPs, su luminiscencia se da por la dinámica no lineal de la interacción entre sus dopantes lantánidos (Yb$^{+3}$ y Er$^{+3}$), procesos que incluyen la excitación sucesiva sus electrones y por lo tanto ocurren en el orden de los microsegundos.
-Por este motivo, es necesario iluminar a la muestra por algunos milisegundos para asegurarse de llegar al estado estacionario del sistema antes de medir su decaimiento.
-Esto se hace aprovechando la función de alimentación pulsada (\textit{Quasi Continuous Wave} ó QCW) que ofrece la fuente ITC4020, la cual permite configurar frecuencia de pulsado $\nu$, y ciclo de trabajo $dc$ (\textbf{Fig. \ref{fig:diag_medicion_dinamica}}).
-
-Para hacer una medición de TCSPC es necesario definir la longitud de onda $\lambda$ en la que se detectará la emisión, el intervalo de tiempo $t_{max}$ en el que se van a contar los fotones luego del trigger, y la cantidad de veces $n$ que se va a medir ese intervalo.
-Entonces, el protocolo para realizar la medición es:
-
-\begin{enumerate}
-     \item \textbf{Iniciar el láser en modo QCW} para que se prenda y se apague con frecuencia $\nu$ y ciclo de trabajo $dc$.
-     \item \textbf{Configurar }
-\end{enumerate}
 
 
 \begin{figure}
-     \centering
-     \includegraphics[width=\textwidth]{diag_medicion_dinamica.png}
-     \caption{\textbf{Diagrama de medición dinámica}}
-     \label{fig:diag_medicion_dinamica}
+    \centering
+    \includegraphics[width=\textwidth]{sig_pmt.png}
+    \caption{\textbf{Señal del PMT} tomada con la RP a 32.25 MHz.}
+    \label{fig:pmt_signal}
+\end{figure}
+
+\begin{SCfigure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{histograma_puntos.png}
+    \caption{\textbf{Señal del PMT} tomada con la RP a 32.25 MHz.}
+    \label{fig:histograma_puntos}
+\end{SCfigure}
+
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{ancho_pulsos.png}
+    \caption{autocorrelacion de los picos. Tmb tengo un fit gausiano para ver el ancho.}
+    \label{fig:ancho_pulsos}
 \end{figure}

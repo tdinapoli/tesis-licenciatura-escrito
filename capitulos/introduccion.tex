@@ -64,4 +64,24 @@ Técnicas dinámicas como la microscopía de imágenes de tiempo de vida de fluo
 
 \section{Espectrofotometría estática}
 \section{Espectrofotometría dinámica} \label{sec:intro_tcspc}
+
+\subsection{Medición de tiempos de vida: \textit{Time-Correlated Single Photon Counting} (TCSPC) \todo{va a la intro}}
+
+Muchos espectrofluorímetros comerciales tienen la capacidad de medir el tiempo de vida de los fluoróforos con tiempos típicos del orden de los nanosegundos. 
+Sin embargo, debido a las transiciones prohibidas de los lantánidos (\todo{Ver cap N}) el tiempo de vida de las UCNPs es del orden de los cientos de microsegundos.
+Aunque esto alivia la necesidad de una electrónica rápida y costosa, contradictoriamente hace que no se pueda medir su tiempo de vida en instrumentos comerciales, ya que los valores típicos están muy alejados del rango en el que operan \cite{bujjamer2020}.
+
+Existen distintas técnicas para medir el tiempo de vida \cite{becker_fluorescence_2012}, pero la más implementada es \textit{Time-Correlated Single Photon Counting} (TCSPC).
+Como la técnica se suele aplicar para tiempos de vida del orden de los nanosegundos es común que se usen componentes de electrónica rápida 
+Usualmente la explicación de esta técnica involucra introducir múltiples componentes de electrónica rápida que son necesarios para medir tiempos del orden de nanosegundos.
+Como en nuestro caso esos componentes no son necesarios, daremos una explicación simplificada.
+TCSPC es una técnica digital que cuenta fotones correlacionados temporalmente con respecto a un pulso de excitación.
+El experimento comienza con un pulso de excitación, que tiene dos tareas fundamentales: (i) excitar a la muestra y (ii) iniciar algún tipo de cronómetro.
+La muestra se excita repetidamente utilizando una fuente de luz pulsada, a menudo un láser o una lámpara de destellos.
+Cada pulso es monitoreado, produciendo una señal de inicio que activa el contador del cronómetro.
+La rampa de voltaje se detiene cuando se detecta el primer fotón de fluorescencia proveniente de la muestra.
+El TAC proporciona un pulso de salida cuyo voltaje es proporcional al tiempo transcurrido entre las señales de inicio y parada.
+Un analizador multicanal (MCA) convierte este voltaje en un canal de tiempo utilizando un convertidor analógico a digital (ADC).
+Sumando sobre muchos pulsos, el MCA genera un histograma de probabilidad de cuentas frente a los canales de tiempo.
+
 \section{Nanopartículas de conversión ascendente} \label{sec:intro_ucnp}
