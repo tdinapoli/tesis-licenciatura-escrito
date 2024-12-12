@@ -6,13 +6,13 @@
 Para caracterizar la respuesta óptica de una sustancia, generalmente se desea registrar tanto el espectro de excitación como el de emisión. 
 El instrumento científico por excelencia para realizar estas mediciones es el espectrofluorímetro. 
 Fundamentalmente, este instrumento permite realizar mediciones de la intensidad de luz que emite una muestra, haciendo escaneos en longitud de onda de emisión y excitación.
-Adicionalmente, algunos pueden realizar mediciones de timepo de vida resueltas en el timpo, escaneos sincrónicos con alguna señal y mediciones de anisotropía en la polarización de materiales luminiscentes.
+Adicionalmente, algunos pueden realizar mediciones de tiempo de vida resueltas, escaneos sincrónicos con alguna señal y mediciones de anisotropía en la polarización de materiales luminiscentes.
 Estas capacidades son fundamentales para investigaciones en diversas disciplinas científicas, incluyendo química, bioquímica, farmacología, ciencias ambientales, ciencia de materiales y biomedicina.
 El objetivo principal de un espectrofluorímetro es obtener los espectros de emisión y de excitación de una muestra.
 Para lograr este objetivo, el instrumento debe ser capaz de iluminar la muestra con múltiples longitudes de onda diferentes y registrar su respuesta a cada una de ellas.
 
 La Figura 2.1 muestra un diagrama esquemático de un espectrofluorímetro genérico.
-Este instrumento incluye todos los componentes clave para cumplir su función. 
+Este instrumento incluye todos los componentes fundamentales para cumplir su función. 
 Utiliza una lámpara de espectro amplio que funciona como fuente de luz de alta intensidad para un rango extenso de longitudes de onda. 
 Posteriormente la luz es filtrada por un monocromador de excitación que permite seleccionar la longitud de onda con la que se desea iluminar a la muestra.
 La luz de excitación seleccionada se enfoca sobre la muestra colocada en la cámara principal, cuya luminiscencia, generalmente con una longitud de onda mayor que la luz de excitación, es filtrada por el monocromador de emisión.
@@ -20,25 +20,15 @@ Los monocromadores suelen estar motorizados, lo que permite que el escaneo sea a
 La luz restante llega a un detector, usualmente un tubo fotomultiplicador (PMT), un detector muy sensible que convierte fotones en corriente eléctrica.
 El espectrofluorímetro emplea diversas técnicas para reducir la luz parásita (longitudes de onda diferentes a la deseada), como el diseño en ángulo de 90° entre los brazos de excitación y emisión, y un compartimento hermético pintado de negro no reflectante.
 La señal del PMT es procesada electrónicamente, digitalizada y analizada en una computadora. 
-Este sistema también controla los monocromadores y la adquisición de datos, además de permitir al usuario ajustar parámetros y facilitar la visualización y análisis de los datos.
+Este sistema también controla los monocromadores y la adquisición de datos, además de permitir al usuario ajustar parámetros y facilitar la visualización y análisis.
 A menudo, se incorporan componentes adicionales en el camino óptico, como obturadores, polarizadores, divisores de haz y otros elementos ópticos, para estudiar diferentes propiedades de la muestra.
-
-\begin{enumerate}
-    \item que mide un espectrofluorimetro?
-    \item cuales son sus componentes?
-    \item que variables puede controlar?
-\end{enumerate}
 
 \begin{SCfigure}
      \centering
-     \includegraphics[width=0.6\textwidth]{spectrometer_diagram_lako.png}
+     \includegraphics[width=0.6\textwidth]{spectrometer_diagram_lako_modif.png}
      \caption{
-    \textbf{Diagrama de un espectrofluorímetro genérico}
-    \todo{Trabajar en estafigura}
-    (\textbf{A}) Diagram of the Horiba PTI QuantaMaster hardware. Red arrows represent motors and limit switch connectors, black is BNC, blue is USB and orange represents a fiber optic. The path that light takes inside the spectrometer is represented in thick blue arrows. 
-    (\textbf{B}) and (\textbf{C}) Representation of the old and new instrumental control module respectively.
-    (\textbf{D}) Representation of the raw signal measured from the PMT detector.
-    (\textbf{E}) Spectrum of the sample constructed from the raw signals measured at each wavelength.
+    \textbf{Diagrama de un espectrofluorímetro genérico.}
+    La luz traza un camino que comienza en la lámpara (zona superior derecha) y termina en el PMT de detección (centro izquierda). Después de salir de la lámpara, la luz es filtrada por un monocromador y luego enfocada sobre la muestra. La luz reemitida pasa por otro monocromador y termina en el PMT. La señal se lee con un sistema de control que la digitaliza y para luego ser procesada por una PC que construye los espectros.
     }
      \label{fig:spec_diagram_lako}
 \end{SCfigure}
@@ -48,7 +38,7 @@ A menudo, se incorporan componentes adicionales en el camino óptico, como obtur
 \subsection{Epectrofluirimetros en argentina y obsolescencia}
 
 Actualmente, el Departamento de Física de la FCEyN-UBA no cuenta con espectrofluorímetros para la caracterización de espectros de excitación y emisión.  
-Para realizar este tipo de mediciones, la facultad dispone del laboratorio de fotoquímica del \todo{INQUIMAE}, que cuenta con tres espectrofluorímetros con distintas características, pero que tienen algo en común: ningún equipo tiene menos de 20 años, el más antigüo llegando a los 40 años de uso.
+Para realizar este tipo de mediciones, la facultad dispone del laboratorio de fotoquímica del Instituto de Química Física de los Materiales, Medio Ambiente y Energía (INQUIMAE), que cuenta con tres espectrofluorímetros con distintas características, pero que tienen algo en común: ningún equipo tiene menos de 20 años, el más antigüo llegando a los 40 años de uso.
 La disparidad en al antigüedad y funcionalidad de los instrumentos es un fenómeno común en laboratorios de investigación en países como Argentina, donde la inversión en ciencia es escasa o poco regular en el tiempo \cite{cioccaRealityScientificResearch2017}. 
 Ante esta realidad, los institutos suelen priorizar la adquisición de equipos con nuevas capacidades, en lugar de renovar instrumentos existentes por versiones más modernas.  
 Esto es posible gracias a la precisión y robustez de las partes mecánicas de los instrumentos, pero la obsolescencia de los equipos antiguos plantea problemas a largo plazo, especialmente cuando sus plataformas de control quedan desactualizadas.  
@@ -64,16 +54,16 @@ Asimismo, recientemente se desarrolló un espectrómetro basado en Raspberry Pi 
 El software y los lenguajes de código abierto, como Python (http://www.python.org), que cuentan con bibliotecas numéricas y de instrumentación como NumPy \cite{harris_array_2020} y PyVISA \cite{grecco_pyvisa_2023}, han desempeñado un papel clave al reducir las barreras de entrada y facilitar la creación rápida de prototipos.
 Cabe destacar que han surgido empresas enfocadas en hardware parcialmente o completamente abierto. Por ejemplo, OpenBCI (https://openbci.com/), que ofrece sistemas EEG de bajo costo para interfaces cerebro-computadora, y Opentrons (https://opentrons.com/), que proporciona soluciones de manejo de líquidos para la automatización de laboratorios.
 
-En este capítulo de la tésis se explica detalladamente la plataforma de fuente abierta que desarrollamos para renovar la electrónica y el \textit{software} de control del espectrofluorímetro Horiba PTI QuantaMaster (QM) 400, uno de los espectrofluorímetros antigüos del laboratorio de fotoquímica del INQUIMAE.
+En este capítulo de la tésis se describe detalladamente la plataforma de fuente abierta que desarrollamos para renovar la electrónica y el \textit{software} de control del espectrofluorímetro Horiba PTI Quanta Master (QM 400), uno de los espectrofluorímetros antigüos del laboratorio de fotoquímica del INQUIMAE.
 Además de su renovación, ampliamos sus capacidades para medir tiempos de vida del orden de los microsegundos, que junto con el agregado de un láser pulsado externo de 980 nm nos permitió conseguir la plataforma ideal para la caracterización óptica de UCNPs tanto estática como dinámica.
 
 
-\section{Espectrofluorímetro Horiba PTI Quanta Master 400}
+\section{Renovación y ampliación del fluorímetro Horiba PTI Quanta Master 400}
 
-\subsection{componentes}
+\subsection{Componentes originales}
 
 La serie Horiba PTI QM incluye espectrofluorímetros modulares para investigación científica y sistemas optimizados para mediciones de fotoluminiscencia.
-Estos espectrofluorímetros se encuentran frecuentemente en los laboratorios de Argentina, por ejemplo, sabemos que hay tres equipos de esta serie en el laboratorio de fotoquímica del INQUIMAE (QM400, QM-4 y RatioMaster), dos en \todo{CIBION} y uno en \todo{CAC-CNEA}, y probablemente haya más de modelos similares en otras instituciones.
+Estos espectrofluorímetros se encuentran frecuentemente en los laboratorios de Argentina, por ejemplo, sabemos que hay tres equipos de esta serie en el laboratorio de fotoquímica del INQUIMAE (QM400, QM-4 y RatioMaster), dos en el Centro de Investigaciones en Bionanociencias (CIBION) y uno en el Centro Atómico Constituyentes de la Comisión Nacional de Energía Atómica (CAC-CNEA), y probablemente haya más similares en otras instituciones.
 Al ser modelos antigüos y descontinuados se pueden encontrar en el mercado por precios que rondan los \$5000 USD, un costo relativamente bajo para un espectrofluorímetro científico.
 Los bajos costos se dan por su antigüedad y fin de soporte por parte de la empresa, lo que obliga a los usuarios a resolver ellos mismos los problemas que haya con los equipos.
 Por ejemplo, en CIBION, uno de los dos modelos que tienen no está funcionando porque hay problemas con la inicialización de los controladores en la PC.
@@ -92,8 +82,11 @@ FelixGX permite medir espectros de emisión y excitación (\textbf{Fig. \ref{fig
 La antigüedad de la PC y electrónica de control hace que el proceso de adquisición de datos sea tedioso, y más aún para la caracterización de UCNPs.
 Para hacer una medición el usuario debe colocar la muestra en la cámara y luego configurar en FelixGX un barrido de la longitud de onda de excitación o emisión.
 En el caso de medir \textit{upconversion} se debe agregar un láser controlado externamente por una fuente de corriente (\textbf{Fig. \ref{fig:ref-diagram}A}) en la que se debe configurar por separado los parámetros de excitación, como la potencia.
-Una plataforma de caracterización óptica completa de UCNPs debería ser capaz de medir espectros de excitación a 980 nm con distintas densidades de potencia, y tiempos de vida (también a distintas potencias) del orden de los microsegundos.
+Una plataforma de caracterización óptica completa de UCNPs debería ser capaz de medir espectros de emisión y tiempos de vida (del orden de los microsegundos) excitando a 980 nm con distintas densidades de potencia.
 Además, como las mediciones de espectro y tiempo de vida son de larga duración (en especial a bajas potencias), resulta ideal que la plataforma permita configurar múltiples mediciones sucesivas sin la necesidad de una configuración manual por el usuario.
+Durante su tésis de doctorado, Juan Bujjamer agregó la capacidad de medir tiempos de vida típicos de \textit{upconversion} al QM 400 \cite{bujjamer2020}. 
+Para lograrlo utilizó en conjunto el control de los monocromadores que brinda FelixGX, una CPU y FPGA Red Pitaya y una fuente de diodo láser externa.
+El excelente trabajo de Juan durante sentó las bases para que en este trabajo podamos hacer una renovación total del QM 400, utilizando como única plataforma de control a la Red Pitaya e independizandonos de la PC de control original.
 En las siguientes secciones, explicaremos los cambios de \textit{hardware} y \textit{software} que realizamos en el espectrofluorímetro para que sea una plataforma ideal para medir \textit{upconversion}.
 
 
@@ -123,30 +116,30 @@ En las siguientes secciones, explicaremos los cambios de \textit{hardware} y \te
 \begin{figure}[h]
      \centering
      \includegraphics[width=0.9\textwidth]{hardware.png}
-     \caption{\textbf{Horiba PTI QuantaMaster 400 picture}. \todo{maybe pasar a apéndice} (\textbf{A}) Picture of the whole spectrometer. Circled in red the monochromators' motors and limit switches. (\textbf{B}) Stepper motors pin diagram. The only used pins for the refurbished version are 1 and 7, and 3 and 5, which correspond to each motor winding respectively. (\textbf{C}) Limit switches pin diagram.}
+     \caption{\textbf{Foto del Horiba PTI Quanta Master 400}. 
+    (\textbf{A}) Imagen del espectrómetro completo. En rojo se señalan los motores de los monocromadores y los fines de carrera. (\textbf{B}) Diagrama de pines de los motores paso a paso. Los únicos pines utilizados en la versión renovada son 1 y 7, y 3 y 5, que corresponden a cada bobina del motor respectivamente. (\textbf{C}) Diagrama de pines de los fines de carrera.}
      \label{fig:hardware}
 \end{figure}
 
 
 
-\section{Renovación y ampliación de Horiba PTI Quanta Master 400 \todo{mencionar a juan}}
-
-\subsection{Hardware para renovación}
+\subsection{Hardware para la renovación del QM 400}
 
 Luego de hacer una inspección de todas las partes, decidimos conservar los componentes ópticos, la motorización, el PMT, la fuente de alta tensión y el chasis, ya que son robustos y funcionales.  
-En contraste, la electrónica de control y detección resultó ser voluminosa, de código cerrado y obsoleta, por lo que optamos por reemplazarla con alternativas modernas: una microCPU con FPGA integrada Red Pitaya (RP) STEM LAB 125-14.
-La RP cuenta con cuatro entradas y salidas analógicas que emiten y procesan señales en las radiofrecuencias, y un conjunto de pines digitales que permiten controlar circuitos integrados fácilmente (\textbf{\ref{fig:connection_diagram}}).
+En contraste, la electrónica de control y detección resultó ser voluminosa, de código cerrado y obsoleta, por lo que optamos por reemplazarla con alternativas modernas: una CPU con FPGA integrada Red Pitaya (RP) STEM LAB 125-14.
+La RP cuenta con cuatro entradas y salidas analógicas que emiten y procesan señales en las radiofrecuencias, y un conjunto de pines digitales que permiten controlar circuitos integrados fácilmente.
 Esta placa junto con dos circuitos integrados DRV8825 que simplifican el control de los motores por paso cumplen la tarea de controlar a los monocromadores.
 Este cambio en la electrónica de control nos permitió reemplazar el voluminoso módulo MDM ($\sim$10 cm $\times$ 30 cm $\times$ 30 cm) por dos controladores DRV8825 soldados a una placa PCB mucho más pequeña (10 cm$\times$ 10 cm $\times$ 2 cm)(\textbf{Fig. \ref{fig:placa}}).
 Para facilitar la conexión de los componentes del espectrofluorímetro a la RP también agregamos a la placa un puerto IDC que permite conectar los pines digitales, y conectores a los motores a través de fichas adaptadas a medida.
 El PMT se conecta a través de un cable BNC-SMA a uno de los canales analógicos de radiofrecuencias de la RP, luego son digitalizados por su conversor analógico digital (ADC)(\textbf{Fig. \ref{fig:ref-diagram}D}) y luego contados por software (\textbf{Fig. \ref{fig:ref-diagram}E}).
-El ADC de 14 bits de la RP se configura con una frecuencia de muestreo de 32.25 MHz de forma tal de satisfacer el criterio de Nyquist.
-La API de la RP permite configurar dos métodos distintos para comenzar una adquisición de datos.
+Todas las conexiones se ven detalladas en la figura (\textbf{\ref{fig:connection_diagram}}).
+El ADC de 14 bits de la RP se configura con una frecuencia de muestreo de 31.25 MHz de forma tal de satisfacer el criterio de Nyquist (ver sección \ref{sec:caracterizacion_pmt}).
+RP tiene una interfaz de programación de aplicaciones que permite configurar dos métodos distintos para comenzar una adquisición de datos.
 Una opción es llamar a una función que comienza la adquisición de inmediato.
 Alternativamente, se puede configurar una de las entradas analógicas o digitales como \textit{trigger} para comenzar una medición.
-Nosotros usamos un método para medir espectros estáticos y otro para medir tiempos de vida.
+Nosotros usamos el primer método para medir espectros estáticos y el otro para medir tiempos de vida.
 Asimismo, la RP tiene dos mecanismos distintos para escribir los datos en la memoria al hacer una adquisición: un método por defecto de escritura a un espacio de memoria de 2$^{14}$ enteros de 16 bits, y un método de adquisición de memoria profunda (DMA) que permite guardar hasta 2 MB \cite{DMA_rp}.
-Con esta capacidad para almacenar datos, a 32.25 MHz la ventana temporal de pulsos más grande que se puede obtener es de $\sim 0.5$ ms y $\sim 8$ ms respectivamente.
+Con esta capacidad para almacenar datos, a 31.25 MHz la ventana temporal de pulsos más grande que se puede obtener es de $\sim 0.5$ ms y $\sim 8$ ms respectivamente.
 Aunque resulta beneficioso el método DMA y se podría implementar en esta renovación, nosotros utilizamos el método por defecto por la simplicidad que significó durante el desarrollo.
 Para contrarrestar la corta duración de la ventana de adquisición, el software de control que desarrollamos permite agregar una demora para obtener ventanas de medición más grandes (ver sección \ref{sec:proceso_dinamico}).
 El apéndice \ref{apendice:instrucciones_armado} explica detalladamente cómo reproducir las conexiones.
@@ -173,7 +166,8 @@ Para ello, añadimos una fuente de luz IR externa modulable al sistema.
 En nuestro caso, utilizamos un controlador de diodo láser y temperatura (TEC) de banco THORLABS ITC4020, controlado por la RP, para operar un diodo láser BL976-SAG300 de 976 nm y 300 mW. 
 La salida del diodo láser se conecta mediante una fibra óptica a la entrada de fuente externa del QM 400 (\textbf{Fig. \ref{fig:ref-diagram}A}). 
 El ITC4020 permite configurar la frecuencia de pulsado y el ciclo de trabajo, además de proporcionar una señal TTL que está en 5 V cuando el láser está prendido y 0 V cuando está apagado.
-Esta señal se conecta a otra de las entradas analógicas de la RP, que luego la utiliza como \textit{trigger} para sincronizar la finalización de la excitación del láser, con la medición de los pulsos eléctricos de los fotones, para luego realizar histogramas y así medir los tiempos de vida, proceso que se explica en detalle en la sección \ref{sec:proceso_dinamico}.  
+Esta señal se conecta a otra de las entradas analógicas de la RP, que luego la utiliza como \textit{trigger} para sincronizar la finalización de la excitación del láser, con la medición de los pulsos eléctricos de los fotones.
+Esa sincronización le permite al \textit{software} realizar histogramas y así medir los tiempos de vida, proceso que se explica en detalle en la sección \ref{sec:proceso_dinamico}.  
 
 %\todo{ \\
 %Excitación con laser pulsado. Control de potencia y duty cycle. funcionamiento del trigger. el resto ya lo puede hacer la RP \\
@@ -182,7 +176,7 @@ Esta señal se conecta a otra de las entradas analógicas de la RP, que luego la
 \begin{figure}[h]
      \centering
      \includegraphics[width=0.9\textwidth]{placa.jpg}
-     \caption{\textbf{Horiba PTI QuantaMaster 400 picture}. \todo{maybe pasar a apéndice} (\textbf{A}) Picture of the whole spectrometer. Circled in red the monochromators' motors and limit switches. (\textbf{B}) Stepper motors pin diagram. The only used pins for the refurbished version are 1 and 7, and 3 and 5, which correspond to each motor winding respectively. (\textbf{C}) Limit switches pin diagram.}
+     \caption{\textbf{Placa PCB con la electrónica de control.} La placa cuenta con un puerto IDC (izquierda) al que se conectan los pines digitales de la RP, que además provee la alimentación de 3.3 V a los circuitos integrados (centro). La placa incluye una bornera para proveer una referencia a tierra, una alimentación de 5 V y otra de 12 V.}
      \label{fig:placa}
 \end{figure}
 
@@ -206,7 +200,16 @@ Para realizar un conteo preciso de los fotones que inciden en el fotocátodo, ca
 Como resultado, medimos la corriente de oscuridad, determinamos el ancho medio de los pulsos y definimos el algoritmo de detección de pulsos más adecuado para optimizar el conteo. 
 En las próximas secciones describimos en detalle esta caracterización.
 
+
+
 \subsection{Caracterización del PMT con la Red Pitaya} \label{sec:caracterizacion_pmt}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{sig_pmt.png}
+    \caption{\textbf{Señal del PMT.} (\textbf{A}) Medición de la señal del PMT en una ventana de la RP. Medidos a 62.5 MHz en azul y 31.25 MHz en naranja:(\textbf{B}) detalle de un pulso que satura al PMT, (\textbf{C}) Detalle de un pulso que no satura el PMT.}
+    \label{fig:pmt_signal}
+\end{figure}
 
 Una señal típica del PMT al ser iluminado de forma constante, medida con una ventana de la RP a 31.25 MHz,  se puede ver en la figura (\textbf{\ref{fig:pmt_signal}A}).
 La señal muestra un voltaje de base que ronda los 3.5 V, y múltiples picos negativos que representan la llegada de un fotón al fotocátodo.
@@ -232,50 +235,52 @@ Esto nos permite definir una tasa máxima $R$ de fotones por segundo que podemos
 Bajo iluminación continua, la probabilidad de que un fotón llegue al detector en un tiempo $t$ al medir en un intervalo $T$ es uniforme.
 Entonces, la probabilidad $P$ de que otro fotón se solape debe ser $P = R \times T$, por lo que si queremos que la probabilidad máxima sea del 90\%, podremos adquirir a una tasa de fotones por segundo de $R = P/T = 0.1/113 \times 10^9$ Hz$ = 8.9 \times 10^5$ Hz.
 
-Las mediciones que mostramos en esta sección fueron útiles para definir determinar que un pulso de la señal es un fotón sólo si su máximo es menor a 1 V.
+Las mediciones que mostramos en esta sección fueron útiles para determinar que un pulso de la señal es un fotón sólo si su máximo es menor a 1 V.
 Además, nos permitieron limitar la tása máxima con la que se miden fotones a $R = 8.9 \times 10^5$ fotones por segundo para tener un 10\% de chances de que se solapen.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{sig_pmt.png}
-    \caption{\textbf{Señal del PMT} tomada con la RP a 32.25 MHz.}
-    \label{fig:pmt_signal}
-\end{figure}
 
 \begin{SCfigure}
     \centering
-    \includegraphics[width=0.5\textwidth]{histograma_puntos.png}
-    \caption{\textbf{Señal del PMT} tomada con la RP a 32.25 MHz.}
+    \includegraphics[width=0.5\textwidth]{histograma_puntos_pdf.png}
+    \caption{\textbf{Histograma de voltajes} de una señal del PMT tomada con la RP a 31.25 MHz. El eje vertical está en escala logarítmica.}
     \label{fig:histograma_puntos}
 \end{SCfigure}
 
 
 \begin{figure}
     \includegraphics[width=\textwidth]{ancho_pulsos.png}
-    \caption{autocorrelacion de los picos. Tmb tengo un fit gausiano para ver el ancho.}
+    \caption{\textbf{Autocorrelación} de las ventanas medidas por la RP a 31.25 MHz. A la izquierda se ve la autocorrelación de cada ventana y un ajuste gaussiano a una de ellas. A la derecha, un histograma de las desviaciones estandar de las gausianas.}
     \label{fig:ancho_pulsos}
 \end{figure}
 
 \subsection{Conteo de fotones}
 
+
 Una vez que la RP obtiene la señal del PMT, el paso que queda para convertirla a intensidad lumínica es hacer un conteo de la cantidad de pulsos para la ventana de tiempo que midió.
-Para esto, se necesita un algoritmo que tome como entrada la señal temporal del PMT y devuelva como salida el conjunto de tiempos $\{t_p\}$ en los que hay un pulso.
+Para esto, se necesita un algoritmo que tome como entrada la señal temporal del PMT $s(t)$, que muestreada es un conjunto discreto $\{s(t_i)\}$ y devuelva como salida el conjunto de tiempos $\{t_p\}$ en los que hay un pulso.
 El algoritmo debe cumplir con dos condiciones: tiene que ser preciso para no sesgar los espectros y tiempos de vida, y tiene que ser rápido para que las mediciones se puedan hacer en tiempo real.
-Nuestra implementación, que llamaremos DB, consiste en tres paso, (i) binariza la señal temporal, (ii) busca los puntos en los que la derivada hace un salto y (iii) elimina los puntos que están muy cerca en el tiempo.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{conteo.png}
+    \caption{\textbf{Comparación de distintos métodos de conteo de fotones.} (\textbf{A}) distribución de pulsos simulados en un intervalo $T \sim 96$ ms y (\textbf{C}) distribución del tiempo $\Delta t$ entre esos pulsos. Análogamente, (\textbf{B}) y (\textbf{D}) para datos de pulsos medidos con frecuencia de muestreo de 31.25 MHz y detectados con el algoritmo $DB$. (\textbf{E}) y (\textbf{G}) medidos a 62.5 MHz y detectados con $DB$. (\textbf{F}) y (\textbf{H}) medidos a 31.25 MHz y detectados con $D$.}
+    \label{fig:conteo}
+\end{figure}
+
+Nuestra implementación, que llamaremos DB, consiste en tres pasos, (i) binariza la señal temporal, (ii) busca los puntos en los que la derivada hace un salto y (iii) elimina los puntos que están muy cerca en el tiempo.
 La binarización consiste en convertir en 1 a los puntos que sobrepasan (es decir, cuyo voltaje es menor que) cierto umbral $V_b$ y en 0 a los que no. 
-Luego, se calcula la diferencia entre los puntos consecutivos $\Delta t_p$ y se toma el conjunto $\{t_b\}$ en los que la diferencia es negativa.
+Luego, se calcula la diferencia entre los puntos consecutivos $\Delta s(t_i) = s(t_{i+1}) - s(t_i)$, y se toma el conjunto $\{t_j\}$ en los que la diferencia es negativa.
 Por último, se eliminan los puntos que estén a menos de $\Delta t_{min}$ de otros.
 Si bien tanto $V_b$ como $\Delta t_{min}$ son configurables, los valores por defecto son $V_b = 1$V, que se tomó según lo encontrado en la sección \ref{sec:caracterizacion_pmt}, y $\Delta t_{min} = 0$, ya que vimos que cambiar este último valor no generaba una diferencia en los pulsos detectados.
 Si bien existen otros algoritmos más sofisticados para encontrar picos, como la función \textit{find\_peaks\_cwt} del paquete de Python \textit{scipy}, estos suelen aplicar técnicas costosas computacionalmente, y por lo tanto lentas a comparación de tomar la derivada y binarización \cite{du_improved_2006}.
 
 Una vez elegido el algoritmo, es necesario asegurarse que estuviera contando pulsos correctamente.
-Para eso iluminamos una muestra con intensidad constante durante un intervalo $T$ de medición, calculamos la distribución de $\Delta t_p$ y la comparamos con una simulación equivalente (\textbf{Fig. \ref{fig:conteo}}).
-La diferencia $\Delta t_p = t_{p+1} - t_p$ entre dos variables aleatorias uniformemente distribuidas, y ordenadas de forma tal que $t_1 < ... < t_p < t_{p+1} < ... < t_N $ es otra variable aleatoria con distribución exponencial y valor medio $T/N$, donde $N$ es el número de pulsos detectados.
-La simulación consiste en N = 30000 pulsos uniformemente distribuidos en un intervalo de $\sim 96$ ms, lo que da un valor medio de $\lambda \equiv \langle \Delta t \rangle = 3.22$ $\mu$s (\textbf{Fig. \ref{fig:conteo}A y C}).
+Para eso iluminamos una muestra con intensidad constante durante un intervalo $T$ de medición, calculamos la distribución de $\Delta t_j$ y la comparamos con una simulación equivalente (\textbf{Fig. \ref{fig:conteo}}).
+La diferencia $\Delta t_i = t_{i+1} - t_i$ entre dos variables aleatorias uniformemente distribuidas, y ordenadas de forma tal que $t_1 < ... < t_i < t_{i+1} < ... < t_N $ es otra variable aleatoria con distribución exponencial y valor medio $T/N$, donde $N$ es el número de pulsos detectados.
+La simulación consiste en N = 30000 pulsos uniformemente distribuidos en un intervalo de $\sim 96$ ms, lo que da un valor medio de $\lambda \equiv \langle \Delta t_j \rangle = 3.22$ $\mu$s (\textbf{Fig. \ref{fig:conteo}A y C}).
 Se tomó N = 30000 para tener una buena estadística a la hora de comparar con la distribución de probabilidad exacta (línea punteada en \textbf{Fig. \ref{fig:conteo}C}) con el mismo valor medio.
 Realizamos la medición por el mismo intervalo de tiempo con una frecuencia de muestreo de 62.5 MHz al iluminar una muestra con CW.
-El algoritmo \textit{DB} detectó 3218 pulsos, y se ve que la distribución de $\Delta t$ parece seguir una exponencial excepto por el primer intervalo del histograma que tiene un número de cuentas mucho mayor que el resto (\textbf{Fig. \ref{fig:conteo}E y G}).
-Esto se debe a las fluctuaciones de alta frecuencia, que hacen que \textit{DB} detecte dos $t_p$ para un mismo pulso de la señal. 
+El algoritmo \textit{DB} detectó 3218 pulsos, y se ve que la distribución de $\Delta t_j$ parece seguir una exponencial excepto por el primer intervalo del histograma que tiene un número de cuentas mucho mayor que el resto (\textbf{Fig. \ref{fig:conteo}E y G}).
+Esto se debe a las fluctuaciones de alta frecuencia, que hacen que \textit{DB} detecte dos $t_j$ para un mismo pulso de la señal. 
 Para resolver este problema se puede aumentar $\Delta t_{min}$ o reducir la frecuencia de muestreo.
 La frecuencia de 31.25 MHz sigue siendo capaz de detectar pulsos (ver \ref{sec:caracterizacion_pmt}), por lo que realizamos el mismo análisis sub-muestreando la señal original.
 En este caso \textit{DB} detectó 2840 pulsos, y se ve que la distribución de $\Delta t$ sigue una exponencial con valor medio $\lambda = 68.12$ (\textbf{Fig. \ref{fig:conteo}B y D}).
@@ -289,9 +294,10 @@ Por último, para tener una medida cuantitativa de la bondad de ajuste al modelo
 \end{equation}
 
 \noindent donde $n$ es el número de barras en el histograma, $O_i$ es la cantidad de cuentas observadas, y $E_i$ es la cantidad de cuentas esperadas, asumiendo que la distribución de los datos debería ser una exponencial con el valor medio observado $\langle \Delta t \rangle$.
-Obtuvimos los estadísticos de la tabla \ref{tab:chisq},
+Obtuvimos los estadísticos de la tabla \ref{tab:chisq}, donde el $\chi^2$ crítico es el correspondiente a un test de hipótesis con significancia $\alpha = 0.05$.
+Después de esta comparación entre algoritmos de detección y frecuencias de sampleo, concluimos que la elección óptima es tomar los datos a 31.25 MHz y usar el algoritmo de detección \textit{DB}.
 
-\begin{table}[htbp]
+\begin{table}[t]
 \centering
 \begin{tabular}{|l|c|}
     \hline
@@ -307,13 +313,3 @@ Obtuvimos los estadísticos de la tabla \ref{tab:chisq},
 \label{tab:chisq}
 \end{table}
 
-\noindent donde el $\chi^2$ crítico es el correspondiente a un test de hipótesis con significancia $\alpha = 0.05$.
-Después de esta comparación entre algoritmos de detección y frecuencias de sampleo, concluimos que la elección óptima es tomar los datos a 31.25 MHz y usar el algoritmo de detección \textit{DB}.
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{conteo.png}
-    \caption{\textbf{sim}}
-    \label{fig:conteo}
-\end{figure}
