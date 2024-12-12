@@ -187,10 +187,11 @@ Esta señal se conecta a otra de las entradas analógicas de la RP, que luego la
 \end{figure}
 
 
-\subsection{Caracterización del PMT con la Red Pitaya} \label{sec:caracterizacion_pmt}
+\section{Sistema de detección de fotones}
+
 
  
-Los tubos fotomultiplicadores (PMTs) son detectores ampliamente utilizados en fluorómetros y cumplen un rol central en el funcionamiento del instrumento. 
+Los tubos fotomultiplicadores (PMTs) son detectores de fotones ampliamente utilizados en fluorómetros y cumplen un rol central en el funcionamiento del instrumento. 
 Un PMT está compuesto por un fotocátodo y una serie de dínodos, que actúan como etapas de amplificación. 
 Los fotones incidentes provocan la emisión de electrones desde el fotocátodo, y estos son amplificados sucesivamente por los dínodos. 
 Al final del proceso, que tiene una duración típica de 40 a 50 nanosegundos, el pulso llega a un ánodo, desde donde se lee la señal. 
@@ -202,24 +203,27 @@ Esto puede generar una corriente de oscuridad alta, pulsos espurios en la señal
 En nuestro instrumento renovado, la señal del PMT se adquiere utilizando una Red Pitaya (RP). 
 Este dispositivo permite una frecuencia máxima de adquisición de 125 MHz, aunque también es posible trabajar a frecuencias menores que sean divisiones por 2 de ese valor. 
 Para realizar un conteo preciso de los fotones que inciden en el fotocátodo, caracterizamos la señal del PMT del QM 400 utilizando la RP en las mismas condiciones operativas del fluorímetro modificado.
-Como resultado, determinamos el ancho medio de los pulsos y definimos el algoritmo de detección de pulsos más adecuado para optimizar el conteo. 
+Como resultado, medimos la corriente de oscuridad, determinamos el ancho medio de los pulsos y definimos el algoritmo de detección de pulsos más adecuado para optimizar el conteo. 
+En las próximas secciones describimos en detalle esta caracterización.
 
-Como comentamos en la sección anterior, la RP puede medir una ventana temporal de hasta $2^{14}$ muestras.
+\subsection{Caracterización del PMT con la Red Pitaya} \label{sec:caracterizacion_pmt}
+
 Una señal típica del PMT al ser iluminado de forma constante, medida con una ventana de la RP a 31.25 MHz,  se puede ver en la figura (\textbf{\ref{fig:pmt_signal}A}).
 La señal muestra un voltaje de base que ronda los 3.5 V, y múltiples picos negativos que representan la llegada de un fotón al fotocátodo.
 Si bien la mayoría de pulsos suelen estar entre 1 y 0 V, hay otros que no llegan a saturar el detector y tienen menor altura.
 Los pulsos que saturan tienen un tiempo rápido de subida, de aproximadamente $\sim 16$ ns, luego son constantes y después bajan rápidamente.  
-Se puede nota una ligera asimetría, sus colas presentan dos rebotes alrededor de 2 y 3 V (\textbf{Fig. \ref{fig:pmt_signal}B}).
+Se puede notar una ligera asimetría en ellos, sus colas presentan dos rebotes alrededor de 2 y 3 V (\textbf{Fig. \ref{fig:pmt_signal}B}).
 Por otro lado, los picos que no saturan presentan oscilaciones de alta frecuencia en el máximo.
-Si se compara una adquisición a distintas frecuencias de muestreo, se puede ver que estos efectos se ven atenuados al medir a menores frecuencias de muestreo (\textbf{Fig. \ref{fig:pmt_signal}C}). 
+Estos efectos se ven atenuados al medir a menores frecuencias de muestreo (\textbf{Fig. \ref{fig:pmt_signal}C}). 
 
-Seleccionando la frecuencia de 31.25 MHz se puede ver el histograma  del voltaje de los puntos de la señal (\textbf{Fig. \ref{fig:histograma_puntos}}).
+La figura (\textbf{\ref{fig:histograma_puntos}}) muestra un histograma del voltaje de los puntos de una señal tomada con una frecuencia de muestreo de 31.25 MHz.
 Para eliminar la base de la señal se tomaron sólo los puntos con voltajes menores a 3.4 V.
 Se pueden ver dos picos en el histograma, uno para voltajes menores a 1 V, que corresponde a los pulsos que saturan al PMT, y otro para mayores a 3 V, que se pueden adjudicar al ruido y a los rebotes de la señal en las colas de los pulsos.
 El eje vertical en escala logarítmica permite diferenciar un salto alrededor de 1.4 V, éste corresponde a los pulsos que no saturan y cuyas oscilaciones de alta frecuencia se ven atenuadas a 31.25 MHz.
 Viendo el histograma de la altura de los pulsos, tomamos como criterio considerar un pulso de la señal como un fotón que llegó al detector a todos ellos cuyo pico sea menor a 1 V.
+Además de esta medición a iluminación constante analizamos la señal sin iluminar, concluyendo que la corriente de oscuridad es suficientemente baja como para no considerarla en el conteo.
 
-Por último, para estimar el ancho promedio de los pulsos calculamos la autocorrelación a partir de la medición de múltiples ventanas de la señal del PMT bajo iluminación constante.
+Para estimar el ancho promedio de los pulsos calculamos la autocorrelación a partir de la medición de múltiples ventanas de la señal del PMT bajo iluminación constante.
 La relación entre la desviación estandar $\sigma$ de una distribución gaussiana, y la desviación estandar $\sigma_c$ su autocorrelación está dada por $\sigma = \sigma_c/\sqrt{2}$.
 Aproximando a los pulsos que llegan al detector por gaussianos, y usando que el ancho total a mitad de altura (FWHM) de una gaussiana es FWHM $= 2 \sqrt{2 \ln{2}}\sigma$, podemos obtener el FWHM de los pulsos con la fórmula FWHM $= 2 \sqrt{2 \ln{2}}\sigma_c / \sqrt{2}$
 Por lo tanto, ajustamos el resultado de las autocorrelaciones por una gaussiana y realizamos un histograma de las desviaciones estandar de los pulsos $\sigma = \sigma_c / \sqrt{2}$ obtenidas (\textbf{Fig. \ref{fig:ancho_pulsos}}).
@@ -228,7 +232,8 @@ Esto nos permite definir una tasa máxima $R$ de fotones por segundo que podemos
 Bajo iluminación continua, la probabilidad de que un fotón llegue al detector en un tiempo $t$ al medir en un intervalo $T$ es uniforme.
 Entonces, la probabilidad $P$ de que otro fotón se solape debe ser $P = R \times T$, por lo que si queremos que la probabilidad máxima sea del 90\%, podremos adquirir a una tasa de fotones por segundo de $R = P/T = 0.1/113 \times 10^9$ Hz$ = 8.9 \times 10^5$ Hz.
 
-
+Las mediciones que mostramos en esta sección fueron útiles para definir determinar que un pulso de la señal es un fotón sólo si su máximo es menor a 1 V.
+Además, nos permitieron limitar la tása máxima con la que se miden fotones a $R = 8.9 \times 10^5$ fotones por segundo para tener un 10\% de chances de que se solapen.
 
 \begin{figure}
     \centering
@@ -249,4 +254,66 @@ Entonces, la probabilidad $P$ de que otro fotón se solape debe ser $P = R \time
     \includegraphics[width=\textwidth]{ancho_pulsos.png}
     \caption{autocorrelacion de los picos. Tmb tengo un fit gausiano para ver el ancho.}
     \label{fig:ancho_pulsos}
+\end{figure}
+
+\subsection{Conteo de fotones}
+
+Una vez que la RP obtiene la señal del PMT, el paso que queda para convertirla a intensidad lumínica es hacer un conteo de la cantidad de pulsos para la ventana de tiempo que midió.
+Para esto, se necesita un algoritmo que tome como entrada la señal temporal del PMT y devuelva como salida el conjunto de tiempos $\{t_p\}$ en los que hay un pulso.
+El algoritmo debe cumplir con dos condiciones: tiene que ser preciso para no sesgar los espectros y tiempos de vida, y tiene que ser rápido para que las mediciones se puedan hacer en tiempo real.
+Nuestra implementación, que llamaremos DB, consiste en tres paso, (i) binariza la señal temporal, (ii) busca los puntos en los que la derivada hace un salto y (iii) elimina los puntos que están muy cerca en el tiempo.
+La binarización consiste en convertir en 1 a los puntos que sobrepasan (es decir, cuyo voltaje es menor que) cierto umbral $V_b$ y en 0 a los que no. 
+Luego, se calcula la diferencia entre los puntos consecutivos $\Delta t_p$ y se toma el conjunto $\{t_b\}$ en los que la diferencia es negativa.
+Por último, se eliminan los puntos que estén a menos de $\Delta t_{min}$ de otros.
+Si bien tanto $V_b$ como $\Delta t_{min}$ son configurables, los valores por defecto son $V_b = 1$V, que se tomó según lo encontrado en la sección \ref{sec:caracterizacion_pmt}, y $\Delta t_{min} = 0$, ya que vimos que cambiar este último valor no generaba una diferencia en los pulsos detectados.
+Si bien existen otros algoritmos más sofisticados para encontrar picos, como la función \textit{find\_peaks\_cwt} del paquete de Python \textit{scipy}, estos suelen aplicar técnicas costosas computacionalmente, y por lo tanto lentas a comparación de tomar la derivada y binarización \cite{du_improved_2006}.
+
+Una vez elegido el algoritmo, es necesario asegurarse que estuviera contando pulsos correctamente.
+Para eso iluminamos una muestra con intensidad constante durante un intervalo $T$ de medición, calculamos la distribución de $\Delta t_p$ y la comparamos con una simulación equivalente (\textbf{Fig. \ref{fig:conteo}}).
+La diferencia $\Delta t_p = t_{p+1} - t_p$ entre dos variables aleatorias uniformemente distribuidas, y ordenadas de forma tal que $t_1 < ... < t_p < t_{p+1} < ... < t_N $ es otra variable aleatoria con distribución exponencial y valor medio $T/N$, donde $N$ es el número de pulsos detectados.
+La simulación consiste en N = 30000 pulsos uniformemente distribuidos en un intervalo de $\sim 96$ ms, lo que da un valor medio de $\lambda \equiv \langle \Delta t \rangle = 3.22$ $\mu$s (\textbf{Fig. \ref{fig:conteo}A y C}).
+Se tomó N = 30000 para tener una buena estadística a la hora de comparar con la distribución de probabilidad exacta (línea punteada en \textbf{Fig. \ref{fig:conteo}C}) con el mismo valor medio.
+Realizamos la medición por el mismo intervalo de tiempo con una frecuencia de muestreo de 62.5 MHz al iluminar una muestra con CW.
+El algoritmo \textit{DB} detectó 3218 pulsos, y se ve que la distribución de $\Delta t$ parece seguir una exponencial excepto por el primer intervalo del histograma que tiene un número de cuentas mucho mayor que el resto (\textbf{Fig. \ref{fig:conteo}E y G}).
+Esto se debe a las fluctuaciones de alta frecuencia, que hacen que \textit{DB} detecte dos $t_p$ para un mismo pulso de la señal. 
+Para resolver este problema se puede aumentar $\Delta t_{min}$ o reducir la frecuencia de muestreo.
+La frecuencia de 31.25 MHz sigue siendo capaz de detectar pulsos (ver \ref{sec:caracterizacion_pmt}), por lo que realizamos el mismo análisis sub-muestreando la señal original.
+En este caso \textit{DB} detectó 2840 pulsos, y se ve que la distribución de $\Delta t$ sigue una exponencial con valor medio $\lambda = 68.12$ (\textbf{Fig. \ref{fig:conteo}B y D}).
+A modo de comparación, también procesamos la señal a 31.25 MHz pero usando un algoritmo \textit{D} que consiste en tomar los puntos en los que la derivada es menor a un umbral (en este caso de -0.5).
+Éste detectó 4883 pulsos, y se puede ver que también tiene el problema de detectar fluctuaciones de alta frecuencia, aumentando sintéticamente la cantidad de pulsos que hay en la señal (\textbf{Fig. \ref{fig:conteo}F y H}).
+
+Por último, para tener una medida cuantitativa de la bondad de ajuste al modelo exponencial, calculamos el $\chi^2$ dado por la fórmula 
+
+\begin{equation}
+    \chi^2  = \sum_{i=1}^{n=50} \frac{(O_i - E_i)^2}{E_i},
+\end{equation}
+
+\noindent donde $n$ es el número de barras en el histograma, $O_i$ es la cantidad de cuentas observadas, y $E_i$ es la cantidad de cuentas esperadas, asumiendo que la distribución de los datos debería ser una exponencial con el valor medio observado $\langle \Delta t \rangle$.
+Obtuvimos los estadísticos de la tabla \ref{tab:chisq},
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|c|}
+    \hline
+    \textbf{Método} & \boldmath$\chi^2$ \\
+    \hline
+    DB 31.25 MHz & 48 \\
+    D 31.25 MHz & 5690 \\
+    DB 62.5 MHz & 486 \\
+    Crítico & 65 \\
+    \hline
+\end{tabular}
+\caption{Comparación del estadístico $\chi^2$ para los distintos métodos.}
+\label{tab:chisq}
+\end{table}
+
+\noindent donde el $\chi^2$ crítico es el correspondiente a un test de hipótesis con significancia $\alpha = 0.05$.
+Después de esta comparación entre algoritmos de detección y frecuencias de sampleo, concluimos que la elección óptima es tomar los datos a 31.25 MHz y usar el algoritmo de detección \textit{DB}.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{conteo.png}
+    \caption{\textbf{sim}}
+    \label{fig:conteo}
 \end{figure}
