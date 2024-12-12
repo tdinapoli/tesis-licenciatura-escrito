@@ -1,11 +1,33 @@
 
 
-En este capítulo, vamos a utilizar el Horiba PTI QM 400 renovado y con su ampliación de capacidades para caracterizar ópticamente un lote de UCNPs.
-Todas las partículas usadas en este trabajo fueron sintetizadas por el equipo colaborador del Instituto de Química Física de los Materiales, Medio Ambiente y Energía (INQUIMAE), liderado por Beatriz Barja y María Claudia Marchi. 
+En este capítulo, vamos a utilizar el Horiba PTI QM 400 renovado y con su ampliación de capacidades para realizar mediciones de espectros estáticos de excitación y emisión, así como mediciones de tiempo de vida.
+En la primera sección vamos a medir y comparar los espectros estacionarios de la rodamina B usando el instrumento renovado y el original.
+En la segunda sección vamos a caracterizar ópticamente un lote de UCNPs.
+Todas las partículas usadas en este trabajo fueron sintetizadas por el equipo colaborador del INQUIMAE, liderado por Beatriz Barja y María Claudia Marchi. 
 Las nanopartículas utilizadas consisten en una red cristalina de fluoruro de ítrio NaYF$_4$ dopadas con los lantánidos iterbio (Yb) y erbio (Er), que en conjunto conforman una de las UCNPs más eficientes descriptas hasta el momento NaYF$_4$:Yb$^{+3}$,Er$^{+3}$ \cite{caracterizacion_ucnps_unicas}.
 El método de síntensis empleado escapa el alcance de esta tésis, pero está detalladamente documentado en la literatura \cite{Zhang2012}.
 
-Nuestra plataforma adaptada nos permitió medir el espectro dinámico dependiente de la potencia de las UCNPs sintetizadas (\textbf{Fig. \ref{fig:power_dep_spectrum}}), y sus tiempos de vida (\textbf{\ref{fig:lifetimes}}) al ser excitadas con un láser de diodo IR de 980 nm.  
+\section{Espectros estacionarios de la rodamina B}
+
+La rodamina es un fluoróforo extensamente usado en microscopía de fluorescencia debido a su fotoestabilidad y sus propiedades fotofísicas \cite{beija_synthesis_2009}.
+Debido a su popularidad, sus espectros de excitación y emisión así como sus métodos de síntesis son ampliamente conocidos y reproducibles.
+En particular, se caracteriza por tener un pico en 551 nm para la absorción y uno en 576 nm para la emisión.
+A modo de verificación de que la medición de un espectro estático, tanto de excitación como de emisión, es el mismo utilizando el \textit{software} y el \textit{hardware} renovado y el original.
+En la figura (\textbf{\ref{fig:rodamina}}) se ven los cuatro espectros normalizados por su máximo de intensidad.
+Se puede ver que los espectros medidos con el instrumento original (azul) se solapan completamente con los medidos con nuestra renovación (naranja).
+Dado que las transiciones electrónicas presentes en la rodamina son dipolares sus tiempos de vida medios son del orden de los nanosegundos, por lo que son imposibles de medir con nuestro instrumento con resolución mínima de $\sim 100$ ns.
+En la siguiente sección utilizamos el espectrofluorímetro renovado para su propósito inicial: la caracterización óptica de UCNPs.
+
+\begin{SCfigure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{rho6b_validacion.png}
+    \caption{\textbf{Espectros de la rodamina 6B}, tanto de excitación (punteado) como de emisión (sólido). Ambos fueron medidos con el \textit{software} y \textit{hardware} original (azul) como con el renovado (naranja).}
+    \label{fig:rodamina}
+\end{SCfigure}
+
+\section{Caracterización óptica de UCNPs}
+
+Nuestra plataforma adaptada nos permitió medir el espectro dinámico dependiente de la potencia de las UCNPs sintetizadas (\textbf{Fig. \ref{fig:power_dep_spectrum}}), y sus tiempos de vida (\textbf{Fig. \ref{fig:lifetimes}}) al ser excitadas con un láser de diodo IR de 976 nm.  
 Como fue detallado en la sección \ref{sec:intro_ucnp}, la conversión ascendente es un proceso óptico no lineal en el que dos o más fotones se absorben secuencialmente entre niveles de energía igualmente espaciados, lo que lleva a la emisión de luz con una longitud de onda más corta que la incidente.  
 Debido a las particularmente largas vidas medias (del orden de los cientos de microsegundos) y a los niveles de energía escalonados de los iones de tierras raras, se pueden observar espectros de conversión ascendente de UCNP en el rango visible incluso a bajas potencias de excitación.  
 En este caso, medimos los espectros estáticos con densidades de potencia que varían entre 16 mW cm$^{-2}$ y 80 mW cm$^{-2}$ al excitar con el láser de forma continua (CW) (\textbf{Fig. \ref{fig:power_dep_spectrum}A}).  
@@ -17,6 +39,14 @@ La intensidad de emisión de conversión ascendente ($I_{UC}$) está relacionada
 El gráfico $\log{(I_{UC})}$ vs $\log{(P)}$ (\textbf{Fig. \ref{fig:power_dep_ranges}}) muestra que, para este rango de potencias, cada región de emisión está caracterizada por una pendiente relacionada con el número de fotones involucrados en cada proceso (\textbf{Fig. \ref{fig:power_dep_ranges} inset}).  
 No se observaron cambios en estas pendientes para cada longitud de onda (UV, B, G, R), lo que indica que los mecanismos fotofísicos que causan la conversión ascendente son los mismos para todas las potencias.  
 Esto está en línea con el hecho de que la relajación cruzada y la transferencia de energía hacia atrás (BET) desde Er$^{3+}$ hacia Yb$^{3+}$ son despreciables en estos límites de baja potencia \cite{suyver_anomalous_2005} \cite{berry_disputed_2015}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{spectrum_powerdens.png}
+    \caption{\textbf{Espectro de las UCNPs dependiente de la potencia.} (A) Espectro de emisión bajo excitación CW por un diodo láser de 976 nm para distintas densidades de potencia de excitación entre 16 mW cm$^{-2}$ y 80 mW cm$^{-2}$.
+    (B) Esquema de niveles de Yb$^{+3}$ y Er$^{+3}$, marcados con colores los niveles excitados del Er$^{+3}$ cuya emisión corresponde a las regiones del espectro.}
+    \label{fig:power_dep_spectrum}
+\end{figure}
 
 Además de obtener los espectros estacionarios de las UCNPs, medimos el tiempo de vida medio en los picos de emisión de cada una de las regiones espectrales (\textbf{Fig. \ref{fig:lifetimes}}), esto es para las longitudes de onda 379, 410, 522, 541 y 654 nm.
 Ajustamos los histogramas de tiempo de arribo de los fotones con una curva de decaimiento monoexponencial, comenzando a los 100 $\mu$s después de que se detuvo la excitación para medir solo la desocupación de los estados excitados.  
@@ -30,24 +60,6 @@ En el futuro, se podrían repetir las mediciones excitando a densidades de poten
 Sin embargo, estas mediciones demuestran la posibilidad de realizar una caracterización óptica completa de las nanopartículas de \textit{upconversion} con las modificaciones que realizamos en el espectrofluorímetro QM 400.
 Tanto las mediciones de espectro en función de la potencia como las de tiempo de vida fueron realizadas automáticamente con secuencias de comandos programadas en Python.
 La plataforma permite desarrollar una secuencia de comandos más compleja que mida un espectro completo, detecte los picos de emisión y mida los tiempos de vida en esos picos, de forma que el usuario sólo tendría que colocar la muestra en la cámara y ejecutar el programa para realizar una caracterización óptica completa.
-
-
-\todo{ \\
-Nanopartículas y síntesis \\
- Como se dijo en la intro, espectro dependiente de la potencia \\
- Expicación de las mediciones. que medimos? que dio? a que transiciones corresponden? rango pequeñoo de potencias -> lineal
- Medición de tiempos de vida, resultados.
- Medicion de tiempos de vida a distintas potencias
-}
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{spectrum_powerdens.png}
-    \caption{\textbf{Espectro de las UCNPs dependiente de la potencia.} (A) Espectro de emisión bajo excitación CW por un diodo láser de 976 nm para distintas densidades de potencia de excitación entre 16 mW cm$^{-2}$ y 80 mW cm$^{-2}$.
-    (B) Esquema de niveles de Yb$^{+3}$ y Er$^{+3}$, marcados con colores los niveles excitados del Er$^{+3}$ cuya emisión corresponde a las regiones del espectro.}
-    \label{fig:power_dep_spectrum}
-\end{figure}
 
 \begin{figure}
     \centering
