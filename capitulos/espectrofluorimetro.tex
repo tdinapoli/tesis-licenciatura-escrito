@@ -224,7 +224,7 @@ Viendo el histograma de la altura de los pulsos, tomamos como criterio considera
 Además de esta medición a iluminación constante analizamos la señal sin iluminar, concluyendo que la corriente de oscuridad es suficientemente baja como para no considerarla en el conteo.
 
 Para estimar el ancho promedio de los pulsos calculamos la autocorrelación a partir de la medición de múltiples ventanas de la señal del PMT bajo iluminación constante.
-La relación entre la desviación estandar $\sigma$ de una distribución gaussiana, y la desviación estandar $\sigma_c$ su autocorrelación está dada por $\sigma = \sigma_c/\sqrt{2}$.
+La relación entre la desviación estandar $\sigma$ de una distribución gaussiana, \todo{esto está mal:} y la desviación estandar $\sigma_c$ su autocorrelación está dada por $\sigma = \sigma_c/\sqrt{2}$.
 Aproximando a los pulsos que llegan al detector por gaussianos, y usando que el ancho total a mitad de altura (FWHM) de una gaussiana es FWHM $= 2 \sqrt{2 \ln{2}}\sigma$, podemos obtener el FWHM de los pulsos con la fórmula FWHM $= 2 \sqrt{2 \ln{2}}\sigma_c / \sqrt{2}$
 Por lo tanto, ajustamos el resultado de las autocorrelaciones por una gaussiana y realizamos un histograma de las desviaciones estandar de los pulsos $\sigma = \sigma_c / \sqrt{2}$ obtenidas (\textbf{Fig. \ref{fig:ancho_pulsos}}).
 Como resultado, el ancho temporal de los pulsos a mitad de altura es de $(\Delta t = 113 \pm 2)$ ns, donde definimos el error como dos desviaciones estándar de la media.
