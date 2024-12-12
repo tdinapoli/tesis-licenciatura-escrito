@@ -252,7 +252,7 @@ Además, nos permitieron limitar la tása máxima con la que se miden fotones a 
     \label{fig:ancho_pulsos}
 \end{figure}
 
-\subsection{Conteo de fotones}
+\subsection{Conteo de fotones} \label{sec:conteo}
 
 
 Una vez que la RP obtiene la señal del PMT, el paso que queda para convertirla a intensidad lumínica es hacer un conteo de la cantidad de pulsos para la ventana de tiempo que midió.
@@ -294,7 +294,7 @@ Por último, para tener una medida cuantitativa de la bondad de ajuste al modelo
 \end{equation}
 
 \noindent donde $n$ es el número de barras en el histograma, $O_i$ es la cantidad de cuentas observadas, y $E_i$ es la cantidad de cuentas esperadas, asumiendo que la distribución de los datos debería ser una exponencial con el valor medio observado $\langle \Delta t \rangle$.
-Obtuvimos los estadísticos de la tabla \ref{tab:chisq}, donde el $\chi^2$ crítico es el correspondiente a un test de hipótesis con significancia $\alpha = 0.05$.
+Obtuvimos los estadísticos de la tabla \ref{tab:chisq}, donde el $\chi^2$ crítico es el correspondiente a un test de hipótesis con significancia $\alpha = 0.05$ \cite{frodesen_probability_1979}.
 Después de esta comparación entre algoritmos de detección y frecuencias de sampleo, concluimos que la elección óptima es tomar los datos a 31.25 MHz y usar el algoritmo de detección \textit{DB}.
 
 \begin{table}[t]
