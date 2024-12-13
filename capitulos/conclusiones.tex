@@ -1,0 +1,29 @@
+Renovamos un espectrofluorímetro Horiba PTI Quanta Master 400 obsoleto.
+Si bien sus elementos ópticos y de detección como los monocromadores y el PMT son componentes de altísima precisión, la utilización del instrumento resultaba dificultosa principalmente debido a su antigua PC de control con sistema operativo Windows 95.
+Más allá de hacer tedioso su uso por la extracción de datos en disquette, la PC presenta una amenaza para la vida útil del fluorímetro: una falla en su funcionamiento puede dejarlo inutilizable y sin reparación, ya que el producto está fuera de soporte y sus partes no se consiguen en el mercado.
+Nuestra renovación reemplazó la electrónica de control y la PC por una CPU y FPGA Red Pitaya, junto con dos paquetes de código abierto desarrollados en Python que cumplen el rol de \textit{software} de control y adquisición.
+Para imitar el funcionamiento del fluorímetro original, hicimos una extensa caracterización del PMT y del algoritmo de conteo de fotones.
+
+Además de la renovación, agregamos un láser externo pulsado de 980 nm que nos permitió adaptar el fluorímetro para hacer mediciones de espectros de emisión estáticos y dinámicos de nanopartículas de \textit{upconversion}.
+Debido a los efectos no lineales que causan su luminiscencia, una caracterización óptica completa de estas partículas requiere medir sus espectros y tiempos de vida, del orden de milisegundos, para un rango de densidades de potencia de excitación.
+Estas mediciones requieren el uso del fluorímetro por largos períodos de tiempo, en especial para potencias de excitación bajas en las que los tiempos de integración son largos.
+Con nuestra plataforma estas mediciones se pueden programar en una rutina de Python, de forma tal que el usuario sólo debe depositar la muestra en la cubeta e iniciar la medición.
+
+Por último, utilizamos nuestro desarrollo para hacer una caracterización óptica completa de UCNPs.
+Las nanopartículas caracterizadas están compuestas por una matriz cristalina de fluoruro de ítrio dopada con iones lantánidos de iterbio y erbio, NaYF$_4$:Yb$^{+3}$,Er$^{+3}$, y fueron sintetizadas por el grupo de fotofísica del INQUIMAE, liderado por Beatriz Barja y María Claudia Marchi. 
+Medimos su espectro estacionario y y tiempos de vida para los picos de emisión en un rango de densidades de potencia entre 16 mW cm$^-1$ y 80 mW cm$^-1$.
+Si bien los mecanismos no lineales de interacción entre los dopantes de las nanopartículas hacen que éstas tengan una respuesta no lineal con la potencia, no vemos ese comportamiento en nuestras mediciones.
+Esto es porque el rango de potencias en el que excitamos es demasiado pequeño como para que haya un cambio en los mecanismos de \textit{upconversion}.
+
+De cara al futuro, vemos que hay tres líneas en las que se puede progresar: (i) realizar mejoras en la plataforma que ya desarrollamos, (ii) aplicar nuestra plataforma a otros fluorímetros y (iii) aprovechar la automatización del instrumento para hacer mediciones más inteligentes.
+En primer lugar, si bien la plataforma que desarrollamos cumple con la tarea de poder caracterizar UCNPs y renovar el fluorímetro, muchas de sus partes, como la GUI y la placa con la conexión a los instrumentos no son robustas.
+Ahora que demostramos que las modificaciones funcionan, se podrían diseñar placas PCB, comprar conectores estandar y mejorar la GUI.
+
+En segundo lugar, una vez que tengamos un diseño más robusto de las partes podríamos aprovechar para aplicar la renovación a los fluorímetros presentes en los institutos de Buenos Aires.
+
+Por último, como se comentó en la introducción, la interacción entre los dopantes de las UCNPs se puede modelar con un sistema de ODEs con $\sim 50$ parámetros desconocidos.
+Ajustar este modelo haciendo mediciones variando la potencia de excitación, longitud de onda de medición y ciclo de trabajo con fuerza bruta resulta impráctico.
+En cambio, con nuestra plataforma se podría implementar un algoritmo que tome mediciones, haga un ajuste en tiempo real, y determine cuál es la próxima medición más informativa a realizar.
+De esa forma, nuestra plataforma nos permitiría estudiar los mecanismos internos de interacción de las nanopartículas de \textit{upconversion}. \todo{quizás es muy vendehumo esto}
+
+
