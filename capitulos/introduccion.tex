@@ -58,8 +58,6 @@ Si bien en el siglo 19 ya se sabía que los mecanismos de emisión de luz de est
 
 \section{Luminiscencia}
 
-La luminiscencia es la emisión de fotones mediante la transición de un electron en un estado excitado con energía $E_e$ a otro con energía $E_k < E_e$.
-Este proceso suele ilustrarse a través de un diagrama de Jablonski (\textbf{Fig. \ref{fig:jablonski}}).
 
 \begin{figure}
     \centering
@@ -68,11 +66,155 @@ Este proceso suele ilustrarse a través de un diagrama de Jablonski (\textbf{Fig
     \label{fig:jablonski}
 \end{figure}
 
+\subsection{Espectroscopía estática}
+
+La luminiscencia es la emisión de fotones mediante la transición de un electron en un estado excitado con energía $E_e$ a otro con energía $E_k < E_e$.
+Este proceso suele ilustrarse a través de un diagrama de Jablonski (\textbf{Fig. \ref{fig:jablonski}})\footnote{Tomado de \href{https://edinst.com/wp-content/uploads/2019/02/JablonskiDiagramFull-1024x604.png}{https://edinst.com/wp-content/uploads/2019/02/JablonskiDiagramFull-1024x604.png}}.
+En un diagama de Jablonski se muestran los niveles de energía electrónicos del material luminiscente junto con las posibles transiciones entre ellos.
+En el diagrama se ven los estados singlete $S_0$, $S_1$ y $S_2$, y el estado triplete $T_1$.
+Todo proceso luminiscente comienza con la absorción de un fotón, lo que lleva al electrón a un estado más energético.
+Estas absorciones ocurren en un lapso de $10^{-15}$ s, un tiempo suficientemente corto como para que los desplazamientos de los núcleos del sistema sean despreciables \cite{lakowicz_principles_2006}.
+La diferencia de energía entre estos estados es típicamente del orden de los eV.
+A su vez, un electrón en un dado estado electrónico puede estar en distintos estados vibracionales, aunque estos estados estan separados por energías del orden de las décimas de eV.
+Las transiciones entre estados vibracionales también son posibles y ocurren en un lapso de $10^{-12}$ a $10^{-10}$ segundos.
+
+La sucesión de este tipo de transiciones da lugar a la fluorescencia: un electrón absobe un fotón altamente energético, excitándolo a un estado electrónico de mayor energía con vibraciones.
+Rápidamente sus oscilaciones se relajan, dejándolo en un estado electrónico excitado, pero con baja energía vibracional.
+Por último, el electrón vuelve a su estado fundamental re-emitiendo un fotón, pero esta vez de menor energía que el que había absorbido.
+La fluorescencia tiene tiempos típicos de $10^{-10}$ a $10^{-7}$ segundos.
+El método más usual para caracterizar un material fluorescente, o luminiscente en general, es a través de su espectro de emisión y de absorción.
+Alternativamente, uno puede medir el espectro de excitación, que está fuertemente relacionado con el de absorción.
+El proceso para medir cada uno es:
+
+\begin{itemize}
+    \item \textbf{Emisión:} consiste en medir la intensidad de luz emitida por la muestra en un rango amplio de longitudes de onda $\Delta \lambda_{em}$, al ser excitada por una longitud de onda fija $\lambda_{ex}$.
+    \item \textbf{Absorción:} requiere medir la intensidad de luz que absorbe la muestra. Esto generalmente se logra excitando una solución de la sustancia en un rango de longitudes de onda y midiendo la cantidad de luz transmitida en cada caso.
+    \item \textbf{Excitación:} para obtener este espectro se debe medir la intensidad de luz emitida por la muestra una dada longitud de onda $\lambda_{em}$, y barrer la excitación en un rango $\Delta \lambda_{ex}$.
+\end{itemize}
+
+\noindent La figura (\textbf{\ref{fig:fluoresceina}}) muestra el espectro de absorción y de emisión de la fluoresceina, una tinta orgánica utilizada en distintas técnicas de diagnóstico médico \cite{fluoresceina_1,fluoresceina_2}.
+Los espectros dejan en evidencia la fluorescencia de la molécula: absorbe fotones de $457$ y $486$ nm, es decir $2.71$ eV y $2.55$ eV respectivamente, y emite con mayor intensidad en $523$ nm, equivalente a $2.37$ eV.
+Previsiblemente, la diferencia de energía es de $\sim 0.2$ eV, en el rango de energías vibracionales.
+
+
+\begin{SCfigure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{fluoresceina_espectro.png}
+    \caption{\textbf{Espectro de la Fluoresceina} diluida en etanol, tanto de absorción (azul) como de emisión (rojo). El cuadro muestra los picos de absorción en $\lambda_{abs}=457$ nm y 486 nm, y de emisión en $\lambda_{em}$ = 523 nm. Tomada y adaptada de \cite{kristoffersen_testing_2018}.}
+    \label{fig:fluoresceina}
+\end{SCfigure}
+
+Otro tipo de mecanismos presentes en los materiaes luminiscentes son la conversión interna y la conversión entre sistemas.
+Ambos consisten en transiciones entre estados electrónicos excitados, el primero es entre estados de la misma multiplicidad, en general singlete-singlete, y el segundo se da entre estados singlete-triplete \cite{valeur_characteristics_2012}.
+La conversión entre sistemas, que ocurre en el orden de $10^{-10}$ a $10^{-9}$ segundos, es la responsable de la fosforescencia.
+La fosforescencia es la transición de un electrón en un estado excitado triplete a un estado singlete de menor energía.
+A diferencia de las transiciones fluorescentes, las transiciones triplete-singlete estan prohibidas por las reglas de selección de la mecánica cuántica \cite{demtroder_emission_2010}.
+Por este motivo, los tiempos característicos de la fosforescencia son mucho mayores, del orden de $10^{-6}$ hasta $10$ segundos.
+Además de los espectros de absorción, emisión y excitación, los tiempos de estas transiciones son de gran relevancia para caracterizar a los materiales luminiscentes.
+
+\subsection{Espectroscopía dinámica}
+
+\begin{SCfigure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{transiciones_tiempo.png}
+    \caption{\textbf{Diagrama de Jablonski} con transiciones que contribuyen al tiempo de vida.\textbf{(A)} Sólo transiciones de fluorescencia. \textbf{(B)} Transiciones de fluorescencia y choques. Tomado y adaptado de \cite{demtroder_emission_2010}.}
+    \label{fig:transiciones_tiempo}
+\end{SCfigure}
+
+
+Se le llama tiempo de vida medio al tiempo promedio que el electrón pasa en un estado excitado de energía.
+La caracterización del tiempo de vida medio no solo brinda información del elemento luminiscente, sino también de su entorno.
+Es necesario hablar de tiempos medios porque las transiciones son un fenómeno fundamentalmente cuántico, y por lo tanto un proceso aleatorio.
+Además, la mayoría de mediciones de luminiscencia se hacen con una muestra que presenta grandes cantidades de los elementos ópticamente activos, por lo que también hay un efecto aleatorio propio de esa estadística.
+
+Si se tienen $N_i$ átomos en un estado excitado con energía $E_i$ y se asume que la probabilidad de transición a un estado de menor energía $E_j$ es constante en el tiempo se obtiene que
+
+\begin{equation} \label{eq:lifetime}
+    \frac{dN_i}{dt} = A_{ij} N_i \implies N_i(t) = N_i(0)e^{A_i t},
+\end{equation}
+
+\noindent donde $A_{ij}$ es una constante llamada coeficiente de Einstein, y $A_i = \sum_{j} A_{ij}$ tiene en cuenta la probabilidad de el electrón decaiga a cualquier estado con $E_j < E_i$ (ver \textbf{Fig. \ref{fig:transiciones_tiempo}A}) \cite{demtroder_emission_2010}.
+Como sabemos que un electrón emite un fotón al desexcitarse, la ecuación (\ref{eq:lifetime}) nos dice que al dejar de iluminar una muestra esperamos que se emitan fotones exponencialmente distribuidos en el tiempo.
+Es decir que si tenemos un detector de fotones, medimos con precisión el tiempo en el que dejamos de iluminar, y hacemos un histograma de los tiempos en los que detectamos un fotón, las alturas de sus barras deberían seguir una exponencial.
+Además sabemos que la relación entre el tiempo de vida y el parámetro de la exponencial es $\tau_i = 1/A_i$, por lo que es posible ajustar una exponencial a la altura de las barras para medirlo.
+Exactamente eso es lo que se hace en \textit{Time-Correlated Single Photon Counting} (TCSPC, ver sección \ref{sec:intro_tcspc}), una de las técnicas más comunes para medir tiempos de vida.
+
+La ecuación (\ref{eq:lifetime}) sólo tiene en cuenta las transiciones fluorescentes del átomo, pero como explicamos en la sección anterior, éstas no son las únicas.
+Además, generalmente los átomos estan en entornos que inducen transiciones no radiativas, como transferencia de energía a otros átomos, o colisiones con átomos vecinos (\textbf{Fig. \ref{fig:transiciones_tiempo}B}). 
+Suponiendo que se induce una nueva probabilidad de desexcitación no radiativa $R_i$ por transferencia de energía, y siguiendo la lógica anterior, la tasa de cambio de cantidad de átomos $N_i$ en el estado $i$ es
+
+\begin{equation}
+    \frac{dN_i}{dt} = (A_{ij} + R_i) N_i \implies N_i(t) = N_i(0)e^{(A_i + R_i) t},
+\end{equation}
+
+\noindent y por lo tanto su tiempo de vida efectivo $\tau_{eff} = 1/(A_i + R_i)$. 
+La implicancia de este fenómeno es muy fuerte: es posible obtener información del entorno microscópico de un material luminiscente al medir su tiempo de vida \cite{ryder_timedomain_2001}.
+
+Para poder aprovechar estas propiedades de los materiales luminiscentes es necesario poder medir precisamente tanto sus espectros estacionarios como los dinámicos. 
+En la próxima sección comentamos brevemente cuáles son los instrumentos y técnicas que se implementan más comunmente para hacer este tipo de mediciones.
+
+
+\section{Instrumentación para espectrometría de fluorescencia}
+
+\subsection{El espectrofluorímetro}
+
+Para caracterizar la respuesta óptica de una sustancia, generalmente se desea registrar tanto el espectro de excitación como el de emisión. 
+El instrumento científico por excelencia para realizar estas mediciones es el espectrofluorímetro. 
+Fundamentalmente, este instrumento permite realizar mediciones de la intensidad de luz que emite una muestra, haciendo escaneos en longitud de onda de emisión y excitación.
+Adicionalmente, algunos pueden realizar mediciones de tiempo de vida resueltas, escaneos sincrónicos con alguna señal y mediciones de anisotropía en la polarización de materiales luminiscentes.
+Estas capacidades son fundamentales para investigaciones en diversas disciplinas científicas, incluyendo química, bioquímica, farmacología, ciencias ambientales, ciencia de materiales y biomedicina.
+El objetivo principal de un espectrofluorímetro es obtener los espectros de emisión y de excitación de una muestra.
+Para lograr este objetivo, el instrumento debe ser capaz de iluminar la muestra con múltiples longitudes de onda diferentes y registrar su respuesta a cada una de ellas.
+
+La Figura 2.1 muestra un diagrama esquemático de un espectrofluorímetro genérico.
+Este instrumento incluye todos los componentes fundamentales para cumplir su función. 
+Utiliza una lámpara de espectro amplio que funciona como fuente de luz de alta intensidad para un rango extenso de longitudes de onda. 
+Posteriormente la luz es filtrada por un monocromador de excitación que permite seleccionar la longitud de onda con la que se desea iluminar a la muestra.
+La luz de excitación seleccionada se enfoca sobre la muestra colocada en la cámara principal, cuya luminiscencia, generalmente con una longitud de onda mayor que la luz de excitación, es filtrada por el monocromador de emisión.
+Los monocromadores suelen estar motorizados, lo que permite que el escaneo sea automático. 
+La luz restante llega a un detector, usualmente un tubo fotomultiplicador (PMT), un detector muy sensible que convierte fotones en corriente eléctrica.
+El espectrofluorímetro emplea diversas técnicas para reducir la luz parásita (longitudes de onda diferentes a la deseada), como el diseño en ángulo de 90° entre los brazos de excitación y emisión, y un compartimento hermético pintado de negro no reflectante.
+La señal del PMT es procesada electrónicamente, digitalizada y analizada en una computadora. 
+Este sistema también controla los monocromadores y la adquisición de datos, además de permitir al usuario ajustar parámetros y facilitar la visualización y análisis.
+A menudo, se incorporan componentes adicionales en el camino óptico, como obturadores, polarizadores, divisores de haz y otros elementos ópticos, para estudiar diferentes propiedades de la muestra.
+
+\begin{SCfigure}
+     \centering
+     \includegraphics[width=0.6\textwidth]{spectrometer_diagram_lako_modif.png}
+     \caption{
+    \textbf{Diagrama de un espectrofluorímetro genérico.}
+    La luz traza un camino que comienza en la lámpara (zona superior derecha) y termina en el PMT de detección (centro izquierda). Después de salir de la lámpara, la luz es filtrada por un monocromador y luego enfocada sobre la muestra. La luz reemitida pasa por otro monocromador y termina en el PMT. La señal se lee con un sistema de control que la digitaliza y para luego ser procesada por una PC que construye los espectros. Figura tomada y adaptada de \cite{lakowicz_principles_2006}.
+    }
+     \label{fig:spec_diagram_lako}
+\end{SCfigure}
+
+
+\todo{el mio es el mas comun pero no es el único que existe}
+
+\subsection{Epectrofluirimetros en argentina y obsolescencia}
+
+Actualmente, el Departamento de Física de la FCEyN-UBA no cuenta con espectrofluorímetros para la caracterización de espectros de excitación y emisión.  
+Para realizar este tipo de mediciones, la facultad dispone del laboratorio de fotoquímica del Instituto de Química Física de los Materiales, Medio Ambiente y Energía (INQUIMAE), que cuenta con tres espectrofluorímetros con distintas características, pero que tienen algo en común: ningún equipo tiene menos de 20 años, el más antigüo llegando a los 40 años de uso.
+La disparidad en al antigüedad y funcionalidad de los instrumentos es un fenómeno común en laboratorios de investigación en países como Argentina, donde la inversión en ciencia es escasa o poco regular en el tiempo \cite{cioccaRealityScientificResearch2017}. 
+Ante esta realidad, los institutos suelen priorizar la adquisición de equipos con nuevas capacidades, en lugar de renovar instrumentos existentes por versiones más modernas.  
+Esto es posible gracias a la precisión y robustez de las partes mecánicas de los instrumentos, pero la obsolescencia de los equipos antiguos plantea problemas a largo plazo, especialmente cuando sus plataformas de control quedan desactualizadas.  
+Con el tiempo, se vuelve complicado operar estos instrumentos, ya que los mecanismos de extracción de datos, como los disquetes, dejan de estar disponibles en el mercado. 
+Aún más crítico es que el funcionamiento del equipo depende de la computadora de control, la cual utiliza placas y puertos que ya no se fabrican ni se consiguen en el mercado actual.  
+El problema de la obsolescencia en instrumentos científicos afecta desproporcionadamente a instituciones con bajo presupuesto, ampliando la brecha de accesso a instrumentos de investigación avanzados.
+
+Esto ha llevado a un auge en el desarrollo de instrumentos científicos accesibles y de bajo costo \cite{wenzel_open_2023, arancio_inequalities_2023}, particularmente en áreas como instrumentación, microscopía, espectroscopía y adquisición de datos \cite{jameson_fluorescent_1989, li_optical_2022, hu_fluorescent_2022}.
+Las iniciativas de hardware abierto hacen que los diseños y la documentación estén disponibles de forma gratuita para que cualquier persona pueda usarlos, construirlos y modificarlos \cite{powell_democratizing_2012, oellermann_open_2022}.
+Por ejemplo, la plataforma Arduino ha proporcionado una plataforma de desarrollo de electrónica económica y fácil de usar basada en un microcontrolador (https://www.arduino.cc/).
+El OpenFlexure Microscope es un microscopio de código abierto que cuesta menos de 100 USD construir \cite{collins_robotic_2020}.
+Asimismo, recientemente se desarrolló un espectrómetro basado en Raspberry Pi que cuesta menos de 400 EUR \cite{tunens_optical_2024}.
+El software y los lenguajes de código abierto, como Python (http://www.python.org), que cuentan con bibliotecas numéricas y de instrumentación como NumPy \cite{harris_array_2020} y PyVISA \cite{grecco_pyvisa_2023}, han desempeñado un papel clave al reducir las barreras de entrada y facilitar la creación rápida de prototipos.
+Cabe destacar que han surgido empresas enfocadas en hardware parcialmente o completamente abierto. Por ejemplo, OpenBCI (https://openbci.com/), que ofrece sistemas EEG de bajo costo para interfaces cerebro-computadora, y Opentrons (https://opentrons.com/), que proporciona soluciones de manejo de líquidos para la automatización de laboratorios.
+
 
 \section{Espectrofotometría estática}
-\section{Espectrofotometría dinámica} \label{sec:intro_tcspc}
+\section{Espectrofotometría dinámica} 
 
-\subsection{Medición de tiempos de vida: \textit{Time-Correlated Single Photon Counting} (TCSPC) \todo{va a la intro}}
+\subsection{Medición de tiempos de vida: \textit{Time-Correlated Single Photon Counting}} \label{sec:intro_tcspc}
 
 Muchos espectrofluorímetros comerciales tienen la capacidad de medir el tiempo de vida de los fluoróforos con tiempos típicos del orden de los nanosegundos. 
 Sin embargo, debido a las transiciones prohibidas de los lantánidos (\todo{Ver cap N}) el tiempo de vida de las UCNPs es del orden de los cientos de microsegundos.
