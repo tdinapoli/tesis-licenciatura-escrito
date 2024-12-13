@@ -28,12 +28,13 @@ A menudo, se incorporan componentes adicionales en el camino óptico, como obtur
      \includegraphics[width=0.6\textwidth]{spectrometer_diagram_lako_modif.png}
      \caption{
     \textbf{Diagrama de un espectrofluorímetro genérico.}
-    La luz traza un camino que comienza en la lámpara (zona superior derecha) y termina en el PMT de detección (centro izquierda). Después de salir de la lámpara, la luz es filtrada por un monocromador y luego enfocada sobre la muestra. La luz reemitida pasa por otro monocromador y termina en el PMT. La señal se lee con un sistema de control que la digitaliza y para luego ser procesada por una PC que construye los espectros.
+    La luz traza un camino que comienza en la lámpara (zona superior derecha) y termina en el PMT de detección (centro izquierda). Después de salir de la lámpara, la luz es filtrada por un monocromador y luego enfocada sobre la muestra. La luz reemitida pasa por otro monocromador y termina en el PMT. La señal se lee con un sistema de control que la digitaliza y para luego ser procesada por una PC que construye los espectros. Figura tomada y adaptada de \cite{lakowicz_principles_2006}.
     }
      \label{fig:spec_diagram_lako}
 \end{SCfigure}
 
 
+\todo{el mio es el mas comun pero no es el único que existe}
 
 \subsection{Epectrofluirimetros en argentina y obsolescencia}
 
@@ -124,6 +125,8 @@ En las siguientes secciones, explicaremos los cambios de \textit{hardware} y \te
 
 
 \subsection{Hardware para la renovación del QM 400}
+
+\todo{pequeño parrafo de las partes en la que constó la cosa esta}
 
 Luego de hacer una inspección de todas las partes, decidimos conservar los componentes ópticos, la motorización, el PMT, la fuente de alta tensión y el chasis, ya que son robustos y funcionales.  
 En contraste, la electrónica de control y detección resultó ser voluminosa, de código cerrado y obsoleta, por lo que optamos por reemplazarla con alternativas modernas: una CPU con FPGA integrada Red Pitaya (RP) STEM LAB 125-14.
