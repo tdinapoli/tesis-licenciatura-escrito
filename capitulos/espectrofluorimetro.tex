@@ -1,59 +1,4 @@
-
-\section{Espectrometría de fluorescencia}
-
-\subsection{Instrumentación: el espectrofluorímetro}
-
-Para caracterizar la respuesta óptica de una sustancia, generalmente se desea registrar tanto el espectro de excitación como el de emisión. 
-El instrumento científico por excelencia para realizar estas mediciones es el espectrofluorímetro. 
-Fundamentalmente, este instrumento permite realizar mediciones de la intensidad de luz que emite una muestra, haciendo escaneos en longitud de onda de emisión y excitación.
-Adicionalmente, algunos pueden realizar mediciones de tiempo de vida resueltas, escaneos sincrónicos con alguna señal y mediciones de anisotropía en la polarización de materiales luminiscentes.
-Estas capacidades son fundamentales para investigaciones en diversas disciplinas científicas, incluyendo química, bioquímica, farmacología, ciencias ambientales, ciencia de materiales y biomedicina.
-El objetivo principal de un espectrofluorímetro es obtener los espectros de emisión y de excitación de una muestra.
-Para lograr este objetivo, el instrumento debe ser capaz de iluminar la muestra con múltiples longitudes de onda diferentes y registrar su respuesta a cada una de ellas.
-
-La Figura 2.1 muestra un diagrama esquemático de un espectrofluorímetro genérico.
-Este instrumento incluye todos los componentes fundamentales para cumplir su función. 
-Utiliza una lámpara de espectro amplio que funciona como fuente de luz de alta intensidad para un rango extenso de longitudes de onda. 
-Posteriormente la luz es filtrada por un monocromador de excitación que permite seleccionar la longitud de onda con la que se desea iluminar a la muestra.
-La luz de excitación seleccionada se enfoca sobre la muestra colocada en la cámara principal, cuya luminiscencia, generalmente con una longitud de onda mayor que la luz de excitación, es filtrada por el monocromador de emisión.
-Los monocromadores suelen estar motorizados, lo que permite que el escaneo sea automático. 
-La luz restante llega a un detector, usualmente un tubo fotomultiplicador (PMT), un detector muy sensible que convierte fotones en corriente eléctrica.
-El espectrofluorímetro emplea diversas técnicas para reducir la luz parásita (longitudes de onda diferentes a la deseada), como el diseño en ángulo de 90° entre los brazos de excitación y emisión, y un compartimento hermético pintado de negro no reflectante.
-La señal del PMT es procesada electrónicamente, digitalizada y analizada en una computadora. 
-Este sistema también controla los monocromadores y la adquisición de datos, además de permitir al usuario ajustar parámetros y facilitar la visualización y análisis.
-A menudo, se incorporan componentes adicionales en el camino óptico, como obturadores, polarizadores, divisores de haz y otros elementos ópticos, para estudiar diferentes propiedades de la muestra.
-
-\begin{SCfigure}
-     \centering
-     \includegraphics[width=0.6\textwidth]{spectrometer_diagram_lako_modif.png}
-     \caption{
-    \textbf{Diagrama de un espectrofluorímetro genérico.}
-    La luz traza un camino que comienza en la lámpara (zona superior derecha) y termina en el PMT de detección (centro izquierda). Después de salir de la lámpara, la luz es filtrada por un monocromador y luego enfocada sobre la muestra. La luz reemitida pasa por otro monocromador y termina en el PMT. La señal se lee con un sistema de control que la digitaliza y para luego ser procesada por una PC que construye los espectros. Figura tomada y adaptada de \cite{lakowicz_principles_2006}.
-    }
-     \label{fig:spec_diagram_lako}
-\end{SCfigure}
-
-
-\todo{el mio es el mas comun pero no es el único que existe}
-
-\subsection{Epectrofluirimetros en argentina y obsolescencia}
-
-Actualmente, el Departamento de Física de la FCEyN-UBA no cuenta con espectrofluorímetros para la caracterización de espectros de excitación y emisión.  
-Para realizar este tipo de mediciones, la facultad dispone del laboratorio de fotoquímica del Instituto de Química Física de los Materiales, Medio Ambiente y Energía (INQUIMAE), que cuenta con tres espectrofluorímetros con distintas características, pero que tienen algo en común: ningún equipo tiene menos de 20 años, el más antigüo llegando a los 40 años de uso.
-La disparidad en al antigüedad y funcionalidad de los instrumentos es un fenómeno común en laboratorios de investigación en países como Argentina, donde la inversión en ciencia es escasa o poco regular en el tiempo \cite{cioccaRealityScientificResearch2017}. 
-Ante esta realidad, los institutos suelen priorizar la adquisición de equipos con nuevas capacidades, en lugar de renovar instrumentos existentes por versiones más modernas.  
-Esto es posible gracias a la precisión y robustez de las partes mecánicas de los instrumentos, pero la obsolescencia de los equipos antiguos plantea problemas a largo plazo, especialmente cuando sus plataformas de control quedan desactualizadas.  
-Con el tiempo, se vuelve complicado operar estos instrumentos, ya que los mecanismos de extracción de datos, como los disquetes, dejan de estar disponibles en el mercado. 
-Aún más crítico es que el funcionamiento del equipo depende de la computadora de control, la cual utiliza placas y puertos que ya no se fabrican ni se consiguen en el mercado actual.  
-El problema de la obsolescencia en instrumentos científicos afecta desproporcionadamente a instituciones con bajo presupuesto, ampliando la brecha de accesso a instrumentos de investigación avanzados.
-
-Esto ha llevado a un auge en el desarrollo de instrumentos científicos accesibles y de bajo costo \cite{wenzel_open_2023, arancio_inequalities_2023}, particularmente en áreas como instrumentación, microscopía, espectroscopía y adquisición de datos \cite{jameson_fluorescent_1989, li_optical_2022, hu_fluorescent_2022}.
-Las iniciativas de hardware abierto hacen que los diseños y la documentación estén disponibles de forma gratuita para que cualquier persona pueda usarlos, construirlos y modificarlos \cite{powell_democratizing_2012, oellermann_open_2022}.
-Por ejemplo, la plataforma Arduino ha proporcionado una plataforma de desarrollo de electrónica económica y fácil de usar basada en un microcontrolador (https://www.arduino.cc/).
-El OpenFlexure Microscope es un microscopio de código abierto que cuesta menos de 100 USD construir \cite{collins_robotic_2020}.
-Asimismo, recientemente se desarrolló un espectrómetro basado en Raspberry Pi que cuesta menos de 400 EUR \cite{tunens_optical_2024}.
-El software y los lenguajes de código abierto, como Python (http://www.python.org), que cuentan con bibliotecas numéricas y de instrumentación como NumPy \cite{harris_array_2020} y PyVISA \cite{grecco_pyvisa_2023}, han desempeñado un papel clave al reducir las barreras de entrada y facilitar la creación rápida de prototipos.
-Cabe destacar que han surgido empresas enfocadas en hardware parcialmente o completamente abierto. Por ejemplo, OpenBCI (https://openbci.com/), que ofrece sistemas EEG de bajo costo para interfaces cerebro-computadora, y Opentrons (https://opentrons.com/), que proporciona soluciones de manejo de líquidos para la automatización de laboratorios.
+\renewcommand{\tablename}{\textbf{Tabla}}
 
 En este capítulo de la tésis se describe detalladamente la plataforma de fuente abierta que desarrollamos para renovar la electrónica y el \textit{software} de control del espectrofluorímetro Horiba PTI Quanta Master (QM 400), uno de los espectrofluorímetros antigüos del laboratorio de fotoquímica del INQUIMAE.
 Además de su renovación, ampliamos sus capacidades para medir tiempos de vida del orden de los microsegundos, que junto con el agregado de un láser pulsado externo de 980 nm nos permitió conseguir la plataforma ideal para la caracterización óptica de UCNPs tanto estática como dinámica.
@@ -91,15 +36,6 @@ El excelente trabajo de Juan durante sentó las bases para que en este trabajo p
 En las siguientes secciones, explicaremos los cambios de \textit{hardware} y \textit{software} que realizamos en el espectrofluorímetro para que sea una plataforma ideal para medir \textit{upconversion}.
 
 
-%\todo{ \\
-%serie horiba quantamaster. frecuencia de aparición en exactas y arg en general, baratos, etc. quizás mencionar lo de stefani \\
-% \\
-%componentes de funcionamiento: conectores originales, lampara, monocromadores, chamber, pmt, especificaciones \\
-% \\
-%software de control: felix gx, capacidades fundamentales y deficiencias \\
-% \\
-%que falta para caracterizar ucnps? time-consuming experiments, operación, medición de tiempos de vida, etc \\
-%}
 
 \begin{figure}[btp]
      \centering
@@ -157,7 +93,6 @@ El apéndice \ref{apendice:instrucciones_armado} explica detalladamente cómo re
 \end{figure}
 
 
-%\todo{Qué reemplazamos y con qué nos quedasmos, especificaciones finales}
 
 \subsection{Hardware ampliación}
 
@@ -172,9 +107,6 @@ El ITC4020 permite configurar la frecuencia de pulsado y el ciclo de trabajo, ad
 Esta señal se conecta a otra de las entradas analógicas de la RP, que luego la utiliza como \textit{trigger} para sincronizar la finalización de la excitación del láser, con la medición de los pulsos eléctricos de los fotones.
 Esa sincronización le permite al \textit{software} realizar histogramas y así medir los tiempos de vida, proceso que se explica en detalle en la sección \ref{sec:proceso_dinamico}.  
 
-%\todo{ \\
-%Excitación con laser pulsado. Control de potencia y duty cycle. funcionamiento del trigger. el resto ya lo puede hacer la RP \\
-%}
 
 \begin{figure}[h]
      \centering
@@ -230,7 +162,7 @@ Viendo el histograma de la altura de los pulsos, tomamos como criterio considera
 Además de esta medición a iluminación constante analizamos la señal sin iluminar, concluyendo que la corriente de oscuridad es suficientemente baja como para no considerarla en el conteo.
 
 Para estimar el ancho promedio de los pulsos calculamos la autocorrelación a partir de la medición de múltiples ventanas de la señal del PMT bajo iluminación constante.
-La relación entre la desviación estandar $\sigma$ de una distribución gaussiana, \todo{esto está mal:} y la desviación estandar $\sigma_c$ su autocorrelación está dada por $\sigma = \sigma_c/\sqrt{2}$.
+La relación entre la desviación estandar $\sigma$ de una distribución gaussiana, y la desviación estandar $\sigma_c$ su autocorrelación está dada por $\sigma = \sigma_c/\sqrt{2}$.
 Aproximando a los pulsos que llegan al detector por gaussianos, y usando que el ancho total a mitad de altura (FWHM) de una gaussiana es FWHM $= 2 \sqrt{2 \ln{2}}\sigma$, podemos obtener el FWHM de los pulsos con la fórmula FWHM $= 2 \sqrt{2 \ln{2}}\sigma_c / \sqrt{2}$
 Por lo tanto, ajustamos el resultado de las autocorrelaciones por una gaussiana y realizamos un histograma de las desviaciones estandar de los pulsos $\sigma = \sigma_c / \sqrt{2}$ obtenidas (\textbf{Fig. \ref{fig:ancho_pulsos}}).
 Como resultado, el ancho temporal de los pulsos a mitad de altura es de $(\Delta t = 113 \pm 2)$ ns, donde definimos el error como dos desviaciones estándar de la media.
@@ -278,7 +210,7 @@ Si bien existen otros algoritmos más sofisticados para encontrar picos, como la
 
 Una vez elegido el algoritmo, es necesario asegurarse que estuviera contando pulsos correctamente.
 Para eso iluminamos una muestra con intensidad constante durante un intervalo $T$ de medición, calculamos la distribución de $\Delta t_j$ y la comparamos con una simulación equivalente (\textbf{Fig. \ref{fig:conteo}}).
-La diferencia $\Delta t_i = t_{i+1} - t_i$ entre dos variables aleatorias uniformemente distribuidas, y ordenadas de forma tal que $t_1 < ... < t_i < t_{i+1} < ... < t_N $ es otra variable aleatoria con distribución exponencial y valor medio $T/N$, donde $N$ es el número de pulsos detectados.
+La diferencia $\Delta t_i = t_{i+1} - t_i$ entre dos variables aleatorias uniformemente distribuidas, y ordenadas de forma tal que $t_1 < ... < t_i < t_{i+1} < ... < t_N $ es otra variable aleatoria con distribución exponencial y valor medio $T/N$, donde $N$ es el número de pulsos detectados \cite{dasuniform}.
 La simulación consiste en N = 30000 pulsos uniformemente distribuidos en un intervalo de $\sim 96$ ms, lo que da un valor medio de $\lambda \equiv \langle \Delta t_j \rangle = 3.22$ $\mu$s (\textbf{Fig. \ref{fig:conteo}A y C}).
 Se tomó N = 30000 para tener una buena estadística a la hora de comparar con la distribución de probabilidad exacta (línea punteada en \textbf{Fig. \ref{fig:conteo}C}) con el mismo valor medio.
 Realizamos la medición por el mismo intervalo de tiempo con una frecuencia de muestreo de 62.5 MHz al iluminar una muestra con CW.
