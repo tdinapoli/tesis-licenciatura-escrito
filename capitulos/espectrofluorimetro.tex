@@ -13,7 +13,7 @@ Estos espectrofluorímetros se encuentran frecuentemente en los laboratorios de 
 Al ser modelos antigüos y descontinuados se pueden encontrar en el mercado por precios que rondan los \$5000 USD, un costo relativamente bajo para un espectrofluorímetro científico.
 Los bajos costos se dan por su antigüedad y fin de soporte por parte de la empresa, lo que obliga a los usuarios a resolver ellos mismos los problemas que haya con los equipos.
 Por ejemplo, en CIBION, uno de los dos modelos que tienen no está funcionando porque hay problemas con la inicialización de los controladores en la PC.
-En este trabajo, reacondicionamos específicamente un espectrofluorímetro QM 400 de más de 30 años de antigüedad,  (diagrama en la \textbf{Fig. \ref{fig:ref-diagram}A} y fotografía en la \textbf{Fig. \ref{fig:hardware}A}), pero dada la similaridad entre los distintos modelos de esta serie, la renovación se pueden aplicar a cualquiera de ellos con leves modificaciones. 
+En este trabajo, reacondicionamos específicamente un espectrofluorímetro QM 400 de más de 30 años de antigüedad,  (diagrama en la \textbf{Fig. \ref{fig:ref-diagram}A} y fotografía en la \textbf{Fig. \ref{fig:hardware}A}), pero dada la similitud entre los distintos modelos de esta serie, la renovación se pueden aplicar a cualquiera de ellos con leves modificaciones. 
 
 El QM 400 está equipado con una lámpara de xenón de 75 W como fuente de luz, la cual proporciona un amplio espectro de longitudes de onda (desde el infrarrojo cercano, alrededor de 1000 nm, hasta el ultravioleta, alrededor de 300 nm).
 Los monocromadores de excitación y emisión contienen redes de difracción rotadas por motores paso a paso de 200 pasos por revolución, con especificaciones de 7 V y 0.7 A por bobina (M1 y M2), lo que permite una resolución en la selección de longitudes de onda de 0.5 nm. 
@@ -32,7 +32,7 @@ Una plataforma de caracterización óptica completa de UCNPs debería ser capaz 
 Además, como las mediciones de espectro y tiempo de vida son de larga duración (en especial a bajas potencias), resulta ideal que la plataforma permita configurar múltiples mediciones sucesivas sin la necesidad de una configuración manual por el usuario.
 Durante su tésis de doctorado, Juan Bujjamer agregó la capacidad de medir tiempos de vida típicos de \textit{upconversion} al QM 400 \cite{bujjamer2020}. 
 Para lograrlo utilizó en conjunto el control de los monocromadores que brinda FelixGX, una CPU y FPGA Red Pitaya y una fuente de diodo láser externa.
-El excelente trabajo de Juan durante sentó las bases para que en este trabajo podamos hacer una renovación total del QM 400, utilizando como única plataforma de control a la Red Pitaya e independizandonos de la PC de control original.
+El excelente trabajo de Juan sentó las bases para que en este trabajo podamos hacer una renovación total del QM 400, utilizando como única plataforma de control a la Red Pitaya e independizandonos de la PC de control original.
 En las siguientes secciones, explicaremos los cambios de \textit{hardware} y \textit{software} que realizamos en el espectrofluorímetro para que sea una plataforma ideal para medir \textit{upconversion}.
 
 
@@ -219,7 +219,7 @@ Esto se debe a las fluctuaciones de alta frecuencia, que hacen que \textit{DB} d
 Para resolver este problema se puede aumentar $\Delta t_{min}$ o reducir la frecuencia de muestreo.
 La frecuencia de 31.25 MHz sigue siendo capaz de detectar pulsos (ver \ref{sec:caracterizacion_pmt}), por lo que realizamos el mismo análisis sub-muestreando la señal original.
 En este caso \textit{DB} detectó 2840 pulsos, y se ve que la distribución de $\Delta t$ sigue una exponencial con valor medio $\lambda = 68.12$ (\textbf{Fig. \ref{fig:conteo}B y D}).
-A modo de comparación, también procesamos la señal a 31.25 MHz pero usando un algoritmo \textit{D} que consiste en tomar los puntos en los que la derivada es menor a un umbral (en este caso de -0.5).
+A modo de comparación, también procesamos la señal a 31.25 MHz, pero usando un algoritmo \textit{D} que consiste en tomar los puntos en los que la derivada es menor a un umbral (en este caso de -0.5).
 Éste detectó 4883 pulsos, y se puede ver que también tiene el problema de detectar fluctuaciones de alta frecuencia, aumentando sintéticamente la cantidad de pulsos que hay en la señal (\textbf{Fig. \ref{fig:conteo}F y H}).
 
 Por último, para tener una medida cuantitativa de la bondad de ajuste al modelo exponencial, calculamos el $\chi^2$ dado por la fórmula 

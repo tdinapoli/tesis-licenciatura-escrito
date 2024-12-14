@@ -4,7 +4,7 @@
 \renewcommand{\tablename}{Tabla}
 \renewcommand{\thetable}{A\arabic{table}}
 
-\section{instrucciones de armado} \label{apendice:instrucciones_armado}
+\section{Instrucciones de armado} \label{apendice:instrucciones_armado}
 
 \subsection{Renovación del Horiba PTI Quanta Master 400} \label{subsec:refur-instructions}
 
@@ -39,7 +39,7 @@ Es necesario asegurarse de que el voltaje de GND sea el mismo en todas las conex
     \end{enumerate}
     \item \textbf{Conectar la salida del PMT}
     \begin{enumerate}
-        \item Conectar el cable BNC-SMA a la entrada analógica 1 del RP y configure el modo de alto voltaje.
+        \item Conectar el cable BNC-SMA a la entrada analógica 1 del RP y configurar el modo de alto voltaje.
         \item Conectar una ficha T BNC al extremo BNC del cable BNC-SMA conectado al RP.
         \item Conectar una terminación de 50 $\Omega$ a uno de los extremos de la ficha T para conformar pulsos de 40 a 100 ns.
         \item Conectar el otro extremo de la ficha T a la salida del PMT utilizando un cable BNC-BNC.
@@ -72,7 +72,7 @@ Nuestro software está diseñado para trabajar con el controlador láser ITC4020
 \subsection{Instalación y configuración del software} 
 
 Seguir las instrucciones en \href{https://github.com/tdinapoli/refurbishedPTI}{este enlace}\cite{napoli_tdinapoli_2024} para instalar nuestro paquete Python en su RP. 
-Una vez conectados los componentes de hardware, se deben calibrar los motores de los monocromadores y las entradas analógicas del Red Pitaya. 
+Una vez conectados los componentes de hardware, se deben calibrar los motores de los monocromadores y las entradas analógicas de la Red Pitaya. 
 Las instrucciones para calibrar las entradas analógicas del RP están disponibles en su documentación oficial \cite{rp_docs}.
 
 Para calibrar los monocromadores, desarrollamos un intérprete de línea de comandos que guía el proceso paso a paso y genera un archivo YAML con los parámetros de calibración (\textbf{Tabla \ref{tab:monochromator_api_parameters}}). El siguiente código en Python abre el menú para calibrar el monocromador de emisión:
@@ -139,23 +139,23 @@ Una vez finalizada la medición, guarde y manipule los datos con los componentes
     \centering
     \begin{tabularx}{\textwidth}{|l|X|}
         \hline
-        \textbf{Parameter Name} & \textbf{Description} \\
+        \textbf{Parámetro} & \textbf{Descripción} \\
         \hline
-        \multirow{3}{3cm}{Spectrum type} & \textbf{Emission}: fixed excitation monochromator and scanning emission monochromator. \\
+        \multirow{3}{3cm}{Spectrum type} & \textbf{Emission}: monocromador de excitación fijo y monocromador de emisión se mueve. \\
         \cline{2-2}
-        & \textbf{Excitation}: fixed emission monochromator and scanning excitation monochromator. \\
+        & \textbf{Excitation}: monocromador de emisión fijo y monocromador de excitación se mueve. \\
         \cline{2-2}
-        & \textbf{Laser}: scanning emission monochromator external laser excitation. \\
+        & \textbf{Laser}: monocromador de emisión se mueve y se usa el láser externo para excitar. \\
         \hline
-        Static monochromator wavelength & Fixed monochromator wavelength (nm). \\
+        Static monochromator wavelength & Longitud de onda del monocromador fijo (nm). \\
         \hline
-        Starting wavelength & Starting wavelength of the scanned wavelength range (nm). \\
+        Starting wavelength & Longitud de onda inicial del rango escaneado (nm). \\
         \hline
-        Ending wavelength & Ending wavelength of the scanned wavelength range (nm). \\
+        Ending wavelength & Longitud de onda final del rango escaneado (nm). \\
         \hline
-        Wavelength step & Difference in wavelength between each data point (nm). \\
+        Wavelength step & Diferencia en longitud de onda entre cada dato(nm). \\
         \hline
-        Acquire & Starts the measurement. \\
+        Acquire & Comienza la medición. \\
         \hline
     \end{tabularx}
     \caption{\textbf{Parámetros de configuración de una medición de espectro estático}.}
@@ -166,23 +166,23 @@ Una vez finalizada la medición, guarde y manipule los datos con los componentes
     \centering
     \begin{tabularx}{\textwidth}{|l|X|}
         \hline
-        \textbf{Parameter Name} & \textbf{Description} \\
+        \textbf{Parámetro} & \textbf{Descripción} \\
         \hline
-        Pump power & Laser pump power (mW). \\
+        Pump power & Potencia de excitación del láser (mW). \\
         \hline
-        Frequency & Laser on and off TTL signal frequency. \\
+        Frequency & Frecuencia de encendido y apagado del láser. \\
         \hline
-        Duty Cycle & Duty cycle of TTL signal in \%. \\
+        Duty Cycle & Ciclo de trabajo del láser en \%. \\
         \hline
-        Emission monochromator wavelength & Wavelength at which the lifetime will be measured (nm). \\
+        Emission monochromator wavelength & Longitud de onda para la cual se medirá el tiempo de vida (nm). \\
         \hline 
-        Amount of counts & Amount of counts that will be measured until the measurement ends. \\
+        Amount of counts & Cantidad de cuentas a medir antes de terminar la medición. \\
         \hline
-        Starting time & Time after trigger before start counting (ms). \\
+        Starting time & Tiempo después del \textit{trigger} hasta empezar a contar (ms). \\
         \hline
-        Ending time & Time after trigger before stop counting (ms). \\
+        Ending time & Tiempo después del \textit{trigger} antes de parar de contar (ms). \\
         \hline
-        Acquire & Starts the measurement.\\
+        Acquire & Comienza la adquisición.\\
         \hline
     \end{tabularx}
     \caption{\textbf{Parámetros de configuración de una medición dinámica}.}
@@ -193,17 +193,17 @@ Una vez finalizada la medición, guarde y manipule los datos con los componentes
     \centering
     \begin{tabularx}{\textwidth}{|l|X|}
         \hline
-        \textbf{Parameter Name} & \textbf{Description} \\
+        \textbf{Parámetro} & \textbf{Descripción} \\
         \hline
-        Measurement filename & Select a filename and directory where the measurement will be saved once the \textbf{Save} button is pressed. If no filename is selected at the time of pressing the \textbf{Acquire} button, the filename will be the current date and time. \\
+        Measurement filename & Seleccione un nombre de archivo y un directorio donde se guardará la medición una vez que se presione el botón \textbf{Save}. Si no se selecciona un nombre de archivo al momento de presionar el botón \textbf{Acquire}, el nombre de archivo será la fecha y hora actuales. \\
         \hline
-        Selected measurement & Select a measurement to \textbf{Save} it or \textbf{Delete} it. \\
+        Selected measurement & Seleccionar una medición para guardarla o eliminarla. \\
         \hline
-        Save & Save measurement with selected filename, directory, and format. \\
+        Save & Guardar una medición con el nombre, directorio y formato seleccionado. \\
         \hline
-        Delete & Delete selected measurement. \\
+        Delete & Eliminar la medición seleccionada. \\
         \hline
-        \multirow{3}{3cm}{Save to} & File format for the saved measurement. Options: \\
+        \multirow{3}{3cm}{Save to} & Formato del arcihvo en el que se guardarán los datos. Opciones: \\
         \cline{2-2}
         & \textbf{pickle} \\
         \cline{2-2}
