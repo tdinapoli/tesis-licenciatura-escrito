@@ -21,15 +21,6 @@ El apéndice \ref{apendice:instrucciones_uso} explica detalladamente algunos eje
 En las próximas secciones explicaremos cuál es el protocolo del software para hacer mediciones espectrales estáticas y dinámicas, independientemente de la interfaz que se use para obtenerlas.
 
 
-%\todo{ \\
-%capacidades del software \\
-%\\
-%Jerarquía de clases API para desacoplar. Extensión del software: sirve para espectrofluorímetro genérico siempre y cuando tengas motor por pasos y pmt.\\
-%\\
-%quien cuenta los picos, (mencionar que hay analisis de picos más adelante)\\
-%\\
-%Modos de uso, API GUI (capacidades, más detallado en apéndice).\\
-%}
 
 \begin{figure}[t]
      \centering
@@ -37,17 +28,6 @@ En las próximas secciones explicaremos cuál es el protocolo del software para 
      \caption{\textbf{Estructura del \textit{software}}. Cada elemento del \textit{software} está ordenado de alto nivel (arriba) a bajo nivel (abajo). En amarillo se ven las componentes de \textit{refurbishedPTI}, en rojo las de \textit{redpipy}, en rosa la API y el \textit{hardware} de la RP.}
      \label{fig:code}
 \end{figure}
-
-%\todo{introduccion a medicion de tiempos de vida}
-
-%El tiempo máximo de adquisición de 8 ms ofrece una ventana suficientemente amplia para la mayoría de los materiales luminiscentes. 
-%Como se mencionó anteriormente, cuando se requiere medir tiempos de vida mucho más largos al tiempo de adquisición máximo (0.5 ms), la ventana de detección puede desplazarse respecto al \textit{trigger} para cubrir un rango más amplio. 
-%El \textit{software} permite configurar la cantidad de veces que se mide cada ventana de 0.5 ms, lo que hace posible construir una curva de decaimiento más extensa de la luminiscencia.
-
-%\todo{ \\
-%explicar que es lo mismo que antes salvo que se usa el trigger.\\
-%Explicar funcionamiento de las pantallas y offsets \\
-%}
 
 \section{Protocolo de medición estática}
 
