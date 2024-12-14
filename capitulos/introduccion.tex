@@ -112,7 +112,7 @@ A diferencia de las transiciones fluorescentes, las transiciones triplete-single
 Por este motivo, los tiempos característicos de la fosforescencia son mucho mayores, del orden de $10^{-6}$ hasta $10$ segundos.
 Además de los espectros de absorción, emisión y excitación, los tiempos de estas transiciones son de gran relevancia para caracterizar a los materiales luminiscentes.
 
-\subsection{Espectroscopía dinámica}
+\subsection{Espectroscopía dinámica} \label{sec:dinamica}
 
 \begin{SCfigure}
     \centering
@@ -143,7 +143,7 @@ La ecuación (\ref{eq:lifetime}) sólo tiene en cuenta las transiciones fluoresc
 Además, generalmente los átomos estan en entornos que inducen transiciones no radiativas, como transferencia de energía a otros átomos, o colisiones con átomos vecinos (\textbf{Fig. \ref{fig:transiciones_tiempo}B}). 
 Suponiendo que se induce una nueva probabilidad de desexcitación no radiativa $R_i$ por transferencia de energía, y siguiendo la lógica anterior, la tasa de cambio de cantidad de átomos $N_i$ en el estado $i$ es
 
-\begin{equation}
+\begin{equation} \label{eq:lifetime_choques}
     \frac{dN_i}{dt} = (A_{ij} + R_i) N_i \implies N_i(t) = N_i(0)e^{(A_i + R_i) t},
 \end{equation}
 
@@ -211,26 +211,39 @@ El software y los lenguajes de código abierto, como Python (http://www.python.o
 Cabe destacar que han surgido empresas enfocadas en hardware parcialmente o completamente abierto. Por ejemplo, OpenBCI (https://openbci.com/), que ofrece sistemas EEG de bajo costo para interfaces cerebro-computadora, y Opentrons (https://opentrons.com/), que proporciona soluciones de manejo de líquidos para la automatización de laboratorios.
 
 
-\section{Espectrofotometría estática}
-\section{Espectrofotometría dinámica} 
-
 \subsection{Medición de tiempos de vida: \textit{Time-Correlated Single Photon Counting}} \label{sec:intro_tcspc}
 
-Muchos espectrofluorímetros comerciales tienen la capacidad de medir el tiempo de vida de los fluoróforos con tiempos típicos del orden de los nanosegundos. 
-Sin embargo, debido a las transiciones prohibidas de los lantánidos (\todo{Ver cap N}) el tiempo de vida de las UCNPs es del orden de los cientos de microsegundos.
+Muchos espectrofluorímetros comerciales tienen la capacidad de medir tiempos de vida del orden de los nanosegundos. 
+Sin embargo, existen materiales luminiscentes, como los fosforescentes, presentan tiempos de vida del orden de los cientos de microsegundos en adelante.
 Aunque esto alivia la necesidad de una electrónica rápida y costosa, contradictoriamente hace que no se pueda medir su tiempo de vida en instrumentos comerciales, ya que los valores típicos están muy alejados del rango en el que operan \cite{bujjamer2020}.
 
 Existen distintas técnicas para medir el tiempo de vida \cite{becker_fluorescence_2012}, pero la más implementada es \textit{Time-Correlated Single Photon Counting} (TCSPC).
-Como la técnica se suele aplicar para tiempos de vida del orden de los nanosegundos es común que se usen componentes de electrónica rápida 
-Usualmente la explicación de esta técnica involucra introducir múltiples componentes de electrónica rápida que son necesarios para medir tiempos del orden de nanosegundos.
-Como en nuestro caso esos componentes no son necesarios, daremos una explicación simplificada.
 TCSPC es una técnica digital que cuenta fotones correlacionados temporalmente con respecto a un pulso de excitación.
-El experimento comienza con un pulso de excitación, que tiene dos tareas fundamentales: (i) excitar a la muestra y (ii) iniciar algún tipo de cronómetro.
-La muestra se excita repetidamente utilizando una fuente de luz pulsada, a menudo un láser o una lámpara de destellos.
-Cada pulso es monitoreado, produciendo una señal de inicio que activa el contador del cronómetro.
-La rampa de voltaje se detiene cuando se detecta el primer fotón de fluorescencia proveniente de la muestra.
-El TAC proporciona un pulso de salida cuyo voltaje es proporcional al tiempo transcurrido entre las señales de inicio y parada.
-Un analizador multicanal (MCA) convierte este voltaje en un canal de tiempo utilizando un convertidor analógico a digital (ADC).
-Sumando sobre muchos pulsos, el MCA genera un histograma de probabilidad de cuentas frente a los canales de tiempo.
+Un diagrama de esta técnica de medición se puede ver en la figura (\textbf{\ref{fig:tcspc}}).
+El experimento comienza con un pulso de excitación, que tiene dos tareas: (i) excitar a la muestra y (ii) iniciar algún tipo de cronómetro.
+La muestra se excita repetidamente utilizando una fuente de luz pulsada, comunmente un láser.
+Cada pulso es monitreado, produciendo una señal de inicio que activa el contador del cronómetro.
+Usualmente, para esta tarea se usa un conversor de tiempo a amplitud (TAC).
+La luz re-emitida por la muestra llega al sistema de detección, que además de detectar el pulso es el responsable de detener el cronómetro.
+Al final de esta medición se obtiene el tiempo que tardó el fotón en llegar al detector.
+Al repetir este exprimento múltiples veces, se construye un histograma de cuentas de fotones en función del tiempo.
+De acuerdo a lo explicado en la sección \ref{sec:dinamica}, para el caso en que sólo hay transiciones de fluorescencia, las alturas de las barras de este histograma deberían seguir una distribución exponencial con tiempo característico $\tau$, el tiempo de vida.
+
+Además de los sistemas fluorescentes y fosforescentes existen otros sistemas en los que distintos centros ópticamente activos interactúan entre sí de forma no lineal, resultando en que la solución a la ecuación equivalente a \ref{eq:lifetime_choques} no sea una exponencial decreciente.
+En la próxima sección introduciremos a las nanopartículas de \textit{upconversion}, un sistema con estas propiedades.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{tcspc.png}
+    \caption{\textbf{Diagrama de TCSPC.} Adaptada de \cite{bujjamer2020}.}
+    \label{fig:tcspc}
+\end{figure}
+
 
 \section{Nanopartículas de conversión ascendente} \label{sec:intro_ucnp}
+
+Las nanopartículas de \textit{upconversion} (UCNPs) consisten en una matriz cristalina con dimensiones nanométricas dopada con iones lantánidos trivalentes.
+Los lantánidos son los elementos del sexto período de la tabla periódica, y se caracterizan por ser los elementos que completan los niveles electrónicos $4f$, comenzando con el lantano y finalizando con el lutecio.
+Aunque esos son sus niveles más energéticos sin completar, los niveles $5s^25p^6$ corresponden a funciones de onda más externas que las $4f$, generando una especie de capa protectora para los electrones de valencia \cite{lanthanides}.
+La consecuencia de esto son bandas muy angostas en sus espectros de emisión. 
