@@ -21,12 +21,13 @@ Ambos incluyen un fin de carrera electromecánico para verificar si se ha alcanz
 Los motores paso a paso, junto con sus fines de carrera respectivos, están conectados a un módulo controlador de motores (MDM) mediante conectores propietarios no documentados. 
 Los fotones son detectados por un tubo fotomultiplicador (PMT, modelo PTI 810), cuya caracterización se detalla en la sección \ref{sec:caracterizacion_pmt}.
 Éste está conectado al MDM a través de un cable BNC y polarizado con 1000 V desde una fuente de alimentación externa proporcionada también por el MDM. 
-Esto genera pulsos negativos de alrededor de 170 ns con una terminación de 50 Ohm y un voltaje de −3.5 V (\textbf{Fig. \ref{fig:ref-diagram}D}). 
+Esto genera pulsos eléctricos ante la llegada de cada fotón al detector (\textbf{Fig. \ref{fig:ref-diagram}D}). 
 Finalmente, el MDM está conectado mediante un cable plano a una tarjeta de interfaz ISA en una PC con sistema operativo Windows 95 y el programa FelixGX, un \textit{software} propietario de adquisición y control instalado por Horiba (\textbf{Fig. \ref{fig:ref-diagram}B}).
 FelixGX permite medir espectros de emisión y excitación (\textbf{Fig. \ref{fig:ref-diagram}E}), además de brindar herramientas de análisis rápido de los datos y controlar diferentes periféricos.
 
 La antigüedad de la PC y electrónica de control hace que el proceso de adquisición de datos sea tedioso, y más aún para la caracterización de UCNPs.
 Para hacer una medición el usuario debe colocar la muestra en la cámara y luego configurar en FelixGX un barrido de la longitud de onda de excitación o emisión.
+La única forma de extraer los datos es a través de un disquette, ya que la PC tampoco cuenta con conexión a la red.
 En el caso de medir \textit{upconversion} se debe agregar un láser controlado externamente por una fuente de corriente (\textbf{Fig. \ref{fig:ref-diagram}A}) en la que se debe configurar por separado los parámetros de excitación, como la potencia.
 Una plataforma de caracterización óptica completa de UCNPs debería ser capaz de medir espectros de emisión y tiempos de vida (del orden de los microsegundos) excitando a 980 nm con distintas densidades de potencia.
 Además, como las mediciones de espectro y tiempo de vida son de larga duración (en especial a bajas potencias), resulta ideal que la plataforma permita configurar múltiples mediciones sucesivas sin la necesidad de una configuración manual por el usuario.
@@ -68,10 +69,9 @@ La RP cuenta con cuatro entradas y salidas analógicas que emiten y procesan se�
 Esta placa junto con dos circuitos integrados DRV8825 que simplifican el control de los motores por paso cumplen la tarea de controlar a los monocromadores.
 Este cambio en la electrónica de control nos permitió reemplazar el voluminoso módulo MDM ($\sim$10 cm $\times$ 30 cm $\times$ 30 cm) por dos controladores DRV8825 soldados a una placa PCB mucho más pequeña (10 cm$\times$ 10 cm $\times$ 2 cm)(\textbf{Fig. \ref{fig:placa}}).
 Para facilitar la conexión de los componentes del espectrofluorímetro a la RP también agregamos a la placa un puerto IDC que permite conectar los pines digitales, y conectores a los motores a través de fichas adaptadas a medida.
-El PMT se conecta a través de un cable BNC-SMA a uno de los canales analógicos de radiofrecuencias de la RP, luego son digitalizados por su conversor analógico digital (ADC)(\textbf{Fig. \ref{fig:ref-diagram}D}) y luego contados por software (\textbf{Fig. \ref{fig:ref-diagram}E}).
+El PMT se conecta a través de un cable BNC-SMA a uno de los canales analógicos de radiofrecuencias de la RP, luego son digitalizados por su conversor analógico digital (ADC)(\textbf{Fig. \ref{fig:ref-diagram}D}) de 14 bits y luego contados por software (\textbf{Fig. \ref{fig:ref-diagram}E}).
 Todas las conexiones se ven detalladas en la figura (\textbf{\ref{fig:connection_diagram}}).
-El ADC de 14 bits de la RP se configura con una frecuencia de muestreo de 31.25 MHz de forma tal de satisfacer el criterio de Nyquist (ver sección \ref{sec:caracterizacion_pmt}).
-RP tiene una interfaz de programación de aplicaciones que permite configurar dos métodos distintos para comenzar una adquisición de datos.
+La RP tiene una interfaz de programación de aplicaciones (API) que permite configurar dos métodos distintos para comenzar una adquisición de datos.
 Una opción es llamar a una función que comienza la adquisición de inmediato.
 Alternativamente, se puede configurar una de las entradas analógicas o digitales como \textit{trigger} para comenzar una medición.
 Nosotros usamos el primer método para medir espectros estáticos y el otro para medir tiempos de vida.
@@ -79,7 +79,7 @@ Asimismo, la RP tiene dos mecanismos distintos para escribir los datos en la mem
 Con esta capacidad para almacenar datos, a 31.25 MHz la ventana temporal de pulsos más grande que se puede obtener es de $\sim 0.5$ ms y $\sim 8$ ms respectivamente.
 Aunque resulta beneficioso el método DMA y se podría implementar en esta renovación, nosotros utilizamos el método por defecto por la simplicidad que significó durante el desarrollo.
 Para contrarrestar la corta duración de la ventana de adquisición, el software de control que desarrollamos permite agregar una demora para obtener ventanas de medición más grandes (ver sección \ref{sec:proceso_dinamico}).
-El apéndice \ref{apendice:instrucciones_armado} explica detalladamente cómo reproducir las conexiones.
+El apéndice (\textbf{\ref{apendice:instrucciones_armado}}) explica detalladamente cómo reproducir las conexiones.
 
 \begin{figure}
      \centering
@@ -121,7 +121,7 @@ Esa sincronización le permite al \textit{software} realizar histogramas y así 
 Los tubos fotomultiplicadores (PMTs) son detectores de fotones ampliamente utilizados en fluorómetros y cumplen un rol central en el funcionamiento del instrumento. 
 Un PMT está compuesto por un fotocátodo y una serie de dínodos, que actúan como etapas de amplificación. 
 Los fotones incidentes provocan la emisión de electrones desde el fotocátodo, y estos son amplificados sucesivamente por los dínodos. 
-Al final del proceso, que tiene una duración típica de 40 a 50 nanosegundos, el pulso llega a un ánodo, desde donde se lee la señal. 
+Al final del proceso, que tiene una duración típica de 40 a 50 nanosegundos, el pulso llega a un ánodo, desde donde se lee la señal \cite{lakowicz_principles_2006}. 
 Este detector puede operar en dos modos: analógico o conteo de fotones. 
 En el modo analógico, la corriente que fluye por el ánodo debe ser proporcional a la intensidad de luz que incide sobre el fotocátodo.
 En el modo de conteo, el PMT registra pulsos eléctricos de corta duración cada vez que se detecta un fotón. 
@@ -161,12 +161,12 @@ Además de esta medición a iluminación constante analizamos la señal sin ilum
 
 Para estimar el ancho promedio de los pulsos calculamos la autocorrelación a partir de la medición de múltiples ventanas de la señal del PMT bajo iluminación constante.
 La relación entre la desviación estandar $\sigma$ de una distribución gaussiana, y la desviación estandar $\sigma_c$ su autocorrelación está dada por $\sigma = \sigma_c/\sqrt{2}$.
-Aproximando a los pulsos que llegan al detector por gaussianos, y usando que el ancho total a mitad de altura (FWHM) de una gaussiana es FWHM $= 2 \sqrt{2 \ln{2}}\sigma$, podemos obtener el FWHM de los pulsos con la fórmula FWHM $= 2 \sqrt{2 \ln{2}}\sigma_c / \sqrt{2}$
+Para esta estimación aproximamos a los pulsos que llegan al detector por gaussianos, y usando que el ancho total a mitad de altura (FWHM) de una gaussiana es FWHM $= 2 \sqrt{2 \ln{2}}\sigma$, podemos obtener el FWHM de los pulsos con la fórmula FWHM $= 2 \sqrt{2 \ln{2}}\sigma_c / \sqrt{2}$
 Por lo tanto, ajustamos el resultado de las autocorrelaciones por una gaussiana y realizamos un histograma de las desviaciones estandar de los pulsos $\sigma = \sigma_c / \sqrt{2}$ obtenidas (\textbf{Fig. \ref{fig:ancho_pulsos}}).
 Como resultado, el ancho temporal de los pulsos a mitad de altura es de $(\Delta t = 113 \pm 2)$ ns, donde definimos el error como dos desviaciones estándar de la media.
 Esto nos permite definir una tasa máxima $R$ de fotones por segundo que podemos detectar con el PMT.
-Bajo iluminación continua, la probabilidad de que un fotón llegue al detector en un tiempo $t$ al medir en un intervalo $T$ es uniforme.
-Entonces, la probabilidad $P$ de que otro fotón se solape debe ser $P = R \times T$, por lo que si queremos que la probabilidad máxima sea del 90\%, podremos adquirir a una tasa de fotones por segundo de $R = P/T = 0.1/113 \times 10^9$ Hz$ = 8.9 \times 10^5$ Hz.
+Bajo iluminación continua, la probabilidad de que un fotón llegue al detector en un tiempo $t$ al medir en un intervalo $\Delta t$ es uniforme.
+Entonces, la probabilidad $P$ de que otro fotón se solape debe ser $P = R \times \Delta t$, por lo que si queremos que la probabilidad máxima sea del 90\%, podremos adquirir a una tasa de fotones por segundo de $R = P/\Delta t = 0.1/113 \times 10^9$ Hz$ = 8.9 \times 10^5$ Hz.
 
 Las mediciones que mostramos en esta sección fueron útiles para determinar que un pulso de la señal es un fotón sólo si su máximo es menor a 1 V.
 Además, nos permitieron limitar la tása máxima con la que se miden fotones a $R = 8.9 \times 10^5$ fotones por segundo para tener un 10\% de chances de que se solapen.
@@ -204,21 +204,38 @@ La binarización consiste en convertir en 1 a los puntos que sobrepasan (es deci
 Luego, se calcula la diferencia entre los puntos consecutivos $\Delta s(t_i) = s(t_{i+1}) - s(t_i)$, y se toma el conjunto $\{t_j\}$ en los que la diferencia es negativa.
 Por último, se eliminan los puntos que estén a menos de $\Delta t_{min}$ de otros.
 Si bien tanto $V_b$ como $\Delta t_{min}$ son configurables, los valores por defecto son $V_b = 1$V, que se tomó según lo encontrado en la sección \ref{sec:caracterizacion_pmt}, y $\Delta t_{min} = 0$, ya que vimos que cambiar este último valor no generaba una diferencia en los pulsos detectados.
-Si bien existen otros algoritmos más sofisticados para encontrar picos, como la función \textit{find\_peaks\_cwt} del paquete de Python \textit{scipy}, estos suelen aplicar técnicas costosas computacionalmente, y por lo tanto lentas a comparación de tomar la derivada y binarización \cite{du_improved_2006}.
+Si bien existen otros algoritmos más sofisticados para encontrar picos, como la función \textit{find\_peaks\_cwt} o \textit{find\_peaks} del paquete de Python \textit{scipy}, estos suelen aplicar técnicas costosas computacionalmente, y por lo tanto lentas a comparación de tomar la derivada y binarización \cite{du_improved_2006}.
 
 Una vez elegido el algoritmo, es necesario asegurarse que estuviera contando pulsos correctamente.
-Para eso iluminamos una muestra con intensidad constante durante un intervalo $T$ de medición, calculamos la distribución de $\Delta t_j$ y la comparamos con una simulación equivalente (\textbf{Fig. \ref{fig:conteo}}).
+Para eso iluminamos una muestra con intensidad constante durante un intervalo $T$ de medición, calculamos la distribución de $\Delta t_j$ y la comparamos con una simulación equivalente para ganar intuición (\textbf{Fig. \ref{fig:conteo}}).
 La diferencia $\Delta t_i = t_{i+1} - t_i$ entre dos variables aleatorias uniformemente distribuidas, y ordenadas de forma tal que $t_1 < ... < t_i < t_{i+1} < ... < t_N $ es otra variable aleatoria con distribución exponencial y valor medio $T/N$, donde $N$ es el número de pulsos detectados \cite{dasuniform}.
 La simulación consiste en N = 30000 pulsos uniformemente distribuidos en un intervalo de $\sim 96$ ms, lo que da un valor medio de $\lambda \equiv \langle \Delta t_j \rangle = 3.22$ $\mu$s (\textbf{Fig. \ref{fig:conteo}A y C}).
 Se tomó N = 30000 para tener una buena estadística a la hora de comparar con la distribución de probabilidad exacta (línea punteada en \textbf{Fig. \ref{fig:conteo}C}) con el mismo valor medio.
 Realizamos la medición por el mismo intervalo de tiempo con una frecuencia de muestreo de 62.5 MHz al iluminar una muestra con CW.
 El algoritmo \textit{DB} detectó 3218 pulsos, y se ve que la distribución de $\Delta t_j$ parece seguir una exponencial excepto por el primer intervalo del histograma que tiene un número de cuentas mucho mayor que el resto (\textbf{Fig. \ref{fig:conteo}E y G}).
-Esto se debe a las fluctuaciones de alta frecuencia, que hacen que \textit{DB} detecte dos $t_j$ para un mismo pulso de la señal. 
+Esto se debe a las fluctuaciones de alta frecuencia, que hacen que \textit{DB} detecte dos $t_j$ para un mismo pulso de la señal (ver \textbf{Fig. \ref{fig:pmt_signal}C}). 
 Para resolver este problema se puede aumentar $\Delta t_{min}$ o reducir la frecuencia de muestreo.
 La frecuencia de 31.25 MHz sigue siendo capaz de detectar pulsos (ver \ref{sec:caracterizacion_pmt}), por lo que realizamos el mismo análisis sub-muestreando la señal original.
-En este caso \textit{DB} detectó 2840 pulsos, y se ve que la distribución de $\Delta t$ sigue una exponencial con valor medio $\lambda = 68.12$ (\textbf{Fig. \ref{fig:conteo}B y D}).
+En este caso \textit{DB} detectó 2840 pulsos, y se ve que la distribución de $\Delta t$ sigue una exponencial con valor medio $\lambda = 35.15 \mu$s (\textbf{Fig. \ref{fig:conteo}B y D}).
 A modo de comparación, también procesamos la señal a 31.25 MHz, pero usando un algoritmo \textit{D} que consiste en tomar los puntos en los que la derivada es menor a un umbral (en este caso de -0.5).
 Éste detectó 4883 pulsos, y se puede ver que también tiene el problema de detectar fluctuaciones de alta frecuencia, aumentando sintéticamente la cantidad de pulsos que hay en la señal (\textbf{Fig. \ref{fig:conteo}F y H}).
+
+\begin{table}[b]
+\centering
+\begin{tabular}{|l|c|c|}
+    \hline
+    \textbf{Método} & \boldmath$\chi^2$ & \textbf{Tiempo (ms)} \\
+    \hline
+    DB 31.25 MHz & 47 & 9\\
+    D 31.25 MHz & 2952 & 3\\
+    DB 62.5 MHz & 230 & 9 \\
+    \textit{find\_peaks} 31.25 MHz & 88 & 19 \\
+    Crítico & 65 & - \\
+    \hline
+\end{tabular}
+\caption{Comparación del estadístico $\chi^2$ y el tiempo de análisis para los distintos métodos. El tiempo de \textit{find\_peaks\_cwt} fue muy largo y no se agregó a la tabla.}
+\label{tab:chisq}
+\end{table}
 
 Por último, para tener una medida cuantitativa de la bondad de ajuste al modelo exponencial, calculamos el $\chi^2$ dado por la fórmula 
 
@@ -230,19 +247,4 @@ Por último, para tener una medida cuantitativa de la bondad de ajuste al modelo
 Obtuvimos los estadísticos de la tabla \ref{tab:chisq}, donde el $\chi^2$ crítico es el correspondiente a un test de hipótesis con significancia $\alpha = 0.05$ \cite{frodesen_probability_1979}.
 Después de esta comparación entre algoritmos de detección y frecuencias de sampleo, concluimos que la elección óptima es tomar los datos a 31.25 MHz y usar el algoritmo de detección \textit{DB}.
 
-\begin{table}[t]
-\centering
-\begin{tabular}{|l|c|}
-    \hline
-    \textbf{Método} & \boldmath$\chi^2$ \\
-    \hline
-    DB 31.25 MHz & 48 \\
-    D 31.25 MHz & 5690 \\
-    DB 62.5 MHz & 486 \\
-    Crítico & 65 \\
-    \hline
-\end{tabular}
-\caption{Comparación del estadístico $\chi^2$ para los distintos métodos.}
-\label{tab:chisq}
-\end{table}
 

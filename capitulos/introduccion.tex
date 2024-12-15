@@ -26,7 +26,7 @@ Si bien en el siglo 19 ya se sabía que los mecanismos de emisión de luz de est
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{jablonski}
-    \caption{\textbf{Diagrama de Jablonski.} En negro se ven los niveles de energía, crecientes en el eje vertical. Las flechas de colores muestran las transiciones posibles.}
+    \caption{\textbf{Diagrama de Jablonski.} En negro se ven los niveles de energía, crecientes en el eje vertical. Las flechas de colores muestran las transiciones posibles. Tomado de $^1$.}
     \label{fig:jablonski}
 \end{figure}
 
@@ -68,7 +68,7 @@ Previsiblemente, la diferencia de energía es de $\sim 0.2$ eV, en el rango de e
     \label{fig:fluoresceina}
 \end{SCfigure}
 
-Otro tipo de mecanismos presentes en los materiaes luminiscentes son la conversión interna y la conversión entre sistemas.
+Otro tipo de mecanismos presentes en las moléculas luminiscentes son la conversión interna y la conversión entre sistemas.
 Ambos consisten en transiciones entre estados electrónicos excitados, el primero es entre estados de la misma multiplicidad, en general singlete-singlete, y el segundo se da entre estados singlete-triplete \cite{valeur_characteristics_2012}.
 La conversión entre sistemas, que ocurre en el orden de $10^{-10}$ a $10^{-9}$ segundos, es la responsable de la fosforescencia.
 La fosforescencia es la transición de un electrón en un estado excitado triplete a un estado singlete de menor energía.
@@ -88,20 +88,19 @@ Además, la mayoría de mediciones de luminiscencia se hacen con una muestra que
 \begin{SCfigure}
     \centering
     \includegraphics[width=0.7\textwidth]{transiciones_tiempo.png}
-    \caption{\textbf{Diagrama de Jablonski} con transiciones que contribuyen al tiempo de vida.\textbf{(A)} Sólo transiciones de fluorescencia. \textbf{(B)} Transiciones de fluorescencia y choques. Tomado y adaptado de \cite{demtroder_emission_2010}.}
+    \caption{\textbf{Diagrama de Jablonski} con transiciones que contribuyen al tiempo de vida.\textbf{(A)} Sólo transiciones de fluorescencia. \textbf{(B)} Transiciones de fluorescencia y transferencia de energía. Tomado y adaptado de \cite{demtroder_emission_2010}.}
     \label{fig:transiciones_tiempo}
 \end{SCfigure}
 
 Si se tienen $N_i$ átomos en un estado excitado con energía $E_i$ y se asume que la probabilidad de transición a un estado de menor energía $E_j$ es constante en el tiempo se obtiene que
 
 \begin{equation} \label{eq:lifetime}
-    \frac{dN_i}{dt} = A_{ij} N_i \implies N_i(t) = N_i(0)e^{A_i t},
+    \frac{dN_i}{dt} = \sum_j A_{ij} N_i \implies N_i(t) = N_i(0)e^{A_i t},
 \end{equation}
 
 \noindent donde $A_{ij}$ es una constante llamada coeficiente de Einstein, y $A_i = \sum_{j} A_{ij}$ tiene en cuenta la probabilidad del electrón decaiga a cualquier estado con $E_j < E_i$ (ver \textbf{Fig. \ref{fig:transiciones_tiempo}A}) \cite{demtroder_emission_2010}.
 Como sabemos que un electrón emite un fotón al desexcitarse, la ecuación (\ref{eq:lifetime}) nos dice que al dejar de iluminar una muestra esperamos que se emitan fotones exponencialmente distribuidos en el tiempo.
-Es decir que si tenemos un detector de fotones, medimos con precisión el tiempo en el que dejamos de iluminar, y hacemos un histograma de los tiempos en los que detectamos un fotón, las alturas de sus barras deberían seguir una exponencial.
-Además sabemos que la relación entre el tiempo de vida y el parámetro de la exponencial es $\tau_i = 1/A_i$, por lo que es posible ajustar una exponencial a la altura de las barras para medirlo.
+Además sabemos que la relación entre el tiempo de vida y el parámetro de la exponencial es $\tau_i = 1/A_i$, por lo que es posible ajustar los datos para medirlo.
 Exactamente eso es lo que se hace en \textit{Time-Correlated Single Photon Counting} (TCSPC, ver sección \ref{sec:intro_tcspc}), una de las técnicas más comunes para medir tiempos de vida.
 
 La ecuación (\ref{eq:lifetime}) sólo tiene en cuenta las transiciones fluorescentes del átomo, pero como explicamos en la sección anterior, éstas no son las únicas.
@@ -125,18 +124,18 @@ En la próxima sección comentamos brevemente cuáles son los instrumentos y té
 
 Para caracterizar la respuesta óptica de una sustancia, generalmente se desea registrar tanto el espectro de excitación como el de emisión. 
 El instrumento científico por excelencia para realizar estas mediciones es el espectrofluorímetro. 
-Fundamentalmente, este instrumento permite realizar mediciones de la intensidad de luz que emite una muestra, haciendo escaneos en longitud de onda de emisión y excitación.
+Fundamentalmente, este instrumento permite realizar mediciones de la intensidad de luz que emite una muestra, haciendo barridos en longitud de onda de emisión y excitación.
 Adicionalmente, algunos pueden realizar mediciones de tiempo de vida resueltas, escaneos sincrónicos con alguna señal y mediciones de anisotropía en la polarización de materiales luminiscentes.
 Estas capacidades son fundamentales para investigaciones en diversas disciplinas científicas, incluyendo química, bioquímica, farmacología, ciencias ambientales, ciencia de materiales y biomedicina.
 El objetivo principal de un espectrofluorímetro es obtener los espectros de emisión y de excitación de una muestra.
 Para lograr este objetivo, el instrumento debe ser capaz de iluminar la muestra con múltiples longitudes de onda diferentes y registrar su respuesta a cada una de ellas.
 
-La Figura 2.1 muestra un diagrama esquemático de un espectrofluorímetro genérico.
+La figura (\textbf{\ref{fig:spec_diagram_lako}}) muestra un diagrama esquemático de un espectrofluorímetro genérico.
 Este instrumento incluye todos los componentes fundamentales para cumplir su función. 
 Utiliza una lámpara de espectro amplio que funciona como fuente de luz de alta intensidad para un rango extenso de longitudes de onda. 
 Posteriormente la luz es filtrada por un monocromador de excitación que permite seleccionar la longitud de onda con la que se desea iluminar a la muestra.
 La luz de excitación seleccionada se enfoca sobre la muestra colocada en la cámara principal, cuya luminiscencia, generalmente con una longitud de onda mayor que la luz de excitación, es filtrada por el monocromador de emisión.
-Los monocromadores suelen estar motorizados, lo que permite que el escaneo sea automático. 
+Los monocromadores suelen estar motorizados, lo que permite que el barrido sea automático. 
 La luz restante llega a un detector, usualmente un tubo fotomultiplicador (PMT), un detector muy sensible que convierte fotones en corriente eléctrica.
 El espectrofluorímetro emplea diversas técnicas para reducir la luz parásita (longitudes de onda diferentes a la deseada), como el diseño en ángulo de 90° entre los brazos de excitación y emisión, y un compartimento hermético pintado de negro no reflectante.
 La señal del PMT es procesada electrónicamente, digitalizada y analizada en una computadora. 
@@ -147,7 +146,7 @@ A menudo, se incorporan componentes adicionales en el camino óptico, como obtur
      \centering
      \includegraphics[width=0.6\textwidth]{spectrometer_diagram_lako_modif.png}
      \caption{
-    \textbf{Diagrama de un espectrofluorímetro genérico.}
+    \textbf{Diagrama de un espectrofluorímetro típico.}
     La luz traza un camino que comienza en la lámpara (zona superior derecha) y termina en el PMT de detección (centro-izquierda). Después de salir de la lámpara, la luz es filtrada por un monocromador y luego enfocada sobre la muestra. La luz reemitida pasa por otro monocromador y termina en el PMT. La señal se lee con un sistema de control que la digitaliza y para luego ser procesada por una PC que construye los espectros. Figura tomada y adaptada de \cite{lakowicz_principles_2006}.
     }
      \label{fig:spec_diagram_lako}
@@ -192,11 +191,11 @@ TCSPC es una técnica digital que cuenta fotones correlacionados temporalmente c
 Un diagrama de esta técnica de medición se puede ver en la figura (\textbf{\ref{fig:tcspc}}).
 El experimento comienza con un pulso de excitación, que tiene dos tareas: (i) excitar a la muestra y (ii) iniciar algún tipo de cronómetro.
 La muestra se excita repetidamente utilizando una fuente de luz pulsada, comunmente un láser.
-Cada pulso es monitreado, produciendo una señal de inicio que activa el contador del cronómetro.
-Usualmente, para esta tarea se usa un conversor de tiempo a amplitud (TAC).
+Cada pulso es monitoreado, produciendo una señal de inicio que activa el contador del cronómetro.
+Usualmente, para esta tarea se usa un discriminador de fracción constante (CFD) para detectar el pulso, y un conversor de tiempo a amplitud (TAC) para medir el tiempo.
 La luz re-emitida por la muestra llega al sistema de detección, que además de detectar el pulso es el responsable de detener el cronómetro.
 Al final de esta medición se obtiene el tiempo que tardó el fotón en llegar al detector.
-Al repetir este exprimento múltiples veces, se construye un histograma de cuentas de fotones en función del tiempo.
+Al repetir este experimento múltiples veces, se construye un histograma de cuentas de fotones en función del tiempo.
 De acuerdo a lo explicado en la sección \ref{sec:dinamica}, para el caso en que sólo hay transiciones de fluorescencia, las alturas de las barras de este histograma deberían seguir una distribución exponencial con tiempo característico $\tau$, el tiempo de vida.
 
 Además de los sistemas fluorescentes y fosforescentes existen otros sistemas en los que distintos centros ópticamente activos interactúan entre sí de forma no lineal, resultando en que la solución a la ecuación equivalente a \ref{eq:lifetime_choques} no sea una exponencial decreciente.
@@ -209,7 +208,7 @@ En la próxima sección introduciremos a las nanopartículas de \textit{upconver
 
 Las nanopartículas de \textit{upconversion} (UCNP) consisten en una matriz cristalina con dimensiones nanométricas dopada con iones lantánidos trivalentes.
 El término \textit{upconversion}, que traducido literalmente del inglés sería conversión ascendente, surge la capacidad de las UCNP de absorber fotones de baja energía, generalmente en el infrarrojo cercano (NIR) y re-emitirlos en el espectro visible y ultravioleta (UV-VIS).
-Esta propiedad es útil en múltiples áreas distintas.
+Esta propiedad encuentra aplicaciones en distintas tecnologías.
 Por ejemplo, se pueden utilizar como trazadores ópticos en microscopía para etiquetar células, manipular drogas a nivel microscópico y en teranósticos, una técnica de diagnóstico usada comunmente en tratamientos de medicina nuclear \cite{shen_lanthanidedoped_2013,guryev_ucnpbased_2020,haase_upconverting_2011}.
 Al absorber en el infrarrojo presentan una ventaja ante otros fluoróforos, ya que en este rango de longitudes de onda la luz es menos dispersada por los tejidos, además de causar menos daño biológico.
 Esta capacidad de convertir luz en el NIR al UV-VIS también se puede aprovechar para mejorar la eficiencia de celdas solares, que no son capaces de convertir fotones en el NIR a energía eléctrica \cite{hao_enhancing_2017}.
@@ -280,7 +279,7 @@ Un instrumento apropiado para caracterizar ópticamente las UCNP debería ser ca
 \begin{enumerate}
     \item Medir espectros estacionarios al excitar una muestra de forma continua.
     \item Medir tiempos de vida para los distintos picos de emisión de las partículas.
-    \item Variar la potencia de excitación.
+    \item Variar la potencia, el ciclo de trabajo y el período de excitación.
 \end{enumerate}
 
 \noindent Idealmente, el instrumento debería ser capaz de realizar mediciones de forma automática para paliar con los largos tiempos que requieren los experimentos.
@@ -292,5 +291,5 @@ Posteriormente hacemos una caracterización del sistema de detección de fotones
 En el capítulo 3 explicamos cuál es la estructura del \textit{software} que controla el instrumento, así como los protocolos que implementa para realizar una medición estática y una dinámica.
 Por último, en la primera sección del capítulo 4 utilizamos el instrumento modificado para medir el espectro estático de excitación y emisión de una muestra patrón y lo comparamos con la misma medición hecha con el instrumento original.
 En la segunda sección hacemos una caracterización óptica completa de un lote de las UCNP, midiendo sus espectros estáticos en función de la potencia, así como sus tiempos de vida para los picos de mayor emisión.
-
+Finalmente, se desarrollan las conclusiones del trabajo.
 

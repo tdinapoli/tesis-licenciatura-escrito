@@ -1,0 +1,227 @@
+\documentclass[12pt]{report}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage[a4paper, width=150mm, bottom=25mm, bindingoffset=6mm]{geometry}
+\usepackage[super,sort&compress,comma]{natbib} 
+\usepackage{sidecap}
+\usepackage[toc,page]{appendix}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{tabularx}
+
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\usepackage{listings}
+\lstset{
+  language=python,
+  basicstyle=\small,
+  breaklines=true,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=none,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+  }
+
+\renewcommand{\tablename}{Tabla}
+
+\usepackage[labelfont=bf]{caption}
+
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhead{}
+%\fancyhead[RO, LE]{}
+%\fancyfoot[LE,RO]{\thepage}
+%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+%\fancyfoot[LO, CE]{\leftmark}
+%\fancyfoot[CO, RE]{Tomás Di Napoli}
+
+\usepackage{fancyhdr}
+
+% Define the page style for pages before the index
+\fancypagestyle{beforeIndex}{%
+    \fancyhf{} % Clear headers and footers
+    \fancyfoot[C]{\thepage} % Roman page numbering centered
+    \renewcommand{\thepage}{\roman{\thepage}} % Use Roman numerals for page numbering
+}
+
+\renewcommand{\chaptermark}[1]{%
+    \markboth{Cap. \thechapter\ #1}{}
+}
+
+% Define the page style for pages after the index
+\fancypagestyle{afterIndex}{%
+    \fancyhf{} % Clear headers and footers
+    % Header configuration
+    \fancyhead[LO, LE]{\leftmark}
+    \fancyhead[RO, RE]{Tomás Di Napoli}
+    % Footer configuration
+    \fancyfoot[LE]{\thepage} % Page number on the right for even pages
+    \fancyfoot[RO]{\thepage} % Page number on the left for odd pages
+    \fancyfoot[LO]{Tésis de licenciatura: Caracterización de UCNPs} % Chapter name on the left for odd pages
+    \fancyfoot[RE]{Tésis de licenciatura: Caracterización de UCNPs} % Chapter name on the right for even pages
+}
+
+
+
+
+
+\pagestyle{afterIndex} % Normal numbering with alternating headers/footers
+
+
+
+\usepackage{hyperref}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{xcolor}
+
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+\newcommand{\done}[1]{\textcolor{blue}{#1}}
+
+\title{Tesis de lic}
+\author{Tomás Di Napoli}
+
+\begin{document}
+
+%\maketitle
+
+\thispagestyle{empty}
+\begin{center}
+
+%\vspace*{2cm}
+{\includegraphics[width=5cm]{UBA_logo.png}\\}
+\vspace*{2mm}
+{\large Universidad de Buenos Aires\\}
+{\large Facultad de Ciencias Exactas y Naturales\\}
+{\large Departamento de Física\\}
+%\vspace*{5mm}
+%{ Intendente Güiraldes 2160, Buenos Aires, Argentina\\}
+%\vspace*{5mm}
+
+
+\vspace*{2cm}
+{\huge \bf Renovación de un Espectrofluorímetro Obsoleto para la Caracterización de Nanopartículas de \textit{Upconversion}}
+
+%\bf
+% \vspace*{2.2cm}
+% {\large A thesis submitted in partial fulfillment\\}
+% {\large  of the requirements for the degree of \\}
+
+\vspace*{1cm}
+{\it {\large Tesis de Licenciatura en Ciencias Físicas} 
+}
+
+\vspace*{0.8cm}
+
+
+\vspace*{6mm}
+{\Large Tomás Di Napoli \\}
+%{\large LU: 323/18\\
+%{\small \tt azulmariabriganet@gmail.com}}
+
+\vspace*{10mm}
+{\large Dirección: Hernán Grecco\\}
+\vspace*{5mm}
+%{\large Colaboradores: Juan Cruz Berón\\}
+
+\vspace*{5mm}
+{\large Diciembre 2024\\}
+\end{center}
+
+\newpage
+
+{\large TEMA: Renovación de un Espectrofluorímetro Obsoleto para la Caracterización de Nanopartículas de \textit{Upconversion}}\newline
+%\vspace*{0.01cm}\newline
+
+{\large ALUMNO: Tomás Di Napoli}\newline
+%\vspace*{0.02cm}\newline
+
+{\large LU: 551/18}
+%\vspace*{0.02cm}\newline
+
+{\large LUGAR DE TRABAJO: Laboratorio de Electrónica Cuántica, Departamento de Física, Instituto de Física de Buenos Aires, CONICET/UBA. }\newline
+%\vspace*{0.02cm}\newline
+
+{\large DIRECCIÓN: Hernán Grecco (IFIBA-UBA/CONICET)}\newline
+
+%\vspace*{0.02cm}\newline
+{\large FECHA DE INICIACIÓN: Agosto 2023}\newline
+%\vspace*{0.02cm}\newline
+
+{\large FECHA DE FINALIZACIÓN: Diciembre 2024}\newline
+%\vspace*{0.02cm}\newline
+
+{\large FECHA DE EXAMEN: 27/12/2024 }\newline
+%\vspace*{0.02cm}\newline
+
+{\large INFORME APROBADO POR: }
+
+\vspace*{1.5cm}
+\begin{center}
+    \renewcommand{\arraystretch}{4.5} % Ajusta la altura de las filas
+    \large % Tamaño de fuente más grande para el contenido de la tabla
+    \begin{tabular}{|p{7cm}|p{7cm}|}
+        \hline
+        \multirow{2}{7cm}[4em]{ Autor/a \\ Tomás Di Napoli} & \multirow{2}{5cm}[4em]{ Jurado \\ Dr. Christian T. Schmiegelow} \\
+        \hline
+         \multirow{2}{7cm}[4em]{ Director/a \\ Dr. Hernán Grecco } & \multirow{2}{5cm}[4em]{ Jurado \\ Dra. María Gabriela Capeluto} \\
+        \hline
+        \multirow{2}{7cm}[4em]{ Profesor/a de la Tesis de Licenciatura\\Dra. Silvina Ponce Dawson} & \multirow{2}{5cm}[4em]{ Jurado\\ }\\
+        \hline
+    \end{tabular}
+\end{center}
+
+\pagenumbering{roman}
+
+\chapter*{Agradecimientos}
+
+\chapter*{Resumen}
+\input{resumen.tex}
+
+\tableofcontents
+
+
+\chapter{Introducción}
+\pagenumbering{arabic}
+\input{capitulos/introduccion.tex}
+
+\chapter{Espectrofluorímetro para la caracterización de UCNPs}
+\input{capitulos/espectrofluorimetro.tex}
+
+\chapter{Software y protocolos de medición}
+\input{capitulos/protocolos.tex}
+
+\chapter{Caracterización de UCNPs}
+\input{capitulos/caracterizacion.tex}
+
+\chapter{Conclusiones}
+\input{capitulos/conclusiones.tex}
+
+
+\bibliography{citas}
+\bibliographystyle{rsc}
+
+\begin{appendices}
+\input{capitulos/apendice.tex}
+\end{appendices}
+
+\end{document}
+

@@ -3,7 +3,7 @@
 
 \section{Software} \label{sec:software}
 
-Para reemplazar el rol que cumplía el \textit{software} FelixGX en el espectrofluorímetro original desarrollamos, junto con Hernán Grecco, dos paquetes de Python de control de instrumental y adquisición de datos \cite{napoli_tdinapoli_2024,grecco_hgrecco_2024}.
+Para reemplazar el rol que cumplía el \textit{software} FelixGX en el espectrofluorímetro original desarrollamos dos paquetes de Python de control de instrumental y adquisición de datos \cite{napoli_tdinapoli_2024,grecco_hgrecco_2024}.
 El código corre en la CPU de la RP y permite controlar al espectrofluorímetro a través de una interfaz de programación de aplicaciones (API) y una interfaz gráfica simple (GUI) desarrollada con el paquete \textit{Jupyter Widgets} de \textit{IPython}.
 El programa conformado por ambos paquetes está compuesto de cuatro capas principales (\textbf{Fig. \ref{fig:code}}):
 
@@ -31,16 +31,20 @@ En las próximas secciones explicaremos cuál es el protocolo del software para 
 
 \section{Protocolo de medición estática}
 
-El espectro estático de emisión(excitación) de una muestra consiste en la medición de su intensidad de luminiscencia al iluminar(observar) en una longitud de onda fija, y observar(iluminar) barriendo un rango de longitudes de onda.
-Por lo tanto, antes de iniciar una medición deben estar definidos sus parámetros que en este caso son el tiempo de integración $t_{int}$, la longitud de onda de iluminación(medición) $\lambda_e$, y la longitud de onda inicial $\lambda_i$ y final $\lambda_f$ del barrido, así como el paso $\lambda_s$ entre cada medición de intensidad.
+El espectro estático de emisión de una muestra consiste en la medición de su intensidad de luminiscencia al iluminar en una longitud de onda fija, y observar barriendo un rango de longitudes de onda.
+La medición del espectro de excitación es análoga, pero cambia el rol de los monocromadores: en vez de observar la emisión en un rango de longitudes de onda, se observa en una longitud de onda fija y se barre un rango de longitudes de iluminación.
+Por lo tanto, en el espectro de emisión, el monocromador estático es el de exctiación, y viceversa.
+A continuación se detalla el protocolo de medición para un espectro de emisión estático.
+
+Antes de iniciar una medición deben estar definidos sus parámetros que en este caso son el tiempo de integración $t_{int}$, la longitud de onda de iluminación $\lambda_e$ (la $e$ es por estático), y la longitud de onda inicial $\lambda_i$ y final $\lambda_f$ del barrido, así como el paso $\lambda_s$ entre cada medición de intensidad.
 En el caso de tomar un espectro de UCNPs, dado que la iluminación proviene del diodo láser de 976 nm, también es necesario configurar la potencia óptica de excitación.
 
 Una vez configurados los parámetros, el espectrofluorímetro debe realizar los siguientes pasos:
 
 \begin{enumerate}
      \item \textbf{Inicializar los monocromadores} haciendo girar los motores en una misma dirección hasta que la señal del fin de carrera de cada uno sea de 5 V. Esto sirve para que la longitud de onda guardada por el \textit{software} coincida con la real.
-     \item \textbf{Mover el monocromador estático} de emisión(excitación) hasta $\lambda_e$. 
-     \item \textbf{Mover el monocromador dinámico} de excitación(emisión) hasta $\lambda_f$ en pasos de $\lambda_s$. Para cada longitud de onda los pasos (a) y (b) se deben repetir  $n$ veces, donde $n$ es tal que $n \times t_{max} \geq t_{int}$ y $t_{max}$ es el máximo tiempo de medición que soporta la RP (0.5 ms):
+     \item \textbf{Mover el monocromador estático} de emisión hasta $\lambda_e$. 
+     \item \textbf{Mover el monocromador dinámico} de excitación hasta $\lambda_f$ en pasos de $\lambda_s$. Para cada longitud de onda los pasos (a) y (b) se deben repetir  $n$ veces, donde $n$ es tal que $n \times t_{max} \geq t_{int}$ y $t_{max}$ es el máximo tiempo de medición que soporta la RP (0.5 ms):
      \begin{enumerate}
           \item Medir la señal del PMT (\textbf{Fig. \ref{fig:diag_medicion_estatica}A}).
           \item Contar los picos en esa señal (ver sección \ref{sec:conteo}) y acumularlos. Al finalizar, el resultado es la cantidad de picos (fotones) contados por segundo.
