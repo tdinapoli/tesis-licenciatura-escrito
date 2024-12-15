@@ -10,6 +10,13 @@
      \label{fig:code}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{imagen_soft.png}
+    \caption{\textbf{Comparación del software antiguo y el nuevo.} (A) Imagen del \textit{software} actual que controla al fluorímetro. (B) Imagen del software de versiones más modernas del fluorímetro a las que se podría aplicar la renovación. (C) Imagen del \textit{software} renovado.}
+    \label{fig:imagen_soft}
+\end{figure}
+
 Para reemplazar el rol que cumplía el \textit{software} FelixGX en el espectrofluorímetro original desarrollamos dos paquetes de Python de control de instrumental y adquisición de datos \cite{napoli_tdinapoli_2024,grecco_hgrecco_2024}.
 El código corre en la CPU de la RP y permite controlar al espectrofluorímetro a través de una interfaz de programación de aplicaciones (API) y una interfaz gráfica simple (GUI) desarrollada con el paquete \textit{Jupyter Widgets} de \textit{IPython}.
 El programa conformado por ambos paquetes está compuesto de cuatro capas principales (\textbf{Fig. \ref{fig:code}}):
@@ -18,7 +25,7 @@ El programa conformado por ambos paquetes está compuesto de cuatro capas princi
      \item \textbf{RedpiPy}: Es uno de los dos paquetes que desarrollamos. Consiste en un \textit{wrapper} (llamado \textit{rpwrap}) de la API original de la RP que resulta en que el código esté mejor organizado para hacer una aplicación en Python. Se compone de funciones y clases que permiten manejar el \textit{hardware} de la RP a bajo nivel, como \textit{RPDO} que controla los pines digitales, así como algunas clases de más alto nivel como \textit{Oscilloscope} que permite manejar el osciloscopio.
      \item \textbf{Clases de dispositivos}: Controlan componentes individuales del espectrofluorímetro, como los monocromadores, el láser pulsado, y los motores de los monocromadores permitiendo el control de todas las partes por separado. 
      \item \textbf{Clase Spectrometer}: Coordina el \textit{hardware} para protocolos de medición específicos (por ejemplo, adquirir un espectro de emisión). Es fácil de usar desde un script en Python o desde la línea de comandos. Además, es la encargada de contar los pulsos de voltaje negativo registrados por el PMT (ver sección \ref{sec:conteo}). Es utilizada por la interfaz gráfica.
-     \item \textbf{Interfaz gráfica (GUI)}: proporciona herramientas de adquisición similares a las de FelixGX. Se accede a través de la web y utiliza el paquete \textit{Jupyter Widgets} de \textit{IPython}.
+     \item \textbf{Interfaz gráfica (GUI)}: proporciona herramientas de adquisición similares a las de FelixGX. Se accede a través de la web y utiliza el paquete \textit{Jupyter Widgets} de \textit{IPython}. En la figura (\textbf{\ref{fig:imagen_soft}}) se puede ver una comparación de las GUI.
 \end{itemize}
 
 Gracias a este diseño la parte del código que implementa el control del instrumento es completamente general y está desacoplada del resto, por lo que debería funcionar para cualquier modelo de espectrofluorímetro cuyos monocromadores sean controlados por motores por paso, y la señal de luminiscencia se lea con un PMT.
