@@ -13,7 +13,7 @@
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{imagen_soft.png}
-    \caption{\textbf{Comparación del software antiguo y el nuevo.} (A) Imagen del \textit{software} actual que controla al fluorímetro. (B) Imagen del software de versiones más modernas del fluorímetro a las que se podría aplicar la renovación. (C) Imagen del \textit{software} renovado.}
+    \caption{\textbf{Comparación del software antiguo y el nuevo.} (A) Imagen del \textit{software} original que controla al fluorímetro. (B) Imagen del \textit{software} de versiones más modernas del fluorímetro a las que se podría aplicar la renovación. (C) Imagen del \textit{software} renovado.}
     \label{fig:imagen_soft}
 \end{figure}
 
@@ -34,7 +34,7 @@ Tanto \textit{RedpiPy}\footnote{Enlace al repositorio: \href{https://github.com/
 En el apéndice (\textbf{\ref{apendice:instalacion}}) se detallan los pasos para instalar el \textit{software} y en el apéndice (\textbf{\ref{apendice:instrucciones_uso}}) se dan ejemplos de cómo usarlo.
 A continuación describo brevemente sus capacidades principales.
 
-Si bien el software se puede aplicar a un fluorímetro genérico, algunas características pueden variar de instrumento a instrumento, por ejemplo el rango de longitudes de onda que abarca, el paso mínimo de los motores del monocromador, la longitud de onda para la cual se activa el fin de carrera, entre otros parámetros.
+Si bien el \textit{software} se puede aplicar a un fluorímetro genérico, algunas características pueden variar de instrumento a instrumento, por ejemplo el rango de longitudes de onda que abarca, el paso mínimo de los motores del monocromador, la longitud de onda para la cual se activa el fin de carrera, entre otros parámetros.
 A su vez, otro usuario podría requerir otras conexiones a los pines de la Red Pitaya a las que usamos nosotros.
 Para poder modificar estos parámetros sin tener que modificar el código implementamos la lectura de cinco archivos de configuración: \texttt{emission\_init.yaml}, \texttt{emission\_calibration.yaml} y los análogos pero con \texttt{excitation}, e \texttt{itc\_config.yaml}.
 
