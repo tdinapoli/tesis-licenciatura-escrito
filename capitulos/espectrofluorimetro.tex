@@ -67,9 +67,19 @@ En contraste, la electrónica de control y detección resultó ser voluminosa, d
 La RP cuenta con cuatro entradas y salidas analógicas que emiten y procesan señales en las radiofrecuencias, y un conjunto de pines digitales que permiten controlar circuitos integrados fácilmente.
 Esta placa junto con dos circuitos integrados DRV8825 que simplifican el control de los motores por paso cumplen la tarea de controlar a los monocromadores.
 Este cambio en la electrónica de control nos permitió reemplazar el voluminoso módulo MDM ($\sim$10 cm $\times$ 30 cm $\times$ 30 cm) por dos controladores DRV8825 soldados a una placa PCB mucho más pequeña (10 cm$\times$ 10 cm $\times$ 2 cm)(\textbf{Fig. \ref{fig:placa}}).
+
 Para facilitar la conexión de los componentes del espectrofluorímetro a la RP también agregamos a la placa un puerto IDC que permite conectar los pines digitales, y conectores a los motores a través de fichas adaptadas a medida.
-El PMT se conecta a través de un cable BNC-SMA a uno de los canales analógicos de radiofrecuencias de la RP, luego son digitalizados por su conversor analógico digital (ADC)(\textbf{Fig. \ref{fig:ref-diagram}D}) de 14 bits y luego contados por software (\textbf{Fig. \ref{fig:ref-diagram}E}).
+Tanto el diseño de los conectores a los motores como el de los fines de carrera son de propietario y no están estandarizados ni documentados.
+Por este motivo, tuvimos que comprar fichas estandarizadas en el mercado y adaptarlas a mano para que encajaran.
+La conexión a los fines de carrera fue particularmente difícil de llevar a cabo (\textbf{Fig. \ref{fig:hardware}C}).
+Estos conectores consisten de nueve pines, pero no hay ningún manual técnico del instrumento que especifique cuáles son las conexiones a cada uno.
+Para averiguarlo, tuvimos que conectar un osciloscopio entre cada pin y el MDM original, y al mismo tiempo mover los motores cruzando el límite de longitud de onda para ver cómo era la señal.
+Finalmente llegamos a la conlcusión de que sólo tres de los nueve pines se utilizan. 
+Dos pines son de alimentación entre 0 y 5 V, y el tercero es una señal TTL que indica si el monocromador se pasó del límite o no.
+Nuestra solución -poco prolija hasta el momento- para hacer la conexión consistió en soldar cables de red con las puntas peladas a la PCB y conectarlos en los orificios del fin de carrera.
+Por último, el PMT se conecta a través de un cable BNC-SMA a uno de los canales analógicos de radiofrecuencias de la RP, luego son digitalizados por su conversor analógico digital (ADC)(\textbf{Fig. \ref{fig:ref-diagram}D}) de 14 bits y luego contados por software (\textbf{Fig. \ref{fig:ref-diagram}E}).
 Todas las conexiones se ven detalladas en la figura (\textbf{\ref{fig:connection_diagram}}).
+
 La RP tiene una interfaz de programación de aplicaciones (API) que permite configurar dos métodos distintos para comenzar una adquisición de datos.
 Una opción es llamar a una función que comienza la adquisición de inmediato.
 Alternativamente, se puede configurar una de las entradas analógicas o digitales como \textit{trigger} para comenzar una medición.
@@ -219,7 +229,7 @@ En este caso \textit{DB} detectó 2840 pulsos, y se ve que la distribución de $
 A modo de comparación, también procesamos la señal a 31.25 MHz, pero usando un algoritmo \textit{D} que consiste en tomar los puntos en los que la derivada es menor a un umbral (en este caso de -0.5).
 Éste detectó 4883 pulsos, y se puede ver que también tiene el problema de detectar fluctuaciones de alta frecuencia, aumentando sintéticamente la cantidad de pulsos que hay en la señal (\textbf{Fig. \ref{fig:conteo}F y H}).
 
-\begin{table}[b]
+\begin{table}[t]
 \centering
 \begin{tabular}{|l|c|c|}
     \hline
