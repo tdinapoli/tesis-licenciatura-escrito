@@ -55,6 +55,7 @@ Esta tabla contiene las columnas (i) longitud de onda, (ii) cuentas por segundo 
 Además, el \textit{DataFrame} contiene metadatos de la medición, como el tipo de espectro que se tomó (excitación o emisión) y la longitud de onda del monocromador estático, la fecha y el tiempo de la medición, entre otros.
 Las mediciones dinámicas también se guardan en un \textit{DataFrame} que contiene metadatos de la medición.
 
+
 En las próximas secciones explicaremos cuál es el protocolo del software para hacer mediciones espectrales estacionarias y dinámicas, independientemente de la interfaz que se use para obtenerlas.
 
 
@@ -137,3 +138,48 @@ Entonces, el protocolo para realizar la medición es:
 \end{enumerate}
 
 Con la tabla de datos final se construye un histograma (\textbf{Fig. \ref{fig:diag_medicion_dinamica}}), al cual se le puede ajustar un modelo de decaimiento para obtener el tiempo de vida de las partículas.
+
+
+\section{Validación del \textit{software} y solución de problemas}
+
+En esta sección comentaré brevemente algunos problemas que tuvimos a la hora de hacer el \textit{software} de control del instrumento y cómo los resolvimos.
+
+Uno de los problemas que tuvimos fue que la adquisición de datos después del trigger no funcionaba correctamente cuando configurábamos retardos (ver sección anterior): los datos que se debían adquirir después del retardo se adquirían algunos microsegundos antes o después de lo esperado.
+Este problema seguramente se daba por estar utilizando incorrectamente la API de la RP.
+La solución fue crear \textit{redpipy} para tener una API más fácil de implementar sin cometer errores.
+Para asegurarnos de que el problema del trigger ya no ocurría hicimos la siguiente prueba: medimos una señal de voltaje sierra 
+%y (ii) utilizamos la RP como generador de funciones para simular un experimento de TCSPC.
+
+Para esta prueba alimentamos a la RP con un generador de funciones externo emitiendo una señal tipo sierra a una frecuencia y voltaje pico a pico determinado.
+Configuramos el trigger de la RP para que comenzara a medir en el momento en el que la señal pasa del voltaje máximo al mínimo.
+Medimos la señal configurando retardos de distintos tiempos después del trigger, y vimos que utilizando \textit{redpipy} los datos se solapaban correctamente.
+
+%Para la segunda prueba, generamos un vector numérico del mismo largo que la cantidad de muestas que puede medir la RP ($2^{14}$) con ceros y unos, donde cada número representaba un voltaje.
+%Los unos están agrupados de a tres en el vector, de forma que representan pulsos cuadrados en la señal.
+%Además, esos grupos están exponencialmente distribuidos a lo largo del vector. 
+%La RP permite generar una señal eléctrica a partir de un vector, así que enviamos la señal correspondiente al vector por uno de los canales analógicos de la RP y la adquirimos en el otro.
+%Como resultado
+
+El segundo problema que tuvimos fue que la adquisición de un espectro estacionario llevaba mucho tiempo. 
+Por ejemplo, medir la intensidad en una longitud de onda integrando por $0.1$ segundos llevaba 1 minuto.
+Medir todo el espectro de esta forma resultaba inviable, ya que si se barren 300 nm con un paso de 1 nm integrando por $0.1$ segundos, la medición tardaría 5 horas.
+Para entender cuál era el problema utilizamos el programa \textit{cProfile} que permite ejecutar un archivo de Python y devuelve la cantidad de tiempo que tardó en ejecutarse cada función que fue llamada.
+Gracias a esto nos dimos cuenta de que una de las funciones que copia los datos de un lado a otro en la memoria de la RP estaba siendo llamada muchas veces y por lo tanto haciendo que el programa sea más lento.
+Afortunadamente, encontramos otra función en la API de la RP que permite copiar un vector entero de datos.
+Gracias a eso pudimos bajar el tiempo que lleva integrar $0.1$ segundos de 1 minuto a 10 segundos.
+Este tiempo sigue siendo mayor que con el \textit{software} original, que era de $0.1$ segundos.
+Por la falta de documentación no lo podemos saber con certeza, pero suponemos que esto es así porque el instrumento original utilizaba el PMT en modo analógico.
+Si bien gracias a eso era más rápido para integrar, esto no le permitía medir tiempos de vida.
+
+Por último, hicimos un programa que movía a los monocromadores entre distintas longitudes de onda y su longitud de onda inicial (la que activa el fin de carrera) para asegurarnos de que su control era correcto. 
+Para eso, pusimos una cámara web apuntando al indicador físico de la longitud de onda del fluorímetro.
+Luego, generamos números aleatorios dentro del rango posible de longitudes de onda, e hicimos que el monocromador recorra cada una de esas longitudes.
+Al llegar a una longitud, el programa hacía una pequeña pausa para tomar una foto del indicador, y guardaba la longitud de onda a la que tenía que llegar en un archivo.
+Al finalizar, verificamos que las longitudes de onda de las fotos y las guardadas en el archivo coincidían.
+
+
+
+
+
+
+
