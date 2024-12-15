@@ -226,7 +226,91 @@ Una vez finalizada la medición, guarde y manipule los datos con los componentes
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{lifetime_gui.png}
-    \caption{\textbf{GUI para medir tiempos de vdia}.}
+    \caption{\textbf{GUI para medir tiempos de vida}.}
     \label{fig:lifetime_gui}
 \end{figure}
+
+\subsection{Modo de operación con la API de Python}
+
+\subsubsection{Medición de espectro estacionario} \label{sec:spec_mes}
+
+El software que desarrollamos permite al usuario realizar mediciones tanto de espectros de emisión como de excitación. En ambos casos, el primer paso es inicializar el espectrómetro:
+
+\begin{lstlisting}[language=Python]
+from refurbishedPTI.instruments import Spectrometer
+spec = Spectrometer.constructor_default()
+\end{lstlisting}
+
+\noindent El método \texttt{constructor\_default()} inicializa el espectrómetro configurando los monocromadores de emisión y excitación mediante la clase Monochromator del módulo instruments.py, junto con un objeto Oscilloscope de \textit{redpipy}.
+Ambas instancias de Monochromator se configuran con los archivos \texttt{emission\_init.yaml} y \texttt{excitation\_init.yaml}, que se guardan en la ruta de directorio devuelta por el método \texttt{.get\_config\_path()} de Monochromator.
+Estos archivos especifican los pines de la Red Pitaya utilizados para cada controlador de motor y la ruta del archivo de calibración del monocromador.
+De manera alternativa, el usuario puede inicializar diferentes instancias de monocromadores de excitación y emisión, así como del osciloscopio, y pasarlas a la clase Spectrometer para inicializarla.
+
+Una vez inicializado el espectrómetro, ambos monocromadores deben ser llevados a su posición incial, es decir, deben moverse a la longitud de onda que activa el fin de carrera. Esto puede hacerse con el comando:
+
+\begin{lstlisting}[language=Python]
+spec.home()
+\end{lstlisting}
+
+\noindent Alternativamente, se puede establecer la longitud de onda actual de cada monocromador con:
+
+\begin{lstlisting}[language=Python]
+spec.excitation_mono.set_wavelength(ex_wl)
+spec.emission_mono.set_wavelength(em_wl)
+\end{lstlisting}
+
+\noindent donde \texttt{ex\_wl} y \texttt{em\_wl} son variables que contienen los valores de las longitudes de onda actuales de cada monocromador. 
+Finalmente, para obtener el espectro de emisión se usa:
+
+\begin{lstlisting}[language=Python]
+df = spec.get_emission(
+    integration_time=0.01,     # En segundos
+    excitation_wavelength=400, # En nanómetros
+    starting_wavelength=500,   # En nanómetros
+    ending_wavelength=700,     # En nanómetros
+    wavelength_step=1          # En nanómetros
+)
+\end{lstlisting}
+
+\noindent donde \texttt{integration\_time} es el tiempo de integración de cada punto de datos, \texttt{excitation\_wavelength} es la longitud de onda en la que se configurará el monocromador de la lámpara, y \texttt{starting\_wavelength}, \texttt{ending\_wavelength} y \texttt{wavelength\_step} son la longitud de onda inicial, final y el intervalo entre puntos de datos del espectro, respectivamente. Este método devuelve un \texttt{DataFrame} de Pandas con columnas para longitud de onda, cuentas de fotones por segundo y tiempo de integración. El \texttt{DataFrame} también contiene valores en \texttt{attrs} que especifican el tipo de espectro (emisión, excitación o láser) y la longitud de onda del monocromador estático durante el experimento. 
+
+El proceso para obtener un espectro de excitación es análogo, pero se usa el método \texttt{get\_excitation}, cuyos argumentos son los mismos que los de \texttt{get\_emission}, excepto \texttt{excitation\_wavelength}, que se reemplaza por \texttt{emission\_wavelength}.
+
+\subsubsection{Medición de tiempos de vida}
+
+Para realizar una medición de tiempo de vida, es necesario configurar tanto la fuente de alimentación del diodo láser como el espectrómetro. Para controlar el diodo láser, se debe inicializar el controlador ITC4020:
+
+\begin{lstlisting}[language=Python]
+from refurbishedPTI.instruments import ITC4020
+itc = ITC4020()
+\end{lstlisting}
+
+\noindent Con el controlador del láser inicializado, se pueden establecer sus parámetros mediante la API de ITC. Estos parámetros son un subconjunto de los especificados en el manual del instrumento. En este ejemplo, solo se configuran los parámetros relevantes para el experimento de tiempo de vida: el ciclo de trabajo (\textit{duty cycle}), la corriente del láser y la frecuencia. Antes de configurarlos, el ITC debe estar en modo de onda cuasi-continua (\textit{Quasi-Continuous Wave, QCW}). Los comandos correspondientes son:
+
+\begin{lstlisting}[language=Python]
+itc.qcw_mode = True
+itc.frequency(100) # Frecuencia: 100 Hz
+itc.current(0.1)   # Corriente: 0.1 A
+itc.duty_cycle(80) # Ciclo de trabajo: 80%
+\end{lstlisting}
+
+Una vez configurados estos parámetros, el láser puede encenderse con:
+
+\begin{lstlisting}[language=Python]
+itc.laser_on(True)
+\end{lstlisting}
+
+\noindent Finalmente, con el objeto \texttt{Spectrometer} inicializado como se describe en la sección \ref{sec:spec_mes}, configure el espectrómetro y adquiera el tiempo de llegada de los fotones con:
+
+\begin{lstlisting}[language=Python]
+spec.set_decay_configuration()
+counts = spec.acquire_decay(
+    t0=0,               # En ms después del disparo
+    tf=2,               # En ms después del disparo
+    amount_counts=1000, # Número de cuentas
+)
+\end{lstlisting}
+
+\noindent donde \texttt{t0} es el tiempo entre el disparo y el inicio de la adquisición, \texttt{tf} es el tiempo entre el disparo y el final de la adquisición, y \texttt{amount\_counts} es la cantidad de cuentas hasta que se detiene la adquisición. Este método devuelve un \texttt{DataFrame} de Pandas con una columna llamada \texttt{arrival\_times} que contiene los tiempos de llegada de los fotones.
+
 
