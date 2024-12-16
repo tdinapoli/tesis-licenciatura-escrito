@@ -76,7 +76,7 @@ Estos conectores consisten de nueve pines, pero no hay ningún manual técnico d
 Para averiguarlo, tuvimos que conectar un osciloscopio entre cada pin y el MDM original, y al mismo tiempo mover los motores cruzando el límite de longitud de onda para ver cómo era la señal.
 Finalmente llegamos a la conlcusión de que sólo tres de los nueve pines se utilizan. 
 Dos pines son de alimentación entre 0 y 5 V, y el tercero es una señal TTL que indica si el monocromador se pasó del límite o no.
-Nuestra solución -poco prolija hasta el momento- para hacer la conexión consistió en soldar cables de red con las puntas peladas a la PCB y conectarlos en los orificios del fin de carrera.
+Nuestra solución -temporaria para avanzar mientras conseguimos los conectores correctos- para hacer la conexión consistió en soldar cables de red con las puntas peladas a la PCB y conectarlos en los orificios del fin de carrera.
 Por último, el PMT se conecta a través de un cable BNC-SMA a uno de los canales analógicos de radiofrecuencias de la RP, luego son digitalizados por su conversor analógico digital (ADC)(\textbf{Fig. \ref{fig:ref-diagram}D}) de 14 bits y luego contados por software (\textbf{Fig. \ref{fig:ref-diagram}E}).
 Todas las conexiones se ven detalladas en la figura (\textbf{\ref{fig:connection_diagram}}).
 
@@ -149,7 +149,7 @@ En las próximas secciones describimos en detalle esta caracterización.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{sig_pmt.png}
-    \caption{\textbf{Señal del PMT.} (\textbf{A}) Medición de la señal del PMT en una ventana de la RP. Medidos a 62.5 MHz en azul y 31.25 MHz en naranja:(\textbf{B}) detalle de un pulso que satura al PMT, (\textbf{C}) Detalle de un pulso que no satura el PMT.}
+    \caption{\textbf{Señal del PMT.} (\textbf{A}) Medición de la señal del PMT en una ventana de la RP. Medidos a 62.5 MHz (azul) y 31.25 MHz (naranja): (\textbf{B}) detalle de un pulso que satura al PMT, (\textbf{C}) Detalle de un pulso que no satura el PMT.}
     \label{fig:pmt_signal}
 \end{figure}
 

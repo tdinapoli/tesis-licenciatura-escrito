@@ -285,7 +285,7 @@ from refurbishedPTI.instruments import ITC4020
 itc = ITC4020()
 \end{lstlisting}
 
-\noindent Con el controlador del láser inicializado, se pueden establecer sus parámetros mediante la API de ITC. Estos parámetros son un subconjunto de los especificados en el manual del instrumento. En este ejemplo, solo se configuran los parámetros relevantes para el experimento de tiempo de vida: el ciclo de trabajo (\textit{duty cycle}), la corriente del láser y la frecuencia. Antes de configurarlos, el ITC debe estar en modo de onda cuasi-continua (\textit{Quasi-Continuous Wave, QCW}). Los comandos correspondientes son:
+\noindent Con el controlador del láser inicializado, se pueden establecer sus parámetros mediante la API de ITC. Estos parámetros son un subconjunto de los especificados en el manual del instrumento. En este ejemplo, solo se configuran los parámetros relevantes para el experimento de tiempo de vida: el ciclo de trabajo (\textit{duty cycle}), la corriente del láser y la frecuencia. Antes de configurarlos, el ITC debe estar en modo de onda cuasi-contínua (\textit{Quasi-Continuous Wave, QCW}). Los comandos correspondientes son:
 
 \begin{lstlisting}[language=Python]
 itc.qcw_mode = True
