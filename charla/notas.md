@@ -15,6 +15,8 @@ Por último, antes de las conclusiones, les voy a mostrar una caracterización �
 
 # 2 fotoluminiscencia
 
+## Agregar espectro acá y tiempo de vida
+
 Los materiales fotoluminiscentes son los que absorben luz para luego reemitirla.
 El sistema más simple luminiscente es un sistema donde el electrón puede estar en dos niveles de energía, el fundamental con E1 y el excitado con E2. 
 Al iluminar al material con una longitud de onda con energía equivalente a la diferencia de energía entre E1 y E2, el electrón pasa al estado excitado, se queda un tiempo en ese estado y luego vuelve a decaer al fundamental, reemitiendo un fotón de la misma longitud de onda.
@@ -34,7 +36,7 @@ Están compuestas por matrices cristalinas dopadas con iones lantánidos.
 Que son estos elementos de la tabla periódica y se caracterizan por tener los niveles F libres.
 En esta tésis trabajé con UCNPs de fluoruro de ítrio dopadas con erbio e iterbio, acá se puede ver una imagen de ellas.
 La particularidad que tienen las UCNP es que absorben luz en el espectro infrarrojo, en particular a 980 nm, y la re-emiten en el espectro visible, es decir convierten fotones de baja energía a fotones de alta energía.
-Esta propiedad hace que las nanopartículas tengan potenciales aplicaciones en microscopía y celdas solares.
+Esta propiedad hace que las nanopartículas tengan potenciales aplicaciones en microscopía como trazadores ópticos y en celdas solares aumentando su eficiencia.
 
 # 5 - UCNP
 
